@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { @apply bg-screen text-ink font-sans text-body; }
+  @media (prefers-color-scheme: dark) {
+    html { @apply bg-curtain-deep; }
+  }
+  .tabular { font-variant-numeric: tabular-nums; }
+  :focus-visible { outline: 2px solid theme('colors.curtain.DEFAULT'); outline-offset: 2px; }
+  /* On the Curtain-deep page a Curtain outline disappears; page-level controls use Screen. Tickets keep Curtain. */
+  @media (prefers-color-scheme: dark) {
+    :focus-visible { outline-color: theme('colors.screen'); }
+    article :focus-visible { outline-color: theme('colors.curtain.DEFAULT'); }
+  }
+  header :focus-visible { outline-color: theme('colors.screen'); }
+}
