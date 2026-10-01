@@ -12,14 +12,21 @@ const fail = (m) => {
 }
 const browser = await chromium.launch()
 const results = []
+let current = null
 const step = async (name, fn) => {
-  await fn()
+  try {
+    await fn()
+  } catch (e) {
+    const shown = current ? await current.locator('main, form').first().innerText().catch(() => '?') : '?'
+    throw new Error(`${name} failed: ${e.message.split('\n')[0]}\nOn screen: ${shown.slice(0, 400)}`)
+  }
   results.push(name)
   console.log(`✓ ${name}`)
 }
 
 async function session(width, scheme) {
   const page = await browser.newPage({ viewport: { width, height: 900 }, colorScheme: scheme, deviceScaleFactor: 2 })
+  current = page
   const api = []
   page.on('request', (r) => r.url().includes('/api/') && api.push(r.url()))
   page.on('pageerror', (e) => fail(`page error: ${e.message}`))
@@ -132,6 +139,10 @@ for (const [width, scheme] of [[390, 'light'], [1280, 'dark']]) {
       }
       if (!limited) fail('never reached the rate limit')
       await snap('state-ratelimited')
+      // The limit is per minute: wait it out and "Try again" works.
+      await page.waitForTimeout(61000)
+      await page.getByRole('button', { name: 'Try again' }).click()
+      await ready()
     })
   }
   await page.close()

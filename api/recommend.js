@@ -53,8 +53,41 @@ const PARSE_SYSTEM = `You read what someone types into a mood-to-movie app in In
 Only set a constraint when they actually asked for it. "languages" only if they name languages. "hard_nos" only for content they reject (e.g. "not gory" → gore; "no violence"). "avoid_tones"/"avoid_endings" for feelings they reject (e.g. "nothing tense" → tense, thrilling, scary; "no sad ending" → devastating, bittersweet; "no romance" → romantic; "not scary" → scary).
 format: "episode" when they want one episode of a series; "series" for a show or binge; "movie" for a film.`
 
+// When the parse model is unavailable (daily free quota, overload), read the obvious hard constraints from keywords
+// so search still works, matching on the embedding of their own words. No follow-up in this mode.
+const KEYWORDS = [
+  [/\b(no|not|without|zero)\b[^.]*\bgor(e|y)\b/i, (p) => p.hard_nos.push('gore')],
+  [/\b(no|not|nothing)\b[^.]*\b(scary|horror)\b/i, (p) => p.avoid_tones.push('scary')],
+  [/\b(no|not|nothing)\b[^.]*\btense\b/i, (p) => p.avoid_tones.push('tense', 'thrilling', 'scary')],
+  [/\b(no|not|nothing)\b[^.]*\bromance\b/i, (p) => p.avoid_tones.push('romantic')],
+  [/(no|not|mat)\b[^.]*\bsad ending|sad ending mat/i, (p) => p.avoid_endings.push('devastating', 'bittersweet')],
+  [/\btrue story\b/i, (p) => (p.true_story_only = true)],
+  [/\b(series|show|binge|episodes?)\b/i, (p) => (p.format = p.format || 'series')],
+  [/\b(movie|film)\b/i, (p) => (p.format = p.format || 'movie')],
+  [/\b(kids?|children|\d+-year-old)\b/i, (p) => (p.company = 'kids')],
+  [/\b(parents|family)\b/i, (p) => (p.company = p.company || 'family')],
+]
+const LANG_WORDS = { hindi: 'hi', english: 'en', tamil: 'ta', telugu: 'te', malayalam: 'ml', kannada: 'kn', bengali: 'bn', marathi: 'mr', korean: 'ko', japanese: 'ja', spanish: 'es' }
+function fallbackParse(text) {
+  const p = { mood: text.trim().slice(0, 80), needs_followup: false, languages: [], hard_nos: [], avoid_tones: [], avoid_endings: [], true_story_only: false, ideal: text, fallback: true }
+  for (const [re, apply] of KEYWORDS) if (re.test(text)) apply(p)
+  for (const [w, code] of Object.entries(LANG_WORDS)) if (new RegExp(`\\b${w}\\b`, 'i').test(text)) p.languages.push(code)
+  const mins = text.match(/under (\d{2,3}) ?min/i)
+  if (mins) p[p.format === 'series' ? 'max_episode_min' : 'max_runtime_min'] = Number(mins[1])
+  return p
+}
+
 async function parse(text, chips) {
   if (!text.trim()) return { mood: null, needs_followup: false, languages: [], hard_nos: [], avoid_tones: [], avoid_endings: [], true_story_only: false, ideal: '' }
+  try {
+    return await parseWithModel(text, chips)
+  } catch (e) {
+    if (e.status === 429 || e.status === 503 || e.name === 'TimeoutError') return fallbackParse(text)
+    throw e
+  }
+}
+
+async function parseWithModel(text, chips) {
   const chipLine = Object.entries(chips).filter(([, v]) => v).map(([k, v]) => `${k}=${v}`).join(', ')
   const { data } = await generateJSON({
     chain: MODELS.parse,
