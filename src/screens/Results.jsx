@@ -30,7 +30,10 @@ export default function Results({ text, chips, picks, onOthers, onChangeMood }) 
 
       <div className="mt-6 flex flex-col gap-6">
         {picks.map((p, i) => (
-          <FilmCard key={p.card.id} card={p.card} why={p.why_this_fits} tint={TINT_ORDER[i]} />
+          // The one animation moment: tickets pushed through the counter window, 80ms apart (index.css .ticket-in).
+          <div key={p.card.id} className="ticket-in" style={{ animationDelay: `${i * 80}ms` }}>
+            <FilmCard card={p.card} why={p.why_this_fits} tint={TINT_ORDER[i]} />
+          </div>
         ))}
       </div>
 

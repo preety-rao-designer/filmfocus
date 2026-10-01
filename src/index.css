@@ -16,3 +16,14 @@
   }
   header :focus-visible { outline-color: theme('colors.screen'); }
 }
+
+/* The one orchestrated moment (docs/DESIGN_DIRECTION.md "Motion"): when results arrive, each ticket slides up into
+   place, 320ms ease-out, 80ms apart. Under reduced motion they simply appear. */
+@keyframes ticket-in {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.ticket-in { animation: ticket-in 320ms ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .ticket-in { animation: none; }
+}

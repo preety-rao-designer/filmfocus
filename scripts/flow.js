@@ -44,6 +44,13 @@ try {
       await find.click()
       await page.waitForURL('**/results**')
       await page.locator('article h3').first().waitFor()
+      // The one animation moment: three tickets, 320ms each, 80ms apart. Check it, then let it finish before snapping.
+      const anims = await page.evaluate(() =>
+        document.getAnimations().map((a) => [a.animationName, a.effect.getTiming().duration, a.effect.getTiming().delay]),
+      )
+      if (JSON.stringify(anims) !== JSON.stringify([['ticket-in', 320, 0], ['ticket-in', 320, 80], ['ticket-in', 320, 160]]))
+        fail(`unexpected animations: ${JSON.stringify(anims)}`)
+      await page.waitForFunction(() => document.getAnimations().length === 0 || document.getAnimations().every((a) => a.playState === 'finished'))
       await page.evaluate(() => document.fonts.ready)
       const first = await titles(page)
       if (first.length !== 3) fail(`expected 3 cards, got ${first.length}`)
@@ -68,6 +75,13 @@ try {
       // Back to S1 keeps what was typed.
       await page.getByRole('button', { name: 'Change my mood' }).click()
       if ((await page.getByRole('textbox').inputValue()) === '') fail('mood text was lost going back')
+
+      // Under reduced motion the tickets simply appear.
+      await page.emulateMedia({ reducedMotion: 'reduce' })
+      await page.getByRole('button', { name: 'Find my three' }).click()
+      await page.locator('article h3').first().waitFor()
+      const reduced = await page.evaluate(() => document.getAnimations().length)
+      if (reduced !== 0) fail(`${reduced} animations ran under reduced motion`)
 
       if (errors.length) fail(`page errors: ${errors.join('; ')}`)
       console.log(`${width} ${scheme}: OK — ${[...seen].join(' | ')}`)
