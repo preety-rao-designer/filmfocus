@@ -24,7 +24,8 @@ async function getJSON(url, opts = {}, tries = 4) {
       if (!res.ok) throw new Error(`HTTP ${res.status} for ${url.split('?')[0]}`)
       return await res.json()
     } catch (e) {
-      if (i >= tries || !(e.retry || e.name === 'TimeoutError' || e.cause)) throw e
+      // A cut-off body (SyntaxError) is as transient as a timeout.
+      if (i >= tries || !(e.retry || e.name === 'TimeoutError' || e.name === 'SyntaxError' || e.cause)) throw e
       await sleep(1500 * (i + 1))
     }
   }

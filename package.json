@@ -8,7 +8,11 @@
     "build": "vite build",
     "preview": "vite preview",
     "snap": "node scripts/snap.js",
-    "flow": "node scripts/flow.js"
+    "flow": "node scripts/flow.js",
+    "eval": "node scripts/eval.js",
+    "pipeline": "node scripts/pipeline/run.js",
+    "embed": "node scripts/pipeline/embed.js",
+    "states": "node scripts/states.js"
   },
   "dependencies": {
     "react": "^18.3.1",

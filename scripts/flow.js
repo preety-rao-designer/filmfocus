@@ -1,4 +1,4 @@
-// npm run flow — clicks through the happy flow with Playwright and snaps S1 (populated) and S2 at 390px and 1280px,
+// npm run flow — clicks through the happy flow with Playwright (against the live engine since Phase 3) and snaps S1 (populated) and S2 at 390px and 1280px,
 // light and dark, into docs/design/snaps/. Fails loudly if a step doesn't do what it should.
 import { chromium } from 'playwright'
 import { createServer } from 'vite'
@@ -7,6 +7,8 @@ import { mkdirSync } from 'node:fs'
 const outDir = 'docs/design/snaps'
 mkdirSync(outDir, { recursive: true })
 
+// Four passes back to back would trip the per-visitor limit meant for real people; lift it for this test server only.
+process.env.RATE_LIMIT_PER_MIN = '1000'
 const server = await createServer({ server: { port: 5198, strictPort: false }, logLevel: 'error' })
 await server.listen()
 const base = server.resolvedUrls.local[0]
@@ -23,6 +25,10 @@ try {
       const page = await browser.newPage({ viewport: { width, height: 900 }, colorScheme: scheme, deviceScaleFactor: 2 })
       const errors = []
       page.on('pageerror', (e) => errors.push(e.message))
+      // Preferences already answered, so this checks the main flow (scripts/states.js covers the first run).
+      await page.addInitScript(() =>
+        localStorage.setItem('filmfocus.prefs.v1', JSON.stringify({ platforms: ['Netflix', 'Prime Video', 'JioHotstar'], languages: ['hi', 'en'], subtitles_ok: false })),
+      )
       await page.goto(base, { waitUntil: 'networkidle' })
       await page.evaluate(() => document.fonts.ready)
 
@@ -43,7 +49,7 @@ try {
       // S2: find, then show others twice.
       await find.click()
       await page.waitForURL('**/results**')
-      await page.locator('article h3').first().waitFor()
+      await page.getByRole('button', { name: 'Show me three others', disabled: false }).waitFor({ timeout: 45000 })
       // The one animation moment: three tickets, 320ms each, 80ms apart. Check it, then let it finish before snapping.
       const anims = await page.evaluate(() =>
         document.getAnimations().map((a) => [a.animationName, a.effect.getTiming().duration, a.effect.getTiming().delay]),
@@ -59,6 +65,7 @@ try {
       const seen = new Set(first)
       for (let lap = 0; lap < 2; lap++) {
         await page.getByRole('button', { name: 'Show me three others' }).click()
+        await page.getByRole('button', { name: 'Show me three others', disabled: false }).waitFor({ timeout: 45000 })
         await page.waitForFunction((prev) => document.querySelector('article h3')?.innerText !== prev, first[0])
         const next = await titles(page)
         if (next.length !== 3) fail(`expected 3 cards, got ${next.length}`)
@@ -79,7 +86,7 @@ try {
       // Under reduced motion the tickets simply appear.
       await page.emulateMedia({ reducedMotion: 'reduce' })
       await page.getByRole('button', { name: 'Find my three' }).click()
-      await page.locator('article h3').first().waitFor()
+      await page.locator('article').first().waitFor()
       const reduced = await page.evaluate(() => document.getAnimations().length)
       if (reduced !== 0) fail(`${reduced} animations ran under reduced motion`)
 

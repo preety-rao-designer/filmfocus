@@ -83,7 +83,8 @@ export function facts(src) {
 // What Wikidata firmly says about truth status, if anything. Returns null when it has no decisive statement.
 // "Literary work" (Q7725634) is not in the fiction list: Wikidata uses it for non-fiction books too.
 const FICTIONAL_WORK = new Set(['Q8261', 'Q49084', 'Q11424', 'Q24856', 'Q1004', 'Q25379', 'Q21198342', 'Q7889', 'Q5398426', 'Q24862', 'Q747381', 'Q1667921', 'Q8274', 'Q14406742'])
-const BIOGRAPHICAL_GENRE = new Set(['Q645928', 'Q622370', 'Q17013749', 'Q93204'])
+// Only verified classes: Q645928 biographical film, Q622370 docudrama. (Q17013749 sits on The Godfather and Titanic.)
+const BIOGRAPHICAL_GENRE = new Set(['Q645928', 'Q622370'])
 export function wikidataTruth(wd) {
   if (!wd?.item) return null
   // Adapted from fiction (a novel, a film, a play…) settles it: whatever else, it isn't a true story.
@@ -140,7 +141,7 @@ function schemaFor(isSeries) {
 }
 
 const SYSTEM = `You write honest film and series cards for FilmFocus, a mood-to-movie app for India.
-Voice: plain, warm, a little dry, like a friend at the ticket counter who has seen everything. Sentence case.
+Voice: plain, warm, a little dry, like a friend at the ticket counter who has seen everything. Normal capitalisation: names and titles keep their capitals.
 The card's job is to stop people starting a "light comedy" that turns out to be a slow tragedy. Be specific and honest, even when the title is acclaimed.
 Rules:
 - Use only the sources given. If they don't support something, say less (or null where allowed); never guess facts.
@@ -148,10 +149,14 @@ Rules:
 - Spoilers only in spoiler_ending. Every other field must be safe to read before watching: no twists, deaths, reveals, or who ends up with whom.
 - tone_mix: 3 to 5 tones from the list, percentages are whole numbers that add up to 100, biggest first.
 - emotional_weight is 1 to 5. family: family_ok = fine with parents and kids; teens_up; adults_only.
-- content_flags: include every one that genuinely applies, none that don't.`
+- content_flags: include every one that genuinely applies, none that don't.
+- truth_status: true_story = it tells what really happened to real people; inspired_by = its central characters or central events are real but it takes big liberties; fiction = invented, including adaptations of novels, plays, comics or other films (say what it's adapted from in truth_note), and invented stories set against real history (a war, an era, a real backdrop), crime sagas, and alternate history.
+- arc_shape is how the viewer feels across the story, and it must agree with the ending: an uplifting or cathartic ending can't sit on a shape that ends going down (fall, rise_fall, fall_rise_fall); a devastating ending can't sit on one that ends going up.`
 
-function sourceText(src) {
-  const { d, wd, wp, rx } = src
+// `trim` drops source text when Gemini blocks the prompt: 1 = no audience reactions, 2 = no plot either.
+function sourceText(src, trim = 0) {
+  const { d, wd, wp } = src
+  const rx = trim >= 1 ? [] : src.rx
   const wt = wikidataTruth(wd)
   const parts = [
     `TITLE: ${src.title} (${src.year}), ${src.type === 'movie' ? 'movie' : 'series'}, original language ${d.original_language}`,
@@ -165,7 +170,7 @@ function sourceText(src) {
   ]
   if (wp?.found) {
     parts.push(`WIKIPEDIA LEAD:\n${wp.lead}`)
-    if (wp.plot) parts.push(`WIKIPEDIA PLOT (contains spoilers; use for spoiler_ending and to understand the arc):\n${wp.plot}`)
+    if (wp.plot && trim < 2) parts.push(`WIKIPEDIA PLOT (contains spoilers; use for spoiler_ending and to understand the arc):\n${wp.plot}`)
     if (wp.basis) parts.push(`WIKIPEDIA BACKGROUND:\n${wp.basis}`)
     if (wp.reception) parts.push(`WIKIPEDIA RECEPTION:\n${wp.reception}`)
   }
@@ -175,9 +180,16 @@ function sourceText(src) {
 
 export async function write(src, feedback = null) {
   const isSeries = src.type !== 'movie'
-  const prompt = `${sourceText(src)}\n\nWrite the card for ${src.title}.${feedback ? `\n\nYour previous attempt had problems. Fix them:\n${feedback}` : ''}`
-  const { data, model } = await generateJSON({ chain: MODELS.write, system: SYSTEM, prompt, schema: schemaFor(isSeries), temperature: 0.5, thinking: 'medium', timeoutMs: 120000, attempts: 5 })
-  return { out: data, model }
+  for (let trim = src.trim || 0; ; trim++) {
+    const prompt = `${sourceText(src, trim)}\n\nWrite the card for ${src.title}.${feedback ? `\n\nYour previous attempt had problems. Fix them:\n${feedback}` : ''}`
+    try {
+      const { data, model } = await generateJSON({ chain: MODELS.write, system: SYSTEM, prompt, schema: schemaFor(isSeries), temperature: 0.5, thinking: 'medium', timeoutMs: 120000, attempts: 5 })
+      src.trim = trim
+      return { out: data, model }
+    } catch (e) {
+      if (!e.finish || trim >= 2) throw e
+    }
+  }
 }
 
 // ---------- checks ----------
@@ -242,7 +254,7 @@ export async function assemble(src, out) {
 
   // Truth: Wikidata wins; disagreement drops confidence a level.
   let truthStatus = out.truth_status
-  let truthNote = out.truth_note || null
+  let truthNote = out.truth_note ? out.truth_note.trim().replace(/^./, (ch) => ch.toUpperCase()) : null
   let wikidataOverrode = false
   const wt = wikidataTruth(src.wd)
   if (wt?.real && truthStatus === 'fiction') {
@@ -286,6 +298,9 @@ export async function assemble(src, out) {
   if (!TRUTH.includes(card.truth.status)) problems.push('truth_status must be from the list.')
   for (const k of ['looks_like', 'actually_is']) if (!card.honest_read[k]) problems.push(`${k} is empty.`)
   if (!card.vibe || !card.spoiler_ending) problems.push('vibe and spoiler_ending must not be empty.')
+  const endsDown = ['fall', 'rise_fall', 'fall_rise_fall'].includes(card.arc.shape)
+  if ((endsDown && ['uplifting', 'cathartic'].includes(card.ending)) || (!endsDown && card.ending === 'devastating'))
+    problems.push(`arc_shape ${card.arc.shape} contradicts a ${card.ending} ending; pick the shape that matches how it feels at the end.`)
   if (card.honest_read.actually_is && card.honest_read.actually_is.split(/\s+/).length > 40) problems.push('actually_is is too long; keep it to one sentence of about 30 words.')
 
   // Own words: no 10-word run shared with any source.
@@ -303,8 +318,8 @@ export async function assemble(src, out) {
   }
 
   // Confidence: how much we read and whether it agreed.
-  const reactionsRead = src.rx.length
-  const sourcesRead = 1 + (src.wd?.item ? 1 : 0) + (src.wp?.plot ? 1 : 0) + (src.wp?.reception ? 1 : 0) + reactionsRead
+  const reactionsRead = (src.trim || 0) >= 1 ? 0 : src.rx.length
+  const sourcesRead = 1 + (src.wd?.item ? 1 : 0) + (src.wp?.plot && (src.trim || 0) < 2 ? 1 : 0) + (src.wp?.reception ? 1 : 0) + reactionsRead
   let level = out.sources_agree === 'thin' || (reactionsRead < 2 && !src.wp?.reception) ? 0 : out.sources_agree === 'strong' && reactionsRead >= 3 && src.wp?.found ? 2 : 1
   if (wikidataOverrode) level = Math.max(0, level - 1)
   card.confidence = {

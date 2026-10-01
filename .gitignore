@@ -6,3 +6,8 @@ dist/
 docs/design/snaps/
 .DS_Store
 data/cache/
+data/pipeline.log
+data/debug.log
+data/dev.log
+data/redo.log
+data/redo.txt

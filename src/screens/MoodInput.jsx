@@ -39,7 +39,7 @@ export const CHIP_GROUPS = [
 ]
 
 // Same pill as the card's footer; chosen is a filled pill (a change of fill and contrast, plus aria-pressed), not a hue.
-const chip =
+export const chip =
   'inline-flex min-h-[44px] items-center rounded-pill border px-4 text-caption font-medium ' +
   'border-ink/40 text-ink aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-screen ' +
   'dark:border-screen/40 dark:text-screen dark:aria-pressed:border-screen dark:aria-pressed:bg-screen dark:aria-pressed:text-ink'
