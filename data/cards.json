@@ -1,0 +1,176 @@
+[
+ {
+  "id": "tmdb-movie-13",
+  "tmdb_id": 13,
+  "type": "movie",
+  "title": "Forrest Gump",
+  "original_title": "Forrest Gump",
+  "year": 1994,
+  "runtime_min": 142,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/Cw4hIUIAmSYfK9QfaUW5igp9La.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 8.5,
+   "votes": 30559
+  },
+  "watch_in": [
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Adapted from Winston Groom's 1986 novel, using visual effects to insert a fictional character into real historical footage."
+  },
+  "honest_read": {
+   "looks_like": "A whimsical, feel-good comedy about an innocent man stumbling through American history.",
+   "actually_is": "A sprawling, sentimental drama balancing gentle humor and sweet romance against deep grief, battlefield trauma, and lingering melancholy."
+  },
+  "expectation_traps": [
+   "expecting a breezy family comedy without realizing it deals heavily with war trauma and drug abuse",
+   "assuming it is a grounded historical chronicle rather than an exaggerated, fable-like drama"
+  ],
+  "tone_mix": [
+   {
+    "tone": "nostalgic",
+    "pct": 35
+   },
+   {
+    "tone": "warm",
+    "pct": 25
+   },
+   {
+    "tone": "melancholy",
+    "pct": 20
+   },
+   {
+    "tone": "funny",
+    "pct": 20
+   }
+  ],
+  "arc": {
+   "shape": "rise_fall_rise",
+   "start": "tender",
+   "middle": "turbulent",
+   "end": "reflective"
+  },
+  "ending": "bittersweet",
+  "spoiler_ending": "Jenny invites Forrest to meet their young son and reveals she has an incurable illness. The two finally marry, but she dies a year later, leaving Forrest to raise the boy alone. He lovingly sends their son off on his first day of school, watching the opening feather drift away in the breeze.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [
+   "violence",
+   "substance_use",
+   "sexual_content"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "a sweeping nostalgic watch",
+   "a cathartic weekend cry"
+  ],
+  "skip_if": [
+   "you cringe at unapologetic sentimentality",
+   "you prefer cynical or strictly realistic historical dramas"
+  ],
+  "vibe": "An uncommonly kind Alabama man recounts his extraordinary life from a bus stop bench, having quietly intersected with decades of American history. Through military service, unexpected wealth, and immense personal loss, his compass remains fixed on his childhood sweetheart. It is a warm, fable-like odyssey with an undercurrent of genuine sorrow.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-10-01",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-tv-101352",
+  "tmdb_id": 101352,
+  "type": "series",
+  "title": "Panchayat",
+  "original_title": "पंचायत",
+  "year": 2020,
+  "runtime_min": null,
+  "series": {
+   "seasons": 5,
+   "episode_min": 30,
+   "status": "ongoing",
+   "style": "episodic",
+   "gets_good_after": null,
+   "later_seasons_note": "Later seasons shift focus toward intense local election politics."
+  },
+  "languages": [
+   "hi"
+  ],
+  "poster_path": "/xrfvAhrMdT6Uwg5fyTyQAZBYyiu.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 8.2,
+   "votes": 152
+  },
+  "watch_in": [
+   "Prime Video"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A quirky rural comedy about an urban graduate working a temporary government job.",
+   "actually_is": "A grounded, warm comedy-drama that finds humor in everyday village bureaucracy and local eccentricities without resorting to over-the-top caricatures."
+  },
+  "expectation_traps": [
+   "Expecting a slapstick comedy with loud, cartoonish village stereotypes.",
+   "Thinking it will be a fast-paced political thriller about rural corruption."
+  ],
+  "tone_mix": [
+   {
+    "tone": "funny",
+    "pct": 45
+   },
+   {
+    "tone": "warm",
+    "pct": 35
+   },
+   {
+    "tone": "thought-provoking",
+    "pct": 20
+   }
+  ],
+  "arc": {
+   "shape": "rise_fall_rise",
+   "start": "frustrated",
+   "middle": "settled",
+   "end": "entangled"
+  },
+  "ending": "open",
+  "spoiler_ending": "Abhishek initially struggles to focus on his CAT preparation due to constant village distractions. Over time, he becomes deeply involved in Phulera's local administration, forming close bonds with the villagers. The narrative eventually shifts from his personal escape plans to the chaotic local election dynamics and political rivalries of the village.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [],
+  "family": "teens_up",
+  "good_for": [
+   "watching with family",
+   "a relaxed evening",
+   "appreciating small-town life"
+  ],
+  "skip_if": [
+   "you want high-stakes action",
+   "you dislike slow-burning slice-of-life stories"
+  ],
+  "vibe": "An engineering graduate reluctantly takes a low-paying government job in a remote village while plotting his escape. Instead of quick exits, he gets caught up in trivial local disputes, oddball friendships, and grassroots politics. It is a gentle, observant look at rural India that balances humor with genuine heart.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-10-01",
+   "refresh_after": null
+  }
+ }
+]

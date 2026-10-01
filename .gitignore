@@ -5,3 +5,4 @@ node_modules/
 dist/
 docs/design/snaps/
 .DS_Store
+data/cache/

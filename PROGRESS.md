@@ -1,7 +1,7 @@
 # FilmFocus progress
 
 **Live URL:** (not yet)
-**Current phase / step:** Phase 3, step 3.1
+**Current phase / step:** Phase 3, step 3.5 (pipeline)
 
 ## Waiting for Preety
 Nothing right now. C1 approved on 2026-10-01 ("approved for now"). Keys checked 2026-10-01 with real requests: Gemini, TMDB and Tavily each return HTTP 200; Reddit and Supabase are empty, which is fine until Launch.
@@ -148,6 +148,28 @@ The least deliberate thing: results just popped in, skipping the direction's one
 f53bd36 Scaffold, film card and navigation shell
 ```
 `git switch --detach 21a8c13` → snapped S1 → `docs/design/safety-net/s1-at-21a8c13.png` (the pixel under the header is Screen: no slot line yet). `git switch main` → snapped again → `docs/design/safety-net/s1-at-73842a4.png` (the pixel under the header is Curtain deep: slot line present). No `reset --hard`.
+
+### 3.1 Branch, 3.2 Keys (2026-10-01)
+On `phase-3-live-engine`. `git check-ignore .env` → ignored by `.gitignore:1`; `.env` appears in no commit on any branch. `.env.example` (names only) was already in the kit and is committed. Keys: Gemini, TMDB and Tavily answer real requests (HTTP 200).
+
+### 3.3 + 3.4 Server side and engine plan (2026-10-01)
+- **Bar:** recommendations come from a real card store, through server-side functions only; the screens don't change except for the 3.7 states.
+- **Reference:** docs/PRD.md "How cards get made" / "How matching works", docs/CARD_SCHEMA.md (every rule), docs/EVAL_MOODS.md.
+- **Limits:** keys only in `.env`, read server-side; the browser only calls `/api/*`; picks only from `data/cards.json`; free tiers only, throttled, every raw response cached, runs resumable.
+- **Check:** typing real moods returns real store picks that differ by mood; `npm run eval` meets the pass bar.
+
+**Models (confirmed 2026-10-01 from ai.google.dev/gemini-api/docs/models and the key's own ListModels):** card writing and reranking use `gemini-3.8-flash`, falling back to `gemini-3.7-flash` → `gemini-3.6-flash` on 503/429. Both newer ones were returning "high demand" 503s at test time; 3.6 answered. Mood parsing uses `gemini-3.5-flash-lite` (→ `gemini-3.1-flash-lite`). Embeddings use `gemini-embedding-2` at 768 dimensions. Strict JSON uses `responseMimeType: application/json` plus a `responseSchema`, tested and working.
+
+**What changes:** a new `api/` (Vercel-style `export default function handler(req, res)`), a small Vite plugin that serves `api/*` in dev, `scripts/pipeline/`, `data/`, and `src/engine/live.js` (a `fetch('/api/recommend')` with the same call as the mock). **What stays the same:** both screens, FilmCard, the response shape, and the mock engine (kept for tests).
+
+**Card pipeline** (`node scripts/pipeline/run.js`, resumable, one title at a time with small concurrency):
+1. `seed.js` picks 300 titles from TMDB discover (India region, flatrate providers, by vote count): about 120 Hindi, 90 regional (Tamil, Telugu, Malayalam, Kannada, Bengali, Marathi), 90 English/international; about 75 series. Writes `data/seed.json`.
+2. Per title: TMDB details, external ids, India watch providers, release dates/content ratings, keywords; Wikidata by TMDB id (P4947 film / P4983 series) for "based on" (P144) and "main subject" (P921), plus whether it's a biographical film; Wikipedia plot and reception sections (the English article, via the action API); Tavily search for audience reactions (about 5 results). Every raw response is cached in `data/cache/` (git-ignored, because it holds third-party text).
+3. Gemini writes only the judgement fields (honest read, traps, tones, arc, ending, spoiler ending, bandwidth, flags, family, good for/skip if, vibe, series extras, a truth claim) against a JSON schema that only allows the vocabularies. Facts (title, year, runtime, seasons, languages, rating, `watch_in`) come straight from TMDB, never from the model.
+4. `validate.js` enforces every CARD_SCHEMA rule: 3–5 vocabulary tones summing to 100 (repairs rounding), vocab-only enums, Wikidata wins on truth (and confidence drops a level), spoiler words kept out of `actually_is`/`vibe` (re-ask once, else reject), no 12+-word runs copied from any source text (re-ask once, else reject), `watch_in` from TMDB India only. Confidence comes from sources read and how many reaction sources there were. A card that fails twice is logged and skipped.
+5. `embed.js` embeds `vibe` + tone words + arc words + good_for into `data/embeddings.json`.
+
+**Matching** (`api/recommend.js`): parse with Flash-Lite into the `understood` object plus hard constraints (format, max runtime, languages, platforms, hard no's, family) → if `stay_or_shift` is truly unclear and matters, return the one follow-up → filter the store on hard constraints → embed the mood → cosine top 30 → Flash reranks to 3, with the rating as a quality floor (below 6.0 only if nothing else fits), and writes "why this fits" from the user's own words → `{ followup, picks, understood }`. Saved preferences (S6) arrive in the request body.
 
 ## Decisions made on my own
 - **Tailwind 3 with a `tailwind.config.js`** (not v4's CSS `@theme`), because the runbook asks for tokens "in the Tailwind config". Default palette, spacing, radii and shadows are replaced, so nothing off-direction can be used by accident.
