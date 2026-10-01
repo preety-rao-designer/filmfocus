@@ -56,7 +56,7 @@ export default function MoodInput({ text, chips, onText, onChip, onFind, onSurpr
         if (canFind) onFind()
       }}
     >
-      <h1 id="mood-heading" className="font-display text-headline text-ink dark:text-screen md:text-headline-lg">
+      <h1 id="mood-heading" className="font-display text-headline [text-wrap:balance] text-ink dark:text-screen md:text-headline-lg">
         What are you in the mood for?
       </h1>
 
