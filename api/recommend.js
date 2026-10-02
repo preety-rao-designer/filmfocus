@@ -43,7 +43,7 @@ const PARSE_SCHEMA = {
     avoid_tones: arr(en(TONES)),
     avoid_endings: arr(en(ENDINGS)),
     true_story_only: { type: 'BOOLEAN' },
-    max_weight: { type: 'INTEGER', nullable: true, description: '1–5 emotional weight ceiling if they ask for something light or easy, else null.' },
+    max_weight: { type: 'INTEGER', nullable: true, description: 'Only if they explicitly ask for something light, easy or not heavy: 2 (or 3 for "not too heavy"). Wanting to laugh or be cheered up is not a weight limit. Else null.' },
     ideal: { type: 'STRING', description: 'Describe the ideal title for them as a short film-card vibe: tone, feel, arc, setting cues. Do not name titles.' },
   },
   required: ['mood', 'needs_followup', 'languages', 'hard_nos', 'avoid_tones', 'avoid_endings', 'true_story_only', 'ideal'],
@@ -95,9 +95,10 @@ async function parseWithModel(text, chips) {
     prompt: `They typed: "${text.slice(0, 600)}"${chipLine ? `\nThey also tapped: ${chipLine}` : ''}`,
     schema: PARSE_SCHEMA,
     temperature: 0,
-    thinking: 'low',
+    thinking: 'minimal',
     timeoutMs: 20000,
-    attempts: 2,
+    attempts: 1,
+    wait: false,
   })
   return data
 }
@@ -120,7 +121,8 @@ function constraints(p, chips, prefs) {
   if (p.avoid_tones?.length) out.push({ key: 'avoid_tones', label: `nothing ${p.avoid_tones.join(' or ')}`, test: (c) => !c.tone_mix.some((t) => p.avoid_tones.includes(t.tone) && t.pct >= 20) })
   if (p.avoid_endings?.length) out.push({ key: 'avoid_endings', label: `no ${p.avoid_endings.join(' or ')} endings`, test: (c) => !p.avoid_endings.includes(c.ending) })
   if (p.true_story_only) out.push({ key: 'true_story', label: 'true stories only', test: (c) => c.truth.status === 'true_story' })
-  if (p.max_weight) out.push({ key: 'weight', label: 'something light', test: (c) => c.bandwidth.emotional_weight <= p.max_weight })
+  // Soft: dropped below if it alone would leave fewer than three picks.
+  if (p.max_weight) out.push({ key: 'weight', label: 'something light', soft: true, test: (c) => c.bandwidth.emotional_weight <= Math.max(2, p.max_weight) })
   if (company === 'kids') out.push({ key: 'family', label: 'fine for kids', test: (c) => c.family === 'family_ok' })
   if (company === 'family') out.push({ key: 'family', label: 'fine with family', test: (c) => c.family !== 'adults_only' && !c.content_flags.includes('sexual_content') })
   return out
@@ -164,9 +166,10 @@ async function rerank(text, chips, p, candidates) {
     prompt: `${asked || 'They asked to be surprised: pick three good, different titles.'}\nWhat we understood: ${JSON.stringify({ mood: p.mood, stay_or_shift: chips.stay_or_shift || p.stay_or_shift, company: chips.company || p.company })}\n\nCandidates:\n${candidates.map((c) => JSON.stringify(brief(c))).join('\n')}`,
     schema: RERANK_SCHEMA,
     temperature: 0.3,
-    thinking: 'low',
+    thinking: 'minimal',
     timeoutMs: 30000,
-    attempts: 2,
+    attempts: 1,
+    wait: false,
   })
   return data.picks
 }
@@ -197,6 +200,11 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
   const rules = constraints(p, chips, prefs).filter((r) => !loosen.includes(r.key))
   const seen = new Set(exclude)
   let pool = cards.filter((c) => rules.every((r) => r.test(c)))
+  if (pool.length < 3 && rules.some((r) => r.soft)) {
+    const hard = rules.filter((r) => !r.soft)
+    const wider = cards.filter((c) => hard.every((r) => r.test(c)))
+    if (wider.length > pool.length) pool = wider
+  }
   if (!pool.length) {
     // Say which constraint to loosen: the one whose removal brings back the most titles. If no single one brings
     // anything back, the one that on its own rules out the most of the store.
@@ -219,9 +227,17 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
     if (candidates.length < 3) candidates = pickRandom(fresh, 30)
   } else {
     const query = [p.ideal, p.mood, stay && `They want: ${stay}.`, text].filter(Boolean).join(' ')
-    const [q] = await embed([query], 'RETRIEVAL_QUERY')
+    let score
+    try {
+      const [q] = await embed([query], 'RETRIEVAL_QUERY', { patient: false })
+      score = (c) => dot(q, vectors[c.id])
+    } catch {
+      // Embeddings unavailable too: rank by how much of each card's tone matches the words they used, then rating.
+      const words = query.toLowerCase()
+      score = (c) => c.tone_mix.reduce((a, t) => a + (words.includes(t.tone.replace('-', ' ')) || words.includes(t.tone) ? t.pct : 0), 0) + (c.rating?.value || 0)
+    }
     candidates = fresh
-      .map((c) => ({ c, s: dot(q, vectors[c.id]) }))
+      .map((c) => ({ c, s: score(c) }))
       .sort((a, b) => b.s - a.s)
       .slice(0, 30)
       .map((x) => x.c)

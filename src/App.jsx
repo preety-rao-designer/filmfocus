@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Header from './components/Header.jsx'
+import Footer from './components/Footer.jsx'
 import MoodInput from './screens/MoodInput.jsx'
 import Results from './screens/Results.jsx'
 import Preferences from './screens/Preferences.jsx'
@@ -168,6 +169,7 @@ export default function App() {
           onLoosen={(key) => run({ text, chips, loosen: [...(last.current?.loosen || []), key] })}
         />
       )}
+      <Footer />
     </>
   )
 }

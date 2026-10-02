@@ -26,12 +26,13 @@ const ERRORS = {
 
 const primary = 'inline-flex min-h-[48px] items-center rounded-pill bg-curtain px-6 text-body font-medium text-screen disabled:opacity-50'
 
-// In-place messages share one quiet block: a 22px line, then the actions.
-function Note({ children, actions }) {
+// In-place messages share one quiet block: a 22px line, then the actions. Pill answers sit 8px apart like every
+// other chip row; a button and a link sit 24px apart like S1's.
+function Note({ children, actions, pills = false }) {
   return (
     <div role="status" className="py-8">
       <p className="text-section [text-wrap:balance]">{children}</p>
-      <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">{actions}</div>
+      <div className={`mt-6 flex flex-wrap items-center ${pills ? 'gap-2' : 'gap-x-6 gap-y-4'}`}>{actions}</div>
     </div>
   )
 }
@@ -74,6 +75,7 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
 
       {status === 'followup' && followup && (
         <Note
+          pills
           actions={followup.options.map((o) => (
             <button key={o} type="button" onClick={() => onAnswer(followup.slot, o)} className={chip}>
               {o}

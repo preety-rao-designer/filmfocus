@@ -43,7 +43,8 @@ async function post(path, body, timeoutMs) {
 // Strict JSON out: responseSchema limits enums to our vocabularies. Tries each model in the chain; on 429/503/timeouts
 // it backs off and moves on. `attempts` rounds through the whole chain.
 const exhausted = new Set()
-export async function generateJSON({ chain, system, prompt, schema, temperature = 0.4, thinking = 'low', timeoutMs = 90000, attempts = 3 }) {
+// `wait: false` (a live search) moves straight to the next model instead of sleeping between tries.
+export async function generateJSON({ chain, system, prompt, schema, temperature = 0.4, thinking = 'low', timeoutMs = 90000, attempts = 3, wait = true }) {
   let last
   for (let round = 0; round < attempts; round++) {
     for (const model of chain.filter((m) => !exhausted.has(m))) {
@@ -74,14 +75,15 @@ export async function generateJSON({ chain, system, prompt, schema, temperature 
         if (e.finish === 'PROHIBITED_CONTENT' || e.finish === 'SAFETY' || e.finish === 'BLOCKLIST') throw e
         const retryable = e.status === 429 || e.status === 503 || e.status === 500 || e.name === 'TimeoutError' || e instanceof SyntaxError
         if (!retryable) throw e
-        await sleep(e.status === 429 ? 4000 * (round + 1) : 800 * (round + 1))
+        if (wait) await sleep(e.status === 429 ? 4000 * (round + 1) : 800 * (round + 1))
       }
     }
   }
   throw last || Object.assign(new Error('Every model in the chain is out of daily quota'), { status: 429 })
 }
 
-export async function embed(texts, taskType = 'RETRIEVAL_DOCUMENT') {
+// `patient` (the pipeline) waits out per-minute limits; a live search (patient = false) fails fast instead.
+export async function embed(texts, taskType = 'RETRIEVAL_DOCUMENT', { patient = true } = {}) {
   const out = []
   for (let i = 0; i < texts.length; i += 20) {
     const batch = texts.slice(i, i + 20)
@@ -98,14 +100,14 @@ export async function embed(texts, taskType = 'RETRIEVAL_DOCUMENT') {
               outputDimensionality: EMBED_DIMS,
             })),
           },
-          120000,
+          patient ? 120000 : 8000,
         )
         out.push(...json.embeddings.map((e) => normalise(e.values)))
         // Free tier: 100 embedded texts a minute. Pace big batches (the pipeline) to ~80; single queries don't wait.
         if (texts.length > 20 && i + 20 < texts.length) await sleep(15000)
         break
       } catch (e) {
-        if (++tries > 5 || !(e.status === 429 || e.status === 503 || e.name === 'TimeoutError')) throw e
+        if (!patient || ++tries > 5 || !(e.status === 429 || e.status === 503 || e.name === 'TimeoutError')) throw e
         await sleep(e.status === 429 ? 61000 : 3000 * tries)
       }
     }

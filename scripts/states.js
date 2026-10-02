@@ -89,7 +89,8 @@ for (const [width, scheme] of [[390, 'light'], [1280, 'dark']]) {
     await Promise.race([ready(), page.getByText('Stay in this mood or get out of it?').waitFor({ timeout: 45000 })])
   })
 
-  await step(`${tag}: the one follow-up, then results`, async () => {
+  // NO_MODEL=1: Gemini's quota is out, so the engine runs on its keyword fallback, which never asks the follow-up.
+  if (!process.env.NO_MODEL) await step(`${tag}: the one follow-up, then results`, async () => {
     await search('I am sad')
     await page.getByText('Stay in this mood or get out of it?').waitFor({ timeout: 45000 })
     if ((await page.locator('article').count()) !== 0) fail('tickets shown with the follow-up')
@@ -126,18 +127,17 @@ for (const [width, scheme] of [[390, 'light'], [1280, 'dark']]) {
   })
 
   if (width === 390) {
-    await step(`${tag}: rapid repeated requests hit the rate limit, latest tap wins, then recovers`, async () => {
+    await step(`${tag}: a burst hits the rate limit, the next tap says so, then recovers`, async () => {
       await search('Friends are over, we want to laugh loudly.')
       await ready()
-      // Hammer "show me three others" until the server's per-visitor limit answers 429.
-      let limited = false
-      for (let i = 0; i < 20 && !limited; i++) {
-        const btn = page.getByRole('button', { name: /Show me three others|Try again/ })
-        await btn.click()
-        await Promise.race([ready(), page.getByText('Lots of people are choosing right now.').waitFor({ timeout: 45000 })])
-        limited = await page.getByText('Lots of people are choosing right now.').isVisible()
-      }
-      if (!limited) fail('never reached the rate limit')
+      // Fire a burst straight at the API. Each is an over-long mood, so it's counted by the limiter and then rejected
+      // before any model is called: no quota spent. (Through the UI a person can't exceed it: the button waits.)
+      const codes = await page.evaluate(() =>
+        Promise.all(Array.from({ length: 14 }, () => fetch('/api/recommend', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: 'x'.repeat(2100) }) }).then((r) => r.status))),
+      )
+      if (!codes.includes(429)) fail(`burst never hit the limit: ${codes.join(',')}`)
+      await page.getByRole('button', { name: 'Show me three others' }).click()
+      await page.getByText('Lots of people are choosing right now.').waitFor({ timeout: 45000 })
       await snap('state-ratelimited')
       // The limit is per minute: wait it out and "Try again" works.
       await page.waitForTimeout(61000)

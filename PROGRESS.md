@@ -177,6 +177,19 @@ On `phase-3-live-engine`. `git check-ignore .env` → ignored by `.gitignore:1`;
 
 **Matching** (`api/recommend.js`): parse with Flash-Lite into the `understood` object plus hard constraints (format, max runtime, languages, platforms, hard no's, family) → if `stay_or_shift` is truly unclear and matters, return the one follow-up → filter the store on hard constraints → embed the mood → cosine top 30 → Flash reranks to 3, with the rating as a quality floor (below 6.0 only if nothing else fits), and writes "why this fits" from the user's own words → `{ followup, picks, understood }`. Saved preferences (S6) arrive in the request body.
 
+### 3.7 States: all verified live (2026-10-02)
+`npm run states` passes all 15 checks at 390 light and 1280 dark: empty (0 background requests), first-run preferences → loading → results (prefs saved), one-word input, the follow-up then results, no match → "Try without “in Korean”" → next suggestion, error and retry, offline, and a burst over the per-visitor limit → "Lots of people are choosing right now" → recovers after a minute.
+
+**Found and fixed by making it happen:**
+1. "We want to laugh loudly" returned only **two** picks: the parser set a weight ceiling of 1 (2 cards in the store). Weight is now a soft ceiling, set only when someone asks for something light, and dropped if it would leave fewer than three.
+2. With the quota out, searches **hung for minutes** (the embedding retried for 61 seconds, five times). Live searches now fail fast, and if embeddings are out too they rank by tone words and rating, still only from the store.
+3. Parsing took 3–9 seconds. `minimal` thinking brings it to about 2 (a search is now about 5–7 seconds end to end).
+4. The rate-limit test couldn't trip through the UI, because the button waits on each search, so a person can't exceed the limit by tapping. The test now sends a burst that's rejected before any model call (no quota spent).
+
+**Design review of the new screens against the approved card and the direction:** Preferences reuses S1's headline, chips and Curtain button. No match, follow-up and error share one quiet block (a 22px line, then actions). Loading is the approved Loading ticket ×3. One mismatch fixed: the follow-up's answer pills were 24px apart; they're now 8px like every other chip row (measured live: 8, 8, 8).
+
+**Credits footer (Launch L7, done early):** TMDB's required notice, plus JustWatch, Wikipedia (CC BY-SA) and Wikidata, in caption size at Ink 70%. **Open for C3:** TMDB's guidelines also ask for their logo. It's a brand mark in their own colours, which the design direction doesn't allow, so it's your call.
+
 ### 3.5 Build and run the pipeline (2026-10-01)
 - **Bar:** 300 honest cards in the exact schema, in our own words, from real sources.
 - **Check:** counts, failures, average confidence; ten cards spot-checked against their sources.
