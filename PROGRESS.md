@@ -236,5 +236,7 @@ Verified so far: empty and first-run preferences → loading → results passed 
 - **"Any language is fine with subtitles"** turns the saved-language filter off.
 - **Raw source text is git-ignored** (`data/cache/`), since it's third-party text. Cards, seed and embeddings are committed.
 
+- **PMF success targets added to docs/PRD.md** at Preety's request (2026-10-02): opened or saved 50%+, "Did this match?" yes 70%+, 7-day return 20%+, "show me others" use under 40%. Starting points, to revisit at C3.
+
 ## Cut or deferred
 <!-- Anything cut under the time-box rule, and why. -->
