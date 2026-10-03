@@ -1,5 +1,5 @@
 // The card store. Phase 3: data/cards.json and data/embeddings.json, read once per server process.
-// (Launch moves this to Supabase; the functions that call it don't change.)
+// (At Launch the seed cards stay bundled here; Firestore adds on-demand cards and votes. Callers don't change.)
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 

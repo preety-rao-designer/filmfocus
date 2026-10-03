@@ -27,7 +27,7 @@ Do these before starting so the run doesn't pause for them.
    - `TMDB_API_KEY`: create a free account at themoviedb.org, then request an API key in your account settings (choose personal / non-commercial use)
    - `TAVILY_API_KEY`: free account at tavily.com
    - Reddit keys are optional; skip them for now.
-   - Supabase keys are only needed at Launch; the run will ask when it gets there.
+   - Firebase keys are only needed at Launch; the run will ask when it gets there.
 4. **Vercel:** only needed at Launch. A free account at vercel.com; the run will ask you to sign in with `vercel login` when it gets there.
 
 ## Start the run

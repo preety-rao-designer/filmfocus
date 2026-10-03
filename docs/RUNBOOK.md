@@ -125,15 +125,15 @@ Acceptance: each state appears only because of the real situation that causes it
 
 ## Launch — live for real users
 
-**L1 Accounts.** Needs a Vercel login (`vercel whoami`) and a Supabase project URL and service key in `.env`. Missing → C0.
+**L1 Accounts.** Needs a Vercel login (`vercel whoami`) and a Firebase project (Spark plan, no card) with Firestore and a service account in `.env` as `FIREBASE_SERVICE_ACCOUNT` (base64 of the JSON key). Missing → C0.
 
-**L2 Card store.** Move cards and embeddings into Supabase (Postgres + pgvector). `api/recommend.js` reads from Supabase; keep `data/cards.json` as the seed and backup.
+**L2 Card store.** Seed cards and embeddings stay bundled with the deploy and are searched in memory (1,000 × 768 numbers is a few MB; loading them from Firestore on every cold start would eat the 50,000 free reads a day). Firestore holds cards made on demand (L4), which `api/recommend.js` merges in. `data/cards.json` stays the seed and backup.
 
 **L3 Grow the catalogue** to about 1,000 titles with the same mix, then re-run the eval. It must still meet the pass bar.
 
 **L4 On-demand cards.** When someone asks for a title not in the store, `api/card.js` generates it through the pipeline, validates it, saves it, and returns it. Show the Loading variant meanwhile.
 
-**L5 "Did this match?"** A small prompt on a card the user opened earlier (tracked in localStorage), with yes, partly, no. Stored via `api/feedback.js` in Supabase. Cards with three or more "no" votes are flagged for regeneration.
+**L5 "Did this match?"** A small prompt on a card the user opened earlier (tracked in localStorage), with yes, partly, no. Stored via `api/feedback.js` in Firestore. Cards with three or more "no" votes are flagged for regeneration.
 
 **L6 Analytics.** A free analytics tool (Vercel Web Analytics or PostHog's free tier) tracking the PRD's success metrics: searches, picks opened or saved, match votes, refine and "show me others" use, 7-day returns. No personal data.
 

@@ -151,7 +151,7 @@ Listed roughly by build size.
 
 **Embeddings:** an open-source embedding model or a free-tier embedding API.
 
-**Launch additions:** Vercel for hosting (serverless functions keep API keys off the browser), Supabase free tier for the card store (Postgres + pgvector) and feedback votes, and a free analytics tool for PMF metrics.
+**Launch additions:** Vercel for hosting (serverless functions keep API keys off the browser), Firebase (Firestore, free Spark plan) for on-demand cards and feedback votes, with seed cards and embeddings bundled and searched in memory, and a free analytics tool for PMF metrics.
 
 ## Design direction
 
@@ -287,9 +287,9 @@ Same arc as the course, adapted to FilmFocus. Tools that don't fit (Figma, Mobbi
 
 **Build sketch.**
 - Move every API call behind Vercel serverless functions so keys never reach the browser.
-- Move the card store to Supabase (Postgres + pgvector).
+- Keep the seed cards bundled; add on-demand cards to Firestore.
 - On-demand card generation for titles not yet in the catalogue.
-- The "did this match?" check-in, stored in Supabase.
+- The "did this match?" check-in, stored in Firestore.
 - Free analytics wired to the success metrics.
 - Deploy to Vercel on a real URL.
 
@@ -326,7 +326,7 @@ Same arc as the course, adapted to FilmFocus. Tools that don't fit (Figma, Mobbi
 7. Ratings: shown and used as a quality floor, never as the ranking.
 8. Goal: product-market fit test. Monetization and commercial licensing deferred.
 9. Data: open and free sources within their free terms, official APIs over scraping.
-10. Stack: Vite + React + Tailwind CSS, JavaScript, as taught. Gemini Flash-tier for AI. Vercel and Supabase added at Launch.
+10. Stack: Vite + React + Tailwind CSS, JavaScript, as taught. Gemini Flash-tier for AI. Vercel and Firebase (Firestore) added at Launch.
 11. Design: no Figma, no Mobbin. Claude researched references on the web and designs directly in code; direction in docs/DESIGN_DIRECTION.md, approved at Checkpoint 1.
 12. Execution: Claude Code runs Phases 1–3 and Launch on autopilot from docs/RUNBOOK.md, stopping only at the checkpoints listed there. Phases 4–6 are run together with Preety afterwards.
 

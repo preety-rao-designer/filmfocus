@@ -14,3 +14,6 @@ data/redo.txt
 data/eval.log
 data/eval-partial-*.json
 data/embed.log
+# Firebase key files, if one is ever saved into the folder
+*firebase-adminsdk*.json
+serviceAccount*.json

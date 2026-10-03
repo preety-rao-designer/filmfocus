@@ -1,17 +1,19 @@
 # FilmFocus progress
 
 **Live URL:** (not yet)
-**Current phase / step:** Phase 3, step 3.9 → **C2, waiting for Preety** (eval passed in round 3). Watchlist, compare and service links (Phase 4 pieces) built early on branch `phase-4-watchlist-compare`.
+**Current phase / step:** C2 approved. 3.10 done (private repo pushed). **Launch L1: waiting for Preety's Vercel and Firebase accounts.**
 
 ## Waiting for Preety
-**C2: the engine eval. Approve, or tell me what to change.** Full report: `docs/eval/2026-10-03-round-3.md`.
+**L1 accounts (about 10 minutes, all free, no card).** Preety chose Firebase instead of Supabase.
 
-- **Rule checks:** 30/30 pass (bar 28). Every pick is from the store, three per mood, no duplicates, and each mood's hard rules hold (language, "not gory", "no romance", runtime, family-safe and so on).
-- **Average fit:** 4.70 of 5 (bar 4.0). No mood below 3.
-- **Scorer:** 12 moods scored by Flash, 18 by Flash-Lite because the Flash models ran out of free quota. You chose to finish with Flash-Lite. The two agree closely (4.75 vs 4.67).
-- **Best three** (fit 5): "Rough day at work, want something warm but not dumb" → Queen, Jab We Met, Little Things. "Need to cry but in a good way" → Inside Out, Kal Ho Naa Ho, Black. "Something my parents and I can all watch after dinner" → Back to the Future, Dilwale Dulhania Le Jayenge, Star Wars.
-- **Worst three:** "I have 30 minutes, give me an episode" (3) → Panchayat, Rick and Morty, The Big Bang Theory; the judge thought Panchayat's episodes run long (our card says about 30 min). "Mindless but not stupid" (3) → Bang Bang!, Pirates of the Caribbean, The Matrix; The Matrix is too heady for "mindless". "Rainy evening, chai, something cosy" (4) → Panchayat, Harry Potter, Period. End of Sentence.; the documentary is heavier than cosy.
-- **Watch item:** Queen comes up in 8 of 30 moods (down from 10). A bigger catalogue at L3 should spread picks out.
+1. **Vercel:** sign up at vercel.com with GitHub, then in this folder's terminal run `! npx vercel login`.
+2. **Firebase project:** console.firebase.google.com → Add project → name it `filmfocus` → Google Analytics off is fine. It stays on the free Spark plan; don't upgrade to Blaze (that asks for a card, which is C5).
+3. **Firestore:** in the project, Build → Firestore Database → Create database → location `asia-south1 (Mumbai)` → start in **production mode**.
+4. **Service account key:** Project settings (gear) → Service accounts → Generate new private key. It downloads a JSON file. **Save it outside this project folder** (e.g. Downloads).
+5. **Into `.env`:** in a terminal run `base64 -i ~/Downloads/<the-file>.json | tr -d '\n' | pbcopy`, then in `.env` add a line `FIREBASE_SERVICE_ACCOUNT=` and paste after the `=`. Then delete the downloaded JSON file.
+6. Tell me "done". I'll test it by making a request, without reading the key.
+
+Previous checkpoint: **C2 approved** (eval round 3: 30/30, fit 4.70; `docs/eval/2026-10-03-round-3.md`).
 
 **A decision for later (C5, money; I won't do this):** on the free tier, the live app can serve roughly **500 searches a day** in total, since each search uses one call on each of the two Flash-Lite models. Growing the catalogue to 1,000 titles at Launch (L3) also needs about two days of quota. If that's too tight for a public test, the option is enabling billing on your Gemini key. That's your call, at Launch.
 
@@ -234,6 +236,17 @@ Verified so far: empty and first-run preferences → loading → results passed 
 - Ran sequentially on branch `phase-4-watchlist-compare`, not the two-worktree exercise the runbook planned: no GitHub repo yet (3.10) and Preety wanted it now. The worktree exercise can still be shown with Phase 5.
 - Fix found by the check: hidden screen-reader labels inside the scrolling table pushed the page to 435px; the table box is now `relative`.
 - Check: 29/29 pass, no page errors.
+
+### 3.9 C2 approved; 3.10 merge and push
+- Preety approved C2.
+- Merged `phase-4-watchlist-compare` (which carries `phase-3-live-engine`) into `main` with a merge commit; branch history kept.
+- Secret scan before pushing, across every commit: the only env-like file ever committed is `.env.example`; no Gemini, Tavily, GitHub, JWT, private-key or 32-hex "key=" strings anywhere.
+- `gh repo create filmfocus --private`, pushed `main` and both branches: https://github.com/preety-rao-designer/filmfocus (private).
+- Checked what's on GitHub with a fresh clone: visibility PRIVATE, 65 files on `main`, 17 commits; no `.env`, cache, logs, `node_modules` or `dist`; the same key scan over the clone's full history found nothing.
+
+### Launch prep: Firebase instead of Supabase (Preety's call)
+- Seed cards and embeddings stay bundled and searched in memory, as now. Firestore (Spark plan: 1 GiB, 50,000 reads and 20,000 writes a day, no card) holds on-demand cards (L4) and "did this match?" votes (L5). Loading the whole store from Firestore on each cold start would spend about 1,000 reads per start, so it isn't used for that.
+- Server-only access via `firebase-admin` with a service account in `FIREBASE_SERVICE_ACCOUNT` (base64 JSON). Updated CLAUDE.md, PRD, RUNBOOK (L1, L2, L5), START_HERE, `.env.example`, `api/_lib/store.js` comment. `.gitignore` now also blocks Firebase key files in case one is saved into the folder.
 
 ## Decisions made on my own
 - **Tailwind 3 with a `tailwind.config.js`** (not v4's CSS `@theme`), because the runbook asks for tokens "in the Tailwind config". Default palette, spacing, radii and shadows are replaced, so nothing off-direction can be used by accident.

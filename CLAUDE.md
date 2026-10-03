@@ -17,7 +17,7 @@ FilmFocus: a mood-to-movie web app for India. People describe how they feel in p
 - Commit at the points the runbook names, with clear messages. Never push anything containing a secret.
 
 ## Stack
-Vite + React + Tailwind CSS, JavaScript (not TypeScript). Server-side functions in `api/` (Vercel style). Gemini for understanding, card writing and embeddings. TMDB, Wikidata, Wikipedia, Tavily (and Reddit if keys exist) for sources. Supabase and Vercel at Launch.
+Vite + React + Tailwind CSS, JavaScript (not TypeScript). Server-side functions in `api/` (Vercel style). Gemini for understanding, card writing and embeddings. TMDB, Wikidata, Wikipedia, Tavily (and Reddit if keys exist) for sources. Firebase (Firestore) and Vercel at Launch.
 
 ## Hard rules
 - Secrets only in `.env`, git-ignored. Never `VITE_`-prefix a secret. Never print a key. Never read `.env` contents into your context; test keys by making a request.
