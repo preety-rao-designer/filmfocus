@@ -6,7 +6,7 @@
 ## Waiting for Preety
 **L1 accounts (about 10 minutes, all free, no card).** Preety chose Firebase instead of Supabase.
 
-1. **Vercel:** sign up at vercel.com with GitHub, then in this folder's terminal run `! npx vercel login`.
+1. ~~**Vercel**~~ done 2026-10-03: `vercel whoami` → `preetyrao435-8943`.
 2. **Firebase project:** console.firebase.google.com → Add project → name it `filmfocus` → Google Analytics off is fine. It stays on the free Spark plan; don't upgrade to Blaze (that asks for a card, which is C5).
 3. **Firestore:** in the project, Build → Firestore Database → Create database → location `asia-south1 (Mumbai)` → start in **production mode**.
 4. **Service account key:** Project settings (gear) → Service accounts → Generate new private key. It downloads a JSON file. **Save it outside this project folder** (e.g. Downloads).
