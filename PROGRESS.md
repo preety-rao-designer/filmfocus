@@ -1,10 +1,19 @@
 # FilmFocus progress
 
 **Live URL:** (not yet)
-**Current phase / step:** Phase 3, step 3.1
+**Current phase / step:** Phase 3, step 3.9 → **C2, waiting for Preety** (eval passed in round 3). Watchlist, compare and service links (Phase 4 pieces) built early on branch `phase-4-watchlist-compare`.
 
 ## Waiting for Preety
-Nothing right now. C1 approved on 2026-10-01 ("approved for now"). Keys checked 2026-10-01 with real requests: Gemini, TMDB and Tavily each return HTTP 200; Reddit and Supabase are empty, which is fine until Launch.
+**C2: the engine eval. Approve, or tell me what to change.** Full report: `docs/eval/2026-10-03-round-3.md`.
+
+- **Rule checks:** 30/30 pass (bar 28). Every pick is from the store, three per mood, no duplicates, and each mood's hard rules hold (language, "not gory", "no romance", runtime, family-safe and so on).
+- **Average fit:** 4.70 of 5 (bar 4.0). No mood below 3.
+- **Scorer:** 12 moods scored by Flash, 18 by Flash-Lite because the Flash models ran out of free quota. You chose to finish with Flash-Lite. The two agree closely (4.75 vs 4.67).
+- **Best three** (fit 5): "Rough day at work, want something warm but not dumb" → Queen, Jab We Met, Little Things. "Need to cry but in a good way" → Inside Out, Kal Ho Naa Ho, Black. "Something my parents and I can all watch after dinner" → Back to the Future, Dilwale Dulhania Le Jayenge, Star Wars.
+- **Worst three:** "I have 30 minutes, give me an episode" (3) → Panchayat, Rick and Morty, The Big Bang Theory; the judge thought Panchayat's episodes run long (our card says about 30 min). "Mindless but not stupid" (3) → Bang Bang!, Pirates of the Caribbean, The Matrix; The Matrix is too heady for "mindless". "Rainy evening, chai, something cosy" (4) → Panchayat, Harry Potter, Period. End of Sentence.; the documentary is heavier than cosy.
+- **Watch item:** Queen comes up in 8 of 30 moods (down from 10). A bigger catalogue at L3 should spread picks out.
+
+**A decision for later (C5, money; I won't do this):** on the free tier, the live app can serve roughly **500 searches a day** in total, since each search uses one call on each of the two Flash-Lite models. Growing the catalogue to 1,000 titles at Launch (L3) also needs about two days of quota. If that's too tight for a public test, the option is enabling billing on your Gemini key. That's your call, at Launch.
 
 ## Log
 
@@ -149,6 +158,83 @@ f53bd36 Scaffold, film card and navigation shell
 ```
 `git switch --detach 21a8c13` → snapped S1 → `docs/design/safety-net/s1-at-21a8c13.png` (the pixel under the header is Screen: no slot line yet). `git switch main` → snapped again → `docs/design/safety-net/s1-at-73842a4.png` (the pixel under the header is Curtain deep: slot line present). No `reset --hard`.
 
+### 3.1 Branch, 3.2 Keys (2026-10-01)
+On `phase-3-live-engine`. `git check-ignore .env` → ignored by `.gitignore:1`; `.env` appears in no commit on any branch. `.env.example` (names only) was already in the kit and is committed. Keys: Gemini, TMDB and Tavily answer real requests (HTTP 200).
+
+### 3.3 + 3.4 Server side and engine plan (2026-10-01)
+- **Bar:** recommendations come from a real card store, through server-side functions only; the screens don't change except for the 3.7 states.
+- **Reference:** docs/PRD.md "How cards get made" / "How matching works", docs/CARD_SCHEMA.md (every rule), docs/EVAL_MOODS.md.
+- **Limits:** keys only in `.env`, read server-side; the browser only calls `/api/*`; picks only from `data/cards.json`; free tiers only, throttled, every raw response cached, runs resumable.
+- **Check:** typing real moods returns real store picks that differ by mood; `npm run eval` meets the pass bar.
+
+**Models (confirmed 2026-10-01 from ai.google.dev/gemini-api/docs/models and the key's own ListModels):** card writing and reranking use `gemini-3.8-flash`, falling back to `gemini-3.7-flash` → `gemini-3.6-flash` on 503/429. Both newer ones were returning "high demand" 503s at test time; 3.6 answered. Mood parsing uses `gemini-3.5-flash-lite` (→ `gemini-3.1-flash-lite`). Embeddings use `gemini-embedding-2` at 768 dimensions. Strict JSON uses `responseMimeType: application/json` plus a `responseSchema`, tested and working.
+
+**What changes:** a new `api/` (Vercel-style `export default function handler(req, res)`), a small Vite plugin that serves `api/*` in dev, `scripts/pipeline/`, `data/`, and `src/engine/live.js` (a `fetch('/api/recommend')` with the same call as the mock). **What stays the same:** both screens, FilmCard, the response shape, and the mock engine (kept for tests).
+
+**Card pipeline** (`node scripts/pipeline/run.js`, resumable, one title at a time with small concurrency):
+1. `seed.js` picks 300 titles from TMDB discover (India region, flatrate providers, by vote count): about 120 Hindi, 90 regional (Tamil, Telugu, Malayalam, Kannada, Bengali, Marathi), 90 English/international; about 75 series. Writes `data/seed.json`.
+2. Per title: TMDB details, external ids, India watch providers, release dates/content ratings, keywords; Wikidata by TMDB id (P4947 film / P4983 series) for "based on" (P144) and "main subject" (P921), plus whether it's a biographical film; Wikipedia plot and reception sections (the English article, via the action API); Tavily search for audience reactions (about 5 results). Every raw response is cached in `data/cache/` (git-ignored, because it holds third-party text).
+3. Gemini writes only the judgement fields (honest read, traps, tones, arc, ending, spoiler ending, bandwidth, flags, family, good for/skip if, vibe, series extras, a truth claim) against a JSON schema that only allows the vocabularies. Facts (title, year, runtime, seasons, languages, rating, `watch_in`) come straight from TMDB, never from the model.
+4. `validate.js` enforces every CARD_SCHEMA rule: 3–5 vocabulary tones summing to 100 (repairs rounding), vocab-only enums, Wikidata wins on truth (and confidence drops a level), spoiler words kept out of `actually_is`/`vibe` (re-ask once, else reject), no 12+-word runs copied from any source text (re-ask once, else reject), `watch_in` from TMDB India only. Confidence comes from sources read and how many reaction sources there were. A card that fails twice is logged and skipped.
+5. `embed.js` embeds `vibe` + tone words + arc words + good_for into `data/embeddings.json`.
+
+**Matching** (`api/recommend.js`): parse with Flash-Lite into the `understood` object plus hard constraints (format, max runtime, languages, platforms, hard no's, family) → if `stay_or_shift` is truly unclear and matters, return the one follow-up → filter the store on hard constraints → embed the mood → cosine top 30 → Flash reranks to 3, with the rating as a quality floor (below 6.0 only if nothing else fits), and writes "why this fits" from the user's own words → `{ followup, picks, understood }`. Saved preferences (S6) arrive in the request body.
+
+### 3.7 States: all verified live (2026-10-02)
+`npm run states` passes all 15 checks at 390 light and 1280 dark: empty (0 background requests), first-run preferences → loading → results (prefs saved), one-word input, the follow-up then results, no match → "Try without “in Korean”" → next suggestion, error and retry, offline, and a burst over the per-visitor limit → "Lots of people are choosing right now" → recovers after a minute.
+
+**Found and fixed by making it happen:**
+1. "We want to laugh loudly" returned only **two** picks: the parser set a weight ceiling of 1 (2 cards in the store). Weight is now a soft ceiling, set only when someone asks for something light, and dropped if it would leave fewer than three.
+2. With the quota out, searches **hung for minutes** (the embedding retried for 61 seconds, five times). Live searches now fail fast, and if embeddings are out too they rank by tone words and rating, still only from the store.
+3. Parsing took 3–9 seconds. `minimal` thinking brings it to about 2 (a search is now about 5–7 seconds end to end).
+4. The rate-limit test couldn't trip through the UI, because the button waits on each search, so a person can't exceed the limit by tapping. The test now sends a burst that's rejected before any model call (no quota spent).
+
+**Design review of the new screens against the approved card and the direction:** Preferences reuses S1's headline, chips and Curtain button. No match, follow-up and error share one quiet block (a 22px line, then actions). Loading is the approved Loading ticket ×3. One mismatch fixed: the follow-up's answer pills were 24px apart; they're now 8px like every other chip row (measured live: 8, 8, 8).
+
+**Credits footer (Launch L7, done early):** TMDB's required notice, plus JustWatch, Wikipedia (CC BY-SA) and Wikidata, in caption size at Ink 70%. **Open for C3:** TMDB's guidelines also ask for their logo. It's a brand mark in their own colours, which the design direction doesn't allow, so it's your call.
+
+### 3.5 Build and run the pipeline (2026-10-01)
+- **Bar:** 300 honest cards in the exact schema, in our own words, from real sources.
+- **Check:** counts, failures, average confidence; ten cards spot-checked against their sources.
+
+**Counts:** 300/300 cards in `data/cards.json`. Mix: 125 Hindi, 85 regional (Tamil 26, Telugu 19, Malayalam 19, Bengali 9, Kannada 8, Marathi 4), 90 English and international (English 72, Korean 11, Japanese 4, Spanish 3). 69 are series. Confidence: 159 high, 137 medium, 4 limited. Average sources read per card: 9.7. Truth: 269 fiction, 16 inspired by real events, 15 true stories. 0 failures left (7 failed on the first pass, every one fixed; see below). Embedded into `data/embeddings.json` (768 dims).
+
+**Problems found and fixed while running** (each found by making it happen):
+1. Both new Flash models were returning 503 "high demand", and then **every Flash model hit the free tier's 20 requests a day**. Side by side on Dangal and Panchayat, Flash-Lite wrote cards of nearly the same quality about 5× faster, so the pipeline now runs on `gemini-3.5-flash-lite` → `gemini-3.1-flash-lite`. A model that returns a daily-quota 429 is skipped for the rest of the run.
+2. Seven cards returned an empty answer: Gemini flagged the prompt as `PROHIBITED_CONTENT` (graphic plot text or Reddit snippets on titles like Fan, Maharaja, Super Deluxe and The Handmaiden). The writer now drops audience reactions, then the full plot, and tries again, and confidence counts only the sources actually read.
+3. Embedding hit the 100-texts-a-minute cap, so batches are now paced.
+
+**Spot-check (20 cards read against what's known and the cached sources):**
+- **Right:** Dangal (true story, gritty not light), Bhaag Milkha Bhaag ("a grueling, trauma-scarred journey… that happens to feature a lot of running"), Manjummel Boys (true story; "the holiday film it looks like" vs survival nightmare), English Vinglish (inspired by the director's mother), Kota Factory (black-and-white noted), Parasite and Breaking Bad (weight 5, adults only), Kaithi, Jallikattu, K.G.F, Train to Busan, Spirited Away, Gullak, DDLJ, Pathaan, Koi... Mil Gaya.
+- **Wrong, fixed:** (a) OMG: Oh My God! was "inspired by real events" when it's adapted from a play. The prompt now defines the three truth statuses precisely. (b) Forrest Gump came out "inspired by" because I'd treated any dated main subject (the Vietnam War) as proof. That rule is gone. (c) The Godfather, Django Unchained, Inglourious Basterds and Titanic were forced to "inspired by" by a Wikidata class I'd wrongly listed as biographical (`Q17013749`). Now only verified classes count (biographical film `Q645928`, docudrama `Q622370`), plus a real person as main subject or a fictional source. (d) Jab We Met had an arc that ends going down with an uplifting ending. The validator now rejects arc/ending contradictions (6 found and regenerated, 0 left). (e) Truth notes started lowercase, so the first letter of every sentence field is now capitalised (469 repaired in place, no rewrite).
+- **Still imperfect:** a few truth notes write titles in lowercase ("kanji virudh kanji" was fixed on regenerating; there may be others). "VI movies and tv" (a telecom bundle) shows up as a platform on 79 cards, because that's TMDB's India data. Spoiler endings for ongoing series describe the latest season vaguely.
+
+### 3.6 Swap the engine (2026-10-01)
+- **Check:** typing a real mood returns real picks from the store, different for different moods.
+Done: `src/engine/live.js` calls `/api/recommend` with the same call shape as the mock. The Vite dev middleware serves `api/*` with keys only in the Node process. Measured: "Rough day at work, warm but not dumb" → Queen, Panchayat, Zindagi Na Milegi Dobara (with "why" lines in the user's own terms). "I am sad" → the follow-up, then "Cheer me up" → Jab We Met, Queen, Panchayat. Surprise me → three random well-rated titles. `npm run flow` passes at 390/1280 × light/dark on the live engine, with 9 different titles across three "show me others". Commit `9d79b55` "Live engine on seed catalogue".
+
+### 3.7 States, designed in code (2026-10-01, follow-up check pending)
+- **Bar:** each state appears only because of the real situation that causes it; existing tokens only.
+- **Check:** make each happen live with Playwright (`npm run states`) and snap it.
+Built: **Empty** (Find waits for input; no background requests, checked by counting them: 0). **Preferences S6** (asked before the first search, saved in localStorage, editable from "What I watch on" in the header, with "Skip for now" and "Any language is fine with subtitles"). **Loading** (the three Loading tickets slide up when you tap, then fill in place). **Partial input** (one word works). **The one follow-up** in place of the tickets, with pill answers. **No match** (names the constraint to loosen, with "Try without “…”", which removes it for that search). **Error / busy / offline** in plain words, with "Try again". **Rate limit** (12 requests a minute per visitor, so one tab can't burn the free quota).
+Verified so far: empty and first-run preferences → loading → results passed live. The live run found a real bug: "Try without…" re-sent the same search because the client dropped `loosen`. Fixed, and the engine's next-tightest suggestion was checked ("in Korean" → "under 80 minutes" → results). Then the quota ran out, so the follow-up, no-match, error and rate-limit snaps get re-run after the reset. Re-run at 18:47 IST: the models answered briefly, and empty, first-run preferences and partial input passed again, then the quota ran out on the follow-up. Degraded mode answered "I am sad" with Talaash, Joker and Inside Out, which shows exactly why the follow-up matters. Degraded mode (no model) was tested directly: "my 10-year-old" → Harry Potter, Inside Out, Back to the Future; "sad ending mat dena" excludes sad endings.
+
+### 3.8 Eval (rounds 2 and 3)
+- Round 2 was stopped by the 30-minute background limit at mood 17 (16/17 pass). Its one miss: Stree in "scary but not gory" had no "scary" tone. Not written to `docs/eval/`, since it never finished.
+- Fixes: the card validator now requires "scary" on horror made to frighten (prompt-only before); Stree, GHOUL, Betaal and The Haunting of Hill House regenerated with it. Munjya's rewrite reads as a goofy creature comedy, so it stays without "scary". Eval now saves after each mood and resumes, and the judge uses 30s timeouts (a slow Gemini period had cost 22 minutes on one mood).
+- Round 3: 30/30, fit 4.70, none below 3. Passes. Judge split above. Vi Movies and TV removed from where to watch at Preety's call (80 cards; the pipeline drops it too).
+
+### Phase 4 (pulled forward at Preety's ask, while eval round 2 runs): watchlist, compare, service links
+- **Bar:** S4 Watchlist and S5 Compare in "The Single Screen", plus card buttons that do what they say.
+- **Reference:** docs/design/approved/ (the card and S2), docs/DESIGN_DIRECTION.md, PRD S4/S5/F6.
+- **Limits:** existing tokens only (chosen state = the chosen-chip fill); localStorage, guarded; no page-level sideways scroll at 390px; empty, one-item and full states.
+- **Check:** `node scripts/lists.js` (Playwright, seeded with real cards, no Gemini calls) plus snaps at 390/1280, light/dark.
+- Built: `src/lists.js`, `src/screens/Watchlist.jsx` (/watchlist), `src/screens/Compare.jsx` (/compare, up to 3, 8 rows), header links with counts, card buttons as toggles ("On your watchlist", "In compare", "Compare is full").
+- Preety asked to "connect" Netflix, Prime and others. No service offers account linking or title lookup to outside apps, so: saved services ("What I watch on") come first on each card ("You have it on Prime Video. Also on …") and every name opens that service's search for the title in a new tab (`src/platforms.js`). Netflix, Prime Video, JioHotstar, Apple TV+ and Sun Nxt search URLs loaded when checked; Sony Liv, Zee5 and aha blocked the check, so they and unlisted services open JustWatch India's title search. Replaces the inert `href="#"` links.
+- Ran sequentially on branch `phase-4-watchlist-compare`, not the two-worktree exercise the runbook planned: no GitHub repo yet (3.10) and Preety wanted it now. The worktree exercise can still be shown with Phase 5.
+- Fix found by the check: hidden screen-reader labels inside the scrolling table pushed the page to 435px; the table box is now `relative`.
+- Check: 29/29 pass, no page errors.
+
 ## Decisions made on my own
 - **Tailwind 3 with a `tailwind.config.js`** (not v4's CSS `@theme`), because the runbook asks for tokens "in the Tailwind config". Default palette, spacing, radii and shadows are replaced, so nothing off-direction can be used by accident.
 - **Honest read above the title**, following the direction's top-to-bottom anatomy literally (counterfoil → honest read → title). You might prefer the title first, so it anchors the card.
@@ -173,6 +259,16 @@ f53bd36 Scaffold, film card and navigation shell
 - **Focus outline is Screen in dark mode and in the header**, because the Curtain outline vanishes on Curtain/Curtain deep. Inside tickets it stays Curtain.
 - **Enter submits; Shift+Enter is a new line** in the mood box.
 - **S2 uses an sr-only heading** "Your three picks". The direction gives Results no visible heading.
+
+- **Flash-Lite for cards and the live engine** (not Flash), forced by the free tier's 20-a-day Flash limit. Flash is kept only as the eval judge.
+- **Languages on a card = the original language only** (TMDB `original_language`), so "Hindi or English" filters mean what people expect.
+- **Platform names from TMDB India**, with "with Ads" and "… Channel" variants dropped, and "Amazon Prime Video" shown as "Prime Video".
+- **Wikidata overrides truth only on firm statements** (a real person as main subject, biographical film/docudrama, or adapted from a novel/film/play/comic). A war or disaster as main subject doesn't decide it.
+- **The engine response gained `no_match`** (documented in docs/CARD_SCHEMA.md) so the screen can say which constraint to loosen.
+- **"Any language is fine with subtitles"** turns the saved-language filter off.
+- **Raw source text is git-ignored** (`data/cache/`), since it's third-party text. Cards, seed and embeddings are committed.
+
+- **PMF success targets added to docs/PRD.md** at Preety's request (2026-10-02): opened or saved 50%+, "Did this match?" yes 70%+, 7-day return 20%+, "show me others" use under 40%. Starting points, to revisit at C3.
 
 ## Cut or deferred
 <!-- Anything cut under the time-box rule, and why. -->

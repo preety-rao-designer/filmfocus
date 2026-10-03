@@ -124,3 +124,5 @@ For series, `runtime_min` is `null` and `series` is:
 ```
 
 When the input has an important gap, `picks` is empty and `followup` is `{ "question": "Stay in this mood or get out of it?", "options": ["Comfort me", "Cheer me up", "Let me feel it", "Distract me"], "slot": "stay_or_shift" }`.
+
+When hard constraints leave nothing in the store, `picks` is empty, `followup` is null, and the response adds `no_match`: `{ "constraint": "platforms", "label": "on Netflix, Prime Video, JioHotstar" }`. That's the constraint whose removal brings back the most titles. The client can resend with `loosen: ["platforms"]` to drop it for that search.

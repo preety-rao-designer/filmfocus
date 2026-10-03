@@ -192,10 +192,16 @@ Empty (nothing typed yet). Loading (understanding the mood, finding picks, gener
 
 ## Success metrics for the PMF test
 
-- Share of searches where the user opens or saves at least one pick.
-- "Did this match?" yes rate.
-- Returning users within 7 days.
-- Share of sessions using refine or "show me others" (a signal the first 3 missed).
+Targets are set before launch so results can't be read generously afterwards. Starting points, to revisit at Checkpoint C3:
+
+| Metric | Target | Why it matters | Tracked from |
+|---|---|---|---|
+| Share of searches where the user opens or saves at least one pick | 50% or more | The three picks were worth a look | Launch L6 (opens); Phase 4 adds saves via the watchlist |
+| "Did this match?" yes rate | 70% or more ("partly" reported separately) | The honest read held up after watching: the core promise | Launch L5 |
+| Returning users within 7 days | 20% or more | People come back the next time they need something to watch | Launch L6 |
+| Share of sessions using refine or "show me others" | Under 40% (lower is better) | A signal the first three missed | Launch L6 |
+
+Before launch, the engine eval (docs/EVAL_MOODS.md) stands in for these. Its bar is rule checks passing on 28 of 30 moods, with an average fit of 4.0 or more and no mood below 3.
 
 ---
 
