@@ -10,6 +10,8 @@ function apiDev() {
     name: 'filmfocus-api-dev',
     configureServer(server) {
       Object.assign(process.env, loadEnv(server.config.mode, process.cwd(), ''))
+      // Events and votes from local runs (tests, trying things out) are tagged, so live metrics count only the real site.
+      process.env.FILMFOCUS_TEST = process.env.FILMFOCUS_TEST || '1'
       server.middlewares.use(async (req, res, next) => {
         if (!req.url.startsWith('/api/')) return next()
         const name = req.url.slice(5).split('?')[0]

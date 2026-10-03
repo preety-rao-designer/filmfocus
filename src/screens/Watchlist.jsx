@@ -6,7 +6,7 @@ import FilmCard from '../components/FilmCard.jsx'
 const TINT_ORDER = ['rose', 'mint', 'marigold']
 const primary = 'inline-flex min-h-[48px] items-center rounded-pill bg-curtain px-6 text-body font-medium text-screen'
 
-export default function Watchlist({ list, compareIds, compareFull, mine, onSave, onCompare, onFind }) {
+export default function Watchlist({ list, compareIds, compareFull, mine, onWatch, onSave, onCompare, onFind }) {
   return (
     <main className="mx-auto max-w-column px-4 pt-12 pb-16 text-ink dark:text-screen md:pt-16">
       <h1 className="font-display text-headline [text-wrap:balance] md:text-headline-lg">Your watchlist</h1>
@@ -34,6 +34,7 @@ export default function Watchlist({ list, compareIds, compareFull, mine, onSave,
                 compareFull={compareFull}
                 onCompare={onCompare}
                 mine={mine}
+                onWatch={onWatch}
               />
             ))}
           </div>

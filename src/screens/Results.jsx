@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import FilmCard from '../components/FilmCard.jsx'
 import { cardFor } from '../engine/live.js'
+import { track } from '../track.js'
 import { CHIP_GROUPS, chip } from './MoodInput.jsx'
 
 // S2, Results. Three FilmCards on rose, mint and marigold, 24px apart, and "Show me three others" below.
@@ -65,7 +66,14 @@ function OnDemand({ title, lists }) {
       <Note
         actions={
           state.status === 'offer' && (
-            <button type="button" onClick={() => setState({ status: 'making' })} className={primary}>
+            <button
+              type="button"
+              onClick={() => {
+                track('make_card', {}, lists.searchId())
+                setState({ status: 'making' })
+              }}
+              className={primary}
+            >
               Make its card
             </button>
           )
@@ -93,6 +101,7 @@ function OnDemand({ title, lists }) {
           compareFull={lists.compareFull}
           onCompare={lists.onCompare}
           mine={lists.mine}
+          onWatch={lists.onWatch}
         />
       )}
     </div>
@@ -135,6 +144,7 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
                     compareFull={lists.compareFull}
                     onCompare={lists.onCompare}
                     mine={lists.mine}
+                    onWatch={lists.onWatch}
                   />
                 )}
               </div>

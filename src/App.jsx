@@ -9,6 +9,8 @@ import Compare from './screens/Compare.jsx'
 import { recommend } from './engine/live.js'
 import { loadPrefs, savePrefs } from './prefs.js'
 import { COMPARE_MAX, loadList, saveList, toggleCard } from './lists.js'
+import { newSearchId, rememberChosen, track, trackVisit } from './track.js'
+import MatchCheck from './components/MatchCheck.jsx'
 
 // Five screens, no router: the path picks the screen (`/` is S1, `/results?…` is S2, `/watchlist` is S4, `/compare` is
 // S5, `/preferences` is S6). The
@@ -51,6 +53,7 @@ export default function App() {
   const inflight = useRef(null)
   const pendingFind = useRef(null) // a search waiting on first-run preferences
   const prefsRef = useRef(prefs) // read at request time, so a search right after saving uses the new prefs
+  const searchId = useRef(null) // ties opens and saves to the search they came from (L6)
 
   // One request at a time: a new tap cancels the one in flight, so rapid taps can't land out of order.
   const run = async (req) => {
@@ -78,6 +81,8 @@ export default function App() {
 
   const startSearch = (t, c) => {
     seen.current = []
+    searchId.current = newSearchId()
+    track('search', { chars: t.trim().length, chips: Object.values(c).filter(Boolean).length, surprise: !t.trim() && !Object.values(c).some(Boolean) }, searchId.current)
     window.history.pushState(null, '', resultsUrl(t, c))
     setScreen('results')
     run({ text: t, chips: c })
@@ -95,7 +100,11 @@ export default function App() {
   }
 
   useEffect(() => {
-    if (initial.screen === 'results') run({ text: initial.text, chips: { ...NO_CHIPS, ...initial.chips } })
+    trackVisit()
+    if (initial.screen === 'results') {
+      searchId.current = newSearchId()
+      run({ text: initial.text, chips: { ...NO_CHIPS, ...initial.chips } })
+    }
     const onPop = () => {
       const u = readUrl()
       setScreen(u.screen)
@@ -103,6 +112,7 @@ export default function App() {
       setChips({ ...NO_CHIPS, ...u.chips })
       if (u.screen === 'results') {
         seen.current = []
+        searchId.current = newSearchId()
         run({ text: u.text, chips: { ...NO_CHIPS, ...u.chips } })
       } else inflight.current?.abort()
     }
@@ -128,16 +138,22 @@ export default function App() {
     setScreen(name)
     window.scrollTo(0, 0)
   }
-  const toggleSaved = (card) => setWatchlist((l) => {
-    const next = toggleCard(l, card)
+  // Side effects (storage, events) sit outside the state setters: React may run a setter twice in development.
+  const toggleSaved = (card) => {
+    const next = toggleCard(watchlist, card)
+    if (next.length > watchlist.length) {
+      rememberChosen(card)
+      track('save', { card: card.id }, searchId.current)
+    }
     saveList('watchlist', next)
-    return next
-  })
-  const toggleCompare = (card) => setCompare((l) => {
-    const next = toggleCard(l, card, COMPARE_MAX)
+    setWatchlist(next)
+  }
+  const toggleCompare = (card) => {
+    const next = toggleCard(compare, card, COMPARE_MAX)
+    if (next.length > compare.length) track('compare', { card: card.id }, searchId.current)
     saveList('compare', next)
-    return next
-  })
+    setCompare(next)
+  }
   const clearCompare = () => {
     saveList('compare', [])
     setCompare([])
@@ -149,6 +165,12 @@ export default function App() {
     onSave: toggleSaved,
     onCompare: toggleCompare,
     mine: prefs?.platforms || [],
+    // Tapping a service is the strongest "I'm watching this" signal we get.
+    onWatch: (card, platform) => {
+      rememberChosen(card)
+      track('open', { card: card.id, platform }, searchId.current)
+    },
+    searchId: () => searchId.current,
   }
 
   const closePrefs = (saved) => {
@@ -179,6 +201,7 @@ export default function App() {
           compareIds={cardLists.compareIds}
           compareFull={cardLists.compareFull}
           mine={cardLists.mine}
+          onWatch={cardLists.onWatch}
           onSave={toggleSaved}
           onCompare={toggleCompare}
           onFind={toInput}
@@ -209,6 +232,7 @@ export default function App() {
           }}
         />
       )}
+      {screen === 'input' && <MatchCheck />}
       {screen === 'results' && (
         <Results
           text={text}
@@ -216,11 +240,20 @@ export default function App() {
           view={view}
           batch={batch}
           // Same request again (keeping any follow-up answer or loosened constraint); `seen` moves it on.
-          onOthers={() => run(last.current)}
+          onOthers={() => {
+            track('others', {}, searchId.current)
+            run(last.current)
+          }}
           onChangeMood={toInput}
           onRetry={() => run(last.current)}
-          onAnswer={(slot, value) => run({ text, chips, answer: { slot, value } })}
-          onLoosen={(key) => run({ text, chips, loosen: [...(last.current?.loosen || []), key] })}
+          onAnswer={(slot, value) => {
+            track('answer', { value }, searchId.current)
+            run({ text, chips, answer: { slot, value } })
+          }}
+          onLoosen={(key) => {
+            track('loosen', { key }, searchId.current)
+            run({ text, chips, loosen: [...(last.current?.loosen || []), key] })
+          }}
           lists={cardLists}
         />
       )}

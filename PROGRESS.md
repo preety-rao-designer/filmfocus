@@ -254,6 +254,18 @@ Verified so far: empty and first-run preferences → loading → results passed 
 - Check: Laapataa Ladies made in 19s (high confidence, Netflix), repeat request 1s with no generation; Piku, Udaan made; "Queen", "queen 2014", "lost ladies", "Laapataa Ladies" resolve to existing cards; nonsense → not_found; cap of 0 → `limit` without generating. Browser: offer → Loading ticket → Udaan card, save to watchlist works, no page errors. Watchlist/compare check still 29/29.
 - Known: an on-demand title's own request ("something like Udaan") doesn't steer search toward Udaan's vibe yet; picks come from the mood words as before.
 
+### L5 "Did this match?" + L6 analytics
+- **Bar:** one quiet question on S1 about a title they chose last time, and the PRD's success metrics countable from day one.
+- **Reference:** PRD success metrics (opens/saves per search, match yes-rate, 7-day return, refine/others share); approved S1 and the Note style; chips for the answers.
+- **Limits:** no personal data: a random visitor id in localStorage, no IPs stored, no mood text stored (length only); Firestore free writes (one small doc per event); asked once per title, only after 3 hours, dismissible; existing tokens only.
+- **Check:** Playwright: open a pick → come back later (clock moved) → question shows → vote → stored in Firestore `votes`, `cardStats` counts, gone on reload; 3 "no" votes flag a card; `node scripts/metrics.js` prints every PRD metric from real events.
+- Decision: own events in Firestore instead of Vercel Web Analytics or PostHog. Vercel's custom events need a paid plan and PostHog needs another account; Firestore is already set up, free, and gives exactly the PRD metrics.
+- Built: `api/event.js` (whitelisted event names, short props only, per-connection cap), `api/feedback.js` (one vote per visitor per card, counts in `cardStats`, `flagged` at 3 "no"), `src/track.js` (visitor id, sendBeacon, one visit a day, chosen titles), `src/components/MatchCheck.jsx` under S1, `scripts/metrics.js`, `scripts/feedback.js`.
+- "Chosen" = tapped a service link or saved to the watchlist. Asked once, 3+ hours later; "Haven't watched it yet" asks again tomorrow.
+- Events and votes from the local dev server (tests, trying things) are tagged `test` and left out of metrics; only the deployed site counts. Cleared 8 stray test events from earlier runs.
+- Found and fixed: tracking inside React state setters logged a save twice in development; side effects now sit outside the setters.
+- Check: `node scripts/feedback.js` 19/19 (events reach Firestore with the search id, no mood text, one visit a day, one save per tap, question timing, snooze, vote stored, 3 "no" flag a card, changed vote moves rather than doubles, bad vote rejected, no page errors; cleans up after itself). `node scripts/metrics.js` runs and prints all four PRD metrics (zero so far). Watchlist/compare check still passes.
+
 ## Decisions made on my own
 - **Tailwind 3 with a `tailwind.config.js`** (not v4's CSS `@theme`), because the runbook asks for tokens "in the Tailwind config". Default palette, spacing, radii and shadows are replaced, so nothing off-direction can be used by accident.
 - **Honest read above the title**, following the direction's top-to-bottom anatomy literally (counterfoil → honest read → title). You might prefer the title first, so it anchors the card.

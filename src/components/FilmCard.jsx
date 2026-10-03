@@ -185,11 +185,11 @@ function Pairs({ card }) {
 
 // Each name opens that service's search for the title (src/platforms.js). Services the person has come first:
 // "You have it on Netflix. Also on Prime Video." Without saved services it reads as before: "Watch on A or B".
-function PlatformLinks({ names, title }) {
+function PlatformLinks({ names, title, onWatch }) {
   return names.map((p, i) => (
     <span key={p}>
       {i > 0 && (i === names.length - 1 ? ' or ' : ', ')}
-      <a href={watchLink(p, title)} target="_blank" rel="noopener noreferrer" className="font-medium underline decoration-1 underline-offset-4">
+      <a href={watchLink(p, title)} target="_blank" rel="noopener noreferrer" onClick={() => onWatch?.(p)} className="font-medium underline decoration-1 underline-offset-4">
         {p}
         <span className="sr-only"> (opens in a new tab)</span>
       </a>
@@ -197,15 +197,15 @@ function PlatformLinks({ names, title }) {
   ))
 }
 
-function WhereToWatch({ platforms, title, mine }) {
+function WhereToWatch({ platforms, title, mine, onWatch }) {
   if (!platforms) return <p className="text-body"><Bar chars={26} /></p>
   if (platforms.length === 0) return <p className="text-body">Not streaming in India right now.</p>
   const { yours, others } = splitPlatforms(platforms, mine)
-  if (!yours.length) return <p className="text-body">Watch on <PlatformLinks names={others} title={title} /></p>
+  if (!yours.length) return <p className="text-body">Watch on <PlatformLinks names={others} title={title} onWatch={onWatch} /></p>
   return (
     <p className="text-body">
-      You have it on <PlatformLinks names={yours} title={title} />.
-      {others.length > 0 && <> Also on <PlatformLinks names={others} title={title} />.</>}
+      You have it on <PlatformLinks names={yours} title={title} onWatch={onWatch} />.
+      {others.length > 0 && <> Also on <PlatformLinks names={others} title={title} onWatch={onWatch} />.</>}
     </p>
   )
 }
@@ -215,7 +215,7 @@ const pill =
   'inline-flex min-h-[44px] items-center rounded-pill border border-ink/40 px-4 text-caption font-medium text-ink disabled:opacity-50 ' +
   'aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-screen'
 
-export default function FilmCard({ card, why, tint = 'rose', loading = false, saved = false, onSave, comparing = false, onCompare, compareFull = false, mine = [] }) {
+export default function FilmCard({ card, why, tint = 'rose', loading = false, saved = false, onSave, comparing = false, onCompare, compareFull = false, mine = [], onWatch }) {
   const [revealed, setRevealed] = useState(false)
   const uid = useId().replace(/:/g, '')
   const isLoading = loading || !card
@@ -265,7 +265,7 @@ export default function FilmCard({ card, why, tint = 'rose', loading = false, sa
         {/* The why line belongs to a search; a card opened from the watchlist or compare has none. */}
         {(isLoading || why) && <p className="text-body italic">{c ? why : <Bar chars={36} />}</p>}
 
-        <WhereToWatch platforms={c ? c.watch_in : null} title={c?.title} mine={mine} />
+        <WhereToWatch platforms={c ? c.watch_in : null} title={c?.title} mine={mine} onWatch={c && onWatch ? (p) => onWatch(c, p) : undefined} />
 
         <div>
           <div className="flex flex-wrap gap-2">
