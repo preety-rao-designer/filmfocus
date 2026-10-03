@@ -1,19 +1,10 @@
 # FilmFocus progress
 
 **Live URL:** (not yet)
-**Current phase / step:** C2 approved. 3.10 done (private repo pushed). **Launch L1: waiting for Preety's Vercel and Firebase accounts.**
+**Current phase / step:** Launch. L1 done (Vercel + Firebase verified). Next: L2 card store, L4 on-demand cards, L5 votes, L6 analytics, L3 catalogue growth (quota-paced), L8 preview → C3.
 
 ## Waiting for Preety
-**L1 accounts (about 10 minutes, all free, no card).** Preety chose Firebase instead of Supabase.
-
-1. ~~**Vercel**~~ done 2026-10-03: `vercel whoami` → `preetyrao435-8943`.
-2. **Firebase project:** console.firebase.google.com → Add project → name it `filmfocus` → Google Analytics off is fine. It stays on the free Spark plan; don't upgrade to Blaze (that asks for a card, which is C5).
-3. **Firestore:** in the project, Build → Firestore Database → Create database → location `asia-south1 (Mumbai)` → start in **production mode**.
-4. **Service account key:** Project settings (gear) → Service accounts → Generate new private key. It downloads a JSON file. **Save it outside this project folder** (e.g. Downloads).
-5. **Into `.env`:** in a terminal run `base64 -i ~/Downloads/<the-file>.json | tr -d '\n' | pbcopy`, then in `.env` add a line `FIREBASE_SERVICE_ACCOUNT=` and paste after the `=`. Then delete the downloaded JSON file.
-6. Tell me "done". I'll test it by making a request, without reading the key.
-
-Previous checkpoint: **C2 approved** (eval round 3: 30/30, fit 4.70; `docs/eval/2026-10-03-round-3.md`).
+Nothing right now. Next stop is C3 (the preview deploy).
 
 **A decision for later (C5, money; I won't do this):** on the free tier, the live app can serve roughly **500 searches a day** in total, since each search uses one call on each of the two Flash-Lite models. Growing the catalogue to 1,000 titles at Launch (L3) also needs about two days of quota. If that's too tight for a public test, the option is enabling billing on your Gemini key. That's your call, at Launch.
 
@@ -247,6 +238,10 @@ Verified so far: empty and first-run preferences → loading → results passed 
 ### Launch prep: Firebase instead of Supabase (Preety's call)
 - Seed cards and embeddings stay bundled and searched in memory, as now. Firestore (Spark plan: 1 GiB, 50,000 reads and 20,000 writes a day, no card) holds on-demand cards (L4) and "did this match?" votes (L5). Loading the whole store from Firestore on each cold start would spend about 1,000 reads per start, so it isn't used for that.
 - Server-only access via `firebase-admin` with a service account in `FIREBASE_SERVICE_ACCOUNT` (base64 JSON). Updated CLAUDE.md, PRD, RUNBOOK (L1, L2, L5), START_HERE, `.env.example`, `api/_lib/store.js` comment. `.gitignore` now also blocks Firebase key files in case one is saved into the folder.
+
+### L1 Accounts
+- Vercel: `vercel whoami` → `preetyrao435-8943`.
+- Firebase: project `filmfocus-8ffc5`, Firestore in asia-south1, production mode. Key added by Preety as `FIREBASE_SERVICE_ACCOUNT` (base64), never printed. Verified by a real round trip with `firebase-admin`: wrote, read back and deleted `_healthcheck/setup`.
 
 ## Decisions made on my own
 - **Tailwind 3 with a `tailwind.config.js`** (not v4's CSS `@theme`), because the runbook asks for tokens "in the Tailwind config". Default palette, spacing, radii and shadows are replaced, so nothing off-direction can be used by accident.
