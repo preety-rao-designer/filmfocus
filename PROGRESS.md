@@ -1,14 +1,17 @@
 # FilmFocus progress
 
 **Live URL:** (not yet)
-**Current phase / step:** Phase 3, step 3.7 (states verified except the follow-up) → 3.8 eval, paused for Gemini's daily quota
+**Current phase / step:** Phase 3, step 3.9 → **C2, waiting for Preety** (eval passed in round 3). Watchlist, compare and service links (Phase 4 pieces) built early on branch `phase-4-watchlist-compare`.
 
 ## Waiting for Preety
-**Nothing to do unless you want to pay for Gemini.** It's not a blocker: I'll carry on once the quota resets.
+**C2: the engine eval. Approve, or tell me what to change.** Full report: `docs/eval/2026-10-03-round-3.md`.
 
-Gemini's free tier caps every model per day: **500 requests for each Flash-Lite model, 20 for each Flash model**. Building the 300 cards (writing, checking and fixing) used up today's allowance on every text model. Embeddings still work. The quota resets at midnight Pacific time, about **12:30 pm IST**. After that I resume at 3.7 (re-run the follow-up check) and 3.8 (the 30-mood eval), then stop at C2.
-
-Meanwhile the app still works: when the model is out, search falls back to keyword constraints plus embedding match, so people get store picks rather than an error. Picks are a little weaker, there's no follow-up question, and "why this fits" lines are generic.
+- **Rule checks:** 30/30 pass (bar 28). Every pick is from the store, three per mood, no duplicates, and each mood's hard rules hold (language, "not gory", "no romance", runtime, family-safe and so on).
+- **Average fit:** 4.70 of 5 (bar 4.0). No mood below 3.
+- **Scorer:** 12 moods scored by Flash, 18 by Flash-Lite because the Flash models ran out of free quota. You chose to finish with Flash-Lite. The two agree closely (4.75 vs 4.67).
+- **Best three** (fit 5): "Rough day at work, want something warm but not dumb" → Queen, Jab We Met, Little Things. "Need to cry but in a good way" → Inside Out, Kal Ho Naa Ho, Black. "Something my parents and I can all watch after dinner" → Back to the Future, Dilwale Dulhania Le Jayenge, Star Wars.
+- **Worst three:** "I have 30 minutes, give me an episode" (3) → Panchayat, Rick and Morty, The Big Bang Theory; the judge thought Panchayat's episodes run long (our card says about 30 min). "Mindless but not stupid" (3) → Bang Bang!, Pirates of the Caribbean, The Matrix; The Matrix is too heady for "mindless". "Rainy evening, chai, something cosy" (4) → Panchayat, Harry Potter, Period. End of Sentence.; the documentary is heavier than cosy.
+- **Watch item:** Queen comes up in 8 of 30 moods (down from 10). A bigger catalogue at L3 should spread picks out.
 
 **A decision for later (C5, money; I won't do this):** on the free tier, the live app can serve roughly **500 searches a day** in total, since each search uses one call on each of the two Flash-Lite models. Growing the catalogue to 1,000 titles at Launch (L3) also needs about two days of quota. If that's too tight for a public test, the option is enabling billing on your Gemini key. That's your call, at Launch.
 
@@ -215,6 +218,11 @@ Done: `src/engine/live.js` calls `/api/recommend` with the same call shape as th
 - **Check:** make each happen live with Playwright (`npm run states`) and snap it.
 Built: **Empty** (Find waits for input; no background requests, checked by counting them: 0). **Preferences S6** (asked before the first search, saved in localStorage, editable from "What I watch on" in the header, with "Skip for now" and "Any language is fine with subtitles"). **Loading** (the three Loading tickets slide up when you tap, then fill in place). **Partial input** (one word works). **The one follow-up** in place of the tickets, with pill answers. **No match** (names the constraint to loosen, with "Try without “…”", which removes it for that search). **Error / busy / offline** in plain words, with "Try again". **Rate limit** (12 requests a minute per visitor, so one tab can't burn the free quota).
 Verified so far: empty and first-run preferences → loading → results passed live. The live run found a real bug: "Try without…" re-sent the same search because the client dropped `loosen`. Fixed, and the engine's next-tightest suggestion was checked ("in Korean" → "under 80 minutes" → results). Then the quota ran out, so the follow-up, no-match, error and rate-limit snaps get re-run after the reset. Re-run at 18:47 IST: the models answered briefly, and empty, first-run preferences and partial input passed again, then the quota ran out on the follow-up. Degraded mode answered "I am sad" with Talaash, Joker and Inside Out, which shows exactly why the follow-up matters. Degraded mode (no model) was tested directly: "my 10-year-old" → Harry Potter, Inside Out, Back to the Future; "sad ending mat dena" excludes sad endings.
+
+### 3.8 Eval (rounds 2 and 3)
+- Round 2 was stopped by the 30-minute background limit at mood 17 (16/17 pass). Its one miss: Stree in "scary but not gory" had no "scary" tone. Not written to `docs/eval/`, since it never finished.
+- Fixes: the card validator now requires "scary" on horror made to frighten (prompt-only before); Stree, GHOUL, Betaal and The Haunting of Hill House regenerated with it. Munjya's rewrite reads as a goofy creature comedy, so it stays without "scary". Eval now saves after each mood and resumes, and the judge uses 30s timeouts (a slow Gemini period had cost 22 minutes on one mood).
+- Round 3: 30/30, fit 4.70, none below 3. Passes. Judge split above. Vi Movies and TV removed from where to watch at Preety's call (80 cards; the pipeline drops it too).
 
 ### Phase 4 (pulled forward at Preety's ask, while eval round 2 runs): watchlist, compare, service links
 - **Bar:** S4 Watchlist and S5 Compare in "The Single Screen", plus card buttons that do what they say.
