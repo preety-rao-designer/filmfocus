@@ -1,7 +1,8 @@
-// node scripts/pipeline/seed.js — picks the seed catalogue from TMDB discover and writes data/seed.json.
+// node scripts/pipeline/seed.js [--grow TOTAL] — picks the seed catalogue from TMDB discover and writes data/seed.json.
+// --grow keeps every existing title and adds new ones until each bucket of the plan is scaled to TOTAL (Launch L3).
 // Mix (runbook 3.4): ~40% Hindi, ~30% regional, ~30% English and international; ~a quarter series.
 // Only titles streaming on a flat-rate service in India, most-voted first, so the store is full of things people can watch.
-import { writeFileSync, mkdirSync } from 'node:fs'
+import { writeFileSync, mkdirSync, readFileSync } from 'node:fs'
 import { tmdb } from './sources.js'
 
 process.loadEnvFile('.env')
@@ -19,10 +20,16 @@ const PLAN = [
 // No news, reality, talk or soap for series; they aren't what people mean by "a show to watch".
 const TV_EXCLUDE = '10763,10764,10767,10766'
 
-const seed = []
-for (const [type, lang, want] of PLAN) {
+const args = process.argv.slice(2)
+const grow = args.includes('--grow') ? Number(args[args.indexOf('--grow') + 1]) : null
+const existing = grow ? JSON.parse(readFileSync('data/seed.json', 'utf8')) : []
+const scale = grow ? grow / PLAN.reduce((a, [, , n]) => a + n, 0) : 1
+
+const seed = [...existing]
+for (const [type, lang, base] of PLAN) {
+  const want = Math.round(base * scale) - existing.filter((s) => s.type === type && s.lang === lang).length
   const got = []
-  for (let page = 1; got.length < want && page <= 10; page++) {
+  for (let page = 1; got.length < want && page <= 30; page++) {
     const res = await tmdb(`/discover/${type}`, {
       watch_region: 'IN',
       with_watch_monetization_types: 'flatrate',
@@ -35,11 +42,11 @@ for (const [type, lang, want] of PLAN) {
     for (const r of res.results) {
       if (got.length >= want) break
       if (seed.some((s) => s.type === type && s.id === r.id)) continue
-      got.push({ type, id: r.id, title: r.title || r.name, lang, votes: r.vote_count })
+      got.push({ type, id: r.id, title: r.title || r.name, lang, votes: r.vote_count, ...(grow && { added_for: 'L3 growth' }) })
     }
     if (page >= res.total_pages) break
   }
-  console.log(`${type} ${lang}: ${got.length}/${want}`)
+  console.log(`${type} ${lang}: +${got.length}/${Math.max(0, want)}`)
   seed.push(...got)
 }
 mkdirSync('data', { recursive: true })

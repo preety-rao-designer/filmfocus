@@ -1,10 +1,15 @@
 # FilmFocus progress
 
-**Live URL:** (not yet)
-**Current phase / step:** Launch. L1 done (Vercel + Firebase verified). Next: L2 card store, L4 on-demand cards, L5 votes, L6 analytics, L3 catalogue growth (quota-paced), L8 preview → C3.
+**Live URL:** https://filmfocus.vercel.app (up since 2026-10-03, not shared anywhere; awaiting C3 sign-off before L9)
+**Current phase / step:** Launch L8 → **C3, waiting for Preety** (try the site on your phone). L3 catalogue growth running a day at a time in the background.
 
 ## Waiting for Preety
-Nothing right now. Next stop is C3 (the preview deploy).
+**C3: try the site on your phone, then approve or tell me what to change.** https://filmfocus.vercel.app
+
+- **Heads-up:** I meant to deploy a password-protected preview, but the first deploy of a new Vercel project goes to production, so this address is already public. It isn't linked or shared anywhere. If you'd rather it be offline until you approve, say so and I'll take it down; otherwise it stays as is.
+- **Try:** a mood in your own words; "Show me three others"; save one to your watchlist and add two to compare; tap a service name (it opens that service's search); type a mood that names a film we don't have (e.g. "something like Swades") and tap "Make its card".
+- **Open question from earlier:** add TMDB's logo to the footer next to the required notice, or keep text only? TMDB asks for the logo "where possible"; text alone is allowed.
+- **Still growing:** the catalogue is going from 311 to about 960 titles, 150 new cards a day to leave Gemini quota for the live site. I'll re-run the 30-mood eval when it's done.
 
 **A decision for later (C5, money; I won't do this):** on the free tier, the live app can serve roughly **500 searches a day** in total, since each search uses one call on each of the two Flash-Lite models. Growing the catalogue to 1,000 titles at Launch (L3) also needs about two days of quota. If that's too tight for a public test, the option is enabling billing on your Gemini key. That's your call, at Launch.
 
@@ -265,6 +270,16 @@ Verified so far: empty and first-run preferences → loading → results passed 
 - Events and votes from the local dev server (tests, trying things) are tagged `test` and left out of metrics; only the deployed site counts. Cleared 8 stray test events from earlier runs.
 - Found and fixed: tracking inside React state setters logged a save twice in development; side effects now sit outside the setters.
 - Check: `node scripts/feedback.js` 19/19 (events reach Firestore with the search id, no mood text, one visit a day, one save per tap, question timing, snooze, vote stored, 3 "no" flag a card, changed vote moves rather than doubles, bad vote rejected, no page errors; cleans up after itself). `node scripts/metrics.js` runs and prints all four PRD metrics (zero so far). Watchlist/compare check still passes.
+
+### L3 Grow the catalogue (in progress)
+- `seed.js --grow 1000` scaled every bucket of the original plan: 311 → 962 titles (651 new, 202 series). Short buckets: Marathi films and Tamil, Telugu, Bengali series; TMDB has almost none with India streaming data.
+- `run.js --max N` makes a day's worth and stops by itself when Gemini's daily quota runs out. Day 1: 150 cards.
+- Then re-embed and re-run the eval; it must still meet the pass bar.
+
+### L8 Preview deploy
+- Linked Vercel project `filmfocus`; copied GEMINI, TMDB, TAVILY and FIREBASE keys into Vercel as Secrets (preview + production) from `.env` via stdin, never printed. `.vercelignore` keeps `.env*`, caches, logs and snaps out of uploads.
+- The first CLI deploy of a new project goes to production, so https://filmfocus.vercel.app is public before C3 (deployment-specific URLs are behind Vercel login). Noted for Preety at C3.
+- Check (Playwright, iPhone 13 viewport, live site): first-run preferences → 3 picks in 6s with why lines; "show me others" in 4s; watchlist by direct URL; page width 390; no page errors; no API failures; events stored untagged (live) and the test ones deleted. `/api/card` live: Piku from store in 3s; "Rocket Singh: Salesman of the Year" made and saved in 14s (high confidence).
 
 ## Decisions made on my own
 - **Tailwind 3 with a `tailwind.config.js`** (not v4's CSS `@theme`), because the runbook asks for tokens "in the Tailwind config". Default palette, spacing, radii and shadows are replaced, so nothing off-direction can be used by accident.

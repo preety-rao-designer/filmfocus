@@ -1,0 +1,13 @@
+# Never upload secrets or local-only files (keys live in Vercel's environment settings).
+.env
+.env.*
+!.env.example
+data/cache
+data/*.log
+data/eval-partial-*.json
+data/failures.json
+docs/design/snaps
+dist
+node_modules
+*firebase-adminsdk*.json
+serviceAccount*.json
