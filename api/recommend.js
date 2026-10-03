@@ -82,7 +82,8 @@ async function parse(text, chips) {
   try {
     return await parseWithModel(text, chips)
   } catch (e) {
-    if (e.status === 429 || e.status === 503 || e.name === 'TimeoutError') return fallbackParse(text)
+    // Quota, overload, or a prompt the model refuses to read (e.g. "my 10-year-old" can trip its filters).
+    if (e.status === 429 || e.status === 503 || e.name === 'TimeoutError' || e.finish) return fallbackParse(text)
     throw e
   }
 }
@@ -146,6 +147,8 @@ const brief = (c) => ({
   type: c.type === 'series' ? `series, ${c.series?.seasons} seasons, ${c.series?.episode_min} min episodes` : `movie, ${c.runtime_min} min`,
   language: c.languages[0],
   is: c.honest_read.actually_is,
+  vibe: c.vibe,
+  traps: c.expectation_traps,
   tones: c.tone_mix.map((t) => `${t.tone} ${t.pct}%`).join(', '),
   feels: `${c.arc.start} → ${c.arc.middle} → ${c.arc.end}, ending ${c.ending}`,
   weight: c.bandwidth.emotional_weight,
@@ -162,7 +165,7 @@ async function rerank(text, chips, p, candidates) {
   const asked = [text.trim() && `They typed: "${text.trim().slice(0, 600)}"`, Object.entries(chips).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join(', ')].filter(Boolean).join('\n')
   const { data } = await generateJSON({
     chain: MODELS.rerank,
-    system: `You are FilmFocus, a friend at the ticket counter who has seen everything. Pick the 3 titles from the list that best fit this person right now. Fit to their mood beats acclaim: a great film that clashes with the mood is a wrong answer. Respect what they asked to avoid. Prefer variety across the three (not three near-identical picks). Ratings are only a quality floor. Choose only ids from the list. Write each "why this fits" in plain, warm words that refer to what they said; no spoilers.`,
+    system: `You are FilmFocus, a friend at the ticket counter who has seen everything. Pick the 3 titles from the list that best fit this person right now. Fit to their mood beats acclaim: a great film that clashes with the mood is a wrong answer. Respect what they asked to avoid, including subplots (read each vibe: \"no romance\" rules out a film with a love story at its heart). Prefer variety across the three (not three near-identical picks). Ratings are only a quality floor. Choose only ids from the list. Write each "why this fits" in plain, warm words that refer to what they said; no spoilers.`,
     prompt: `${asked || 'They asked to be surprised: pick three good, different titles.'}\nWhat we understood: ${JSON.stringify({ mood: p.mood, stay_or_shift: chips.stay_or_shift || p.stay_or_shift, company: chips.company || p.company })}\n\nCandidates:\n${candidates.map((c) => JSON.stringify(brief(c))).join('\n')}`,
     schema: RERANK_SCHEMA,
     temperature: 0.3,

@@ -2688,46 +2688,42 @@
   ],
   "truth": {
    "status": "fiction",
-   "note": null
+   "note": "Adapted from Marathi literary works by Narayan Dharap and Shripad Narayan Pendse."
   },
   "honest_read": {
-   "looks_like": "A rainy village folk horror film about hunting a mysterious ancestral treasure.",
-   "actually_is": "A deeply atmospheric, visually striking exploration of human avarice wrapped in ancient mythology and creature terror that haunts you long after it ends."
+   "looks_like": "A rainy village folk tale about ancestral treasure and greedy villagers.",
+   "actually_is": "A deeply atmospheric, grotesque descent into human avarice, blending visceral creature horror with a relentless, rotting period atmosphere."
   },
   "expectation_traps": [
-   "You might expect standard jump scares, but it is a patient study of moral decay.",
-   "It looks like a straightforward monster movie, but the true horror stems from human greed."
+   "You might expect a standard jumpscare-heavy ghost story.",
+   "It looks like a straightforward period adventure about hunting hidden gold."
   ],
   "tone_mix": [
    {
-    "tone": "dark",
+    "tone": "scary",
     "pct": 40
+   },
+   {
+    "tone": "dark",
+    "pct": 30
    },
    {
     "tone": "tense",
     "pct": 30
-   },
-   {
-    "tone": "scary",
-    "pct": 20
-   },
-   {
-    "tone": "thought-provoking",
-    "pct": 10
    }
   ],
   "arc": {
-   "shape": "rise_fall",
-   "start": "desperate",
-   "middle": "greedy",
-   "end": "desolate"
+   "shape": "fall",
+   "start": "uneasy",
+   "middle": "gripped",
+   "end": "devastated"
   },
   "ending": "devastating",
-  "spoiler_ending": "Vinayak becomes entirely consumed by his obsession, dragging his son into the underground vault. Trapped by multiplying monsters, Vinayak straps the lures to himself so his boy can flee to safety. The son emerges to find his father transformed into a wretched beast, whispers the ancient slumber invocation, sets him ablaze, and leaves the cursed place behind.",
+  "spoiler_ending": "Vinayak becomes consumed by greed and tries to steal the deity's entire loincloth with his son, triggering a massive attack by the creature and its clones. To save his son, Vinayak straps the bait dolls to himself and is left behind, transforming into a cursed, tree-like monster. His son escapes the village and leaves him to burn, ending the cycle of ancestral greed.",
   "bandwidth": {
    "pace": "steady",
    "attention": "full_focus",
-   "emotional_weight": 4
+   "emotional_weight": 5
   },
   "content_flags": [
    "violence",
@@ -2736,18 +2732,19 @@
   ],
   "family": "adults_only",
   "good_for": [
-   "stormy nights",
-   "fans of dark folklore"
+   "late night viewing",
+   "appreciating masterclass cinematography"
   ],
   "skip_if": [
-   "you are looking for a cheerful supernatural romp"
+   "you are looking for a light supernatural scare",
+   "you have a weak stomach for body horror"
   ],
-  "vibe": "In a village gripped by perpetual rain, a man discovers a hidden vault where a cursed, famished deity dwells. His relentless pursuit of ancient gold slowly rots his family and soul.",
+  "vibe": "In a relentlessly rainy, cursed Indian village, a scheming man chases generational wealth through a forbidden ancestral womb, unlocking a monstrous, ancient hunger.",
   "confidence": {
    "level": "high",
    "sources_read": 10,
    "agreement": "strong",
-   "generated_at": "2026-10-01",
+   "generated_at": "2026-10-03",
    "refresh_after": null
   }
  },
@@ -6530,38 +6527,42 @@
   ],
   "truth": {
    "status": "fiction",
-   "note": "Adapted from the Malayalam film Manichitrathazhu, which drew from a 19th-century tragedy."
+   "note": "A remake of the Malayalam film Manichitrathazhu."
   },
   "honest_read": {
-   "looks_like": "A spooky haunted house comedy about an NRI couple returning to a cursed ancestral palace.",
-   "actually_is": "A surprisingly layered blend of broad village comedy and a tense psychological mystery about a mind divided."
+   "looks_like": "A lighthearted ghost story about an NRI couple returning to a haunted ancestral palace.",
+   "actually_is": "A loud comedy that takes a sharp turn into a serious psychological mystery involving a supposed ancestral curse and a fractured mind."
   },
   "expectation_traps": [
-   "You might think it is just a silly ghost story, but it relies heavily on a clinical psychiatric explanation.",
-   "Expect constant scares, but the first half leans hard into loud, eccentric comedy."
+   "You might expect a pure, silly ghost comedy throughout.",
+   "You could miss the genuine psychological depth hidden beneath the slapstick."
   ],
   "tone_mix": [
    {
     "tone": "funny",
-    "pct": 45
-   },
-   {
-    "tone": "tense",
     "pct": 35
    },
    {
-    "tone": "thought-provoking",
+    "tone": "tense",
+    "pct": 30
+   },
+   {
+    "tone": "scary",
     "pct": 20
+   },
+   {
+    "tone": "thrilling",
+    "pct": 15
    }
   ],
   "arc": {
    "shape": "fall_rise",
-   "start": "amused",
-   "middle": "unsettled",
+   "start": "curious",
+   "middle": "tense",
    "end": "relieved"
   },
   "ending": "uplifting",
-  "spoiler_ending": "Avni suffers from dissociative identity disorder and believes she is the trapped spirit Manjulika. A psychiatrist steps in and cures her by orchestrating a fake execution of a dummy, letting her believe she has taken her revenge. The household is saved, and the doctor prepares to settle down with Radha.",
+  "spoiler_ending": "Avni is revealed to be suffering from dissociative identity disorder, believing herself to be the vengeful spirit Manjulika. The eccentric psychiatrist Aditya orchestrates a staged execution where Avni believes she kills the evil king, which successfully cures her mind. The family is deeply grateful, and Aditya looks forward to a future with Radha.",
   "bandwidth": {
    "pace": "steady",
    "attention": "some_focus",
@@ -6573,18 +6574,18 @@
   ],
   "family": "family_ok",
   "good_for": [
-   "watching with family",
-   "mystery nights"
+   "family movie nights",
+   "weekend watches"
   ],
   "skip_if": [
-   "you want pure, jump-scare horror"
+   "you hate broad slapstick comedy mixed into your horror"
   ],
-  "vibe": "An NRI couple moves into a royal Varanasi palace wrapped in a centuries-old curse of a vengeful dancer. Strange apparitions prompt the arrival of an eccentric psychiatrist to unravel the dark mystery.",
+  "vibe": "An NRI couple moves into a Varanasi palace plagued by a dancer's curse, leading an eccentric psychiatrist to unravel a complex mental puzzle disguised as a haunting.",
   "confidence": {
    "level": "medium",
    "sources_read": 9,
    "agreement": "mixed",
-   "generated_at": "2026-10-01",
+   "generated_at": "2026-10-03",
    "refresh_after": null
   }
  },
@@ -7187,16 +7188,16 @@
    "JioHotstar"
   ],
   "truth": {
-   "status": "inspired_by",
-   "note": "Based on the urban legend of Nale Ba from 1990s Karnataka."
+   "status": "fiction",
+   "note": "Loosely based on the Naale Baa urban legend from Karnataka in the 1990s."
   },
   "honest_read": {
-   "looks_like": "A breezy, laugh-out-loud comedy about a quirky town dealing with a local ghost.",
-   "actually_is": "A clever, atmospheric blend of regional folklore, genuine scares, and sharp social commentary where men hide in fear while a spirit roams the streets."
+   "looks_like": "A quirky small-town comedy about men hiding from a ghost.",
+   "actually_is": "A sharp horror-comedy mixing eccentric local folklore, genuine scares, and social satire where the men of a sleepy town live in absolute dread after dark."
   },
   "expectation_traps": [
-   "Expect a silly spoof and miss the genuine chills",
-   "Think it is just a mindless laugh riot"
+   "You might expect a mindless slapstick comedy rather than a film with actual scares.",
+   "You might think it is just a lightweight ghost story without any social commentary."
   ],
   "tone_mix": [
    {
@@ -7204,49 +7205,45 @@
     "pct": 40
    },
    {
-    "tone": "tense",
+    "tone": "thrilling",
     "pct": 30
    },
    {
-    "tone": "warm",
-    "pct": 20
-   },
-   {
     "tone": "thought-provoking",
-    "pct": 10
+    "pct": 30
    }
   ],
   "arc": {
-   "shape": "rise_fall_rise",
+   "shape": "fall_rise",
    "start": "uneasy",
-   "middle": "chaotic",
-   "end": "reassuring"
+   "middle": "curious",
+   "end": "triumphant"
   },
   "ending": "uplifting",
-  "spoiler_ending": "Vicky discovers he is connected to the legend and cuts off Stree's braid with the help of a mysterious woman, causing the spirit to disappear. The town celebrates the heroes, and the mysterious woman quietly leaves on a bus, revealing she has taken the braid for herself. A year later, Stree returns peacefully after seeing a statue built in her honour.",
+  "spoiler_ending": "Vicky discovers he fits a prophecy to defeat the spirit and successfully cuts off her braid with the mysterious woman's advice, making the ghost disappear. The town celebrates and erects a statue, causing the returning spirit to leave peacefully a year later. Meanwhile, the mysterious woman departs with the braid, hinting at her own ambitions.",
   "bandwidth": {
    "pace": "steady",
    "attention": "some_focus",
    "emotional_weight": 2
   },
   "content_flags": [
-   "disturbing_themes"
+   "disturbing_themes",
+   "violence"
   ],
   "family": "teens_up",
   "good_for": [
    "watching with friends",
-   "late night viewing"
+   "a fun movie night"
   ],
   "skip_if": [
-   "you hate jump scares",
-   "you want pure slapstick"
+   "you are easily frightened by ghosts"
   ],
-  "vibe": "The town of Chanderi lives in terror of a female spirit who abducts men during an annual festival unless protective phrases are written on walls. Local men must hide after dark, leading to an unpredictable mix of folklore, local eccentricities, and dark humour.",
+  "vibe": "In a sleepy town where men fear going out after dark, a tailor and his friends try to outsmart a vengeful spirit. It blends quirky small-town eccentricities with genuine supernatural dread.",
   "confidence": {
    "level": "high",
    "sources_read": 10,
    "agreement": "strong",
-   "generated_at": "2026-10-01",
+   "generated_at": "2026-10-03",
    "refresh_after": null
   }
  },
@@ -14389,16 +14386,16 @@
    "note": null
   },
   "honest_read": {
-   "looks_like": "A stark historical ghost story set inside an isolated, shadowy mansion.",
-   "actually_is": "A suffocating, slow-burn folk horror about power dynamics and control, driven by oppressive isolation and a deeply menacing lord."
+   "looks_like": "A stylish monochrome period ghost story about a musician trapped in a haunted mansion.",
+   "actually_is": "A suffocating, atmospheric folk horror that uses historical myths to explore toxic power dynamics inside a decaying estate, relying on dread rather than cheap tricks."
   },
   "expectation_traps": [
-   "Expecting standard jump scares from a modern horror movie",
-   "Thinking the monochrome look is just a stylistic gimmick"
+   "You might expect a simple ghost story with routine jump scares.",
+   "You might think the black-and-white format is just a visual gimmick rather than core to the mood."
   ],
   "tone_mix": [
    {
-    "tone": "dark",
+    "tone": "scary",
     "pct": 40
    },
    {
@@ -14406,22 +14403,22 @@
     "pct": 30
    },
    {
-    "tone": "thrilling",
+    "tone": "dark",
     "pct": 20
    },
    {
-    "tone": "melancholy",
+    "tone": "thought-provoking",
     "pct": 10
    }
   ],
   "arc": {
-   "shape": "fall_rise_fall",
-   "start": "uneasy",
+   "shape": "fall",
+   "start": "curious",
    "middle": "trapped",
    "end": "bleak"
   },
   "ending": "unsettling",
-  "spoiler_ending": "The cook and the imprisoned spirit fight after putting out a magical lamp in the burning mansion. In the aftermath, a soldier shoots the cook by the river. Meanwhile, the entity successfully escapes wearing a ring while possessing the singer's body.",
+  "spoiler_ending": "The survivors attempt to destroy the evil entity by extinguishing a mystical lamp and burning the creature as the mansion collapses around them. Afterward, the surviving cook fights a man he believes is his companion, only to discover the entity has stolen that exact body. The creature ultimately escapes into the world wearing the magical ring while the cook is gunned down.",
   "bandwidth": {
    "pace": "slow",
    "attention": "full_focus",
@@ -14433,19 +14430,19 @@
   ],
   "family": "teens_up",
   "good_for": [
-   "late night watching",
-   "folk horror fans"
+   "fans of dark folklore",
+   "late-night atmospheric viewing"
   ],
   "skip_if": [
-   "you want a fast-paced popcorn thriller",
-   "you are looking for light entertainment"
+   "you prefer fast-paced jump scares",
+   "you want a neat, upbeat resolution"
   ],
-  "vibe": "A folk singer stumbles into a remote historical mansion ruled by a terrifying master and a secretive cook. The monochrome period setting builds a heavy, unsettling atmosphere rooted in regional folklore.",
+  "vibe": "A folk singer stumbles into an isolated 17th-century Kerala mansion lorded over by a terrifying sorcerer. The film immerses viewers in an oppressive, monochrome nightmare built on myth and psychological dread.",
   "confidence": {
    "level": "high",
    "sources_read": 10,
    "agreement": "strong",
-   "generated_at": "2026-10-01",
+   "generated_at": "2026-10-03",
    "refresh_after": null
   }
  },
@@ -14475,57 +14472,63 @@
    "note": null
   },
   "honest_read": {
-   "looks_like": "A classic haunted mansion ghost story about a skeptical couple ignoring ancient village warnings.",
-   "actually_is": "A rich, atmospheric blend of mystery and tension where historical lore slowly suffocates a sprawling ancestral estate long before anyone understands why."
+   "looks_like": "A light-hearted holiday in an ancestral estate with quirky relatives.",
+   "actually_is": "A smart psychological thriller masquerading as a ghost story, blending genuine dread and eccentric humour as a mind unravels behind a forbidden door."
   },
   "expectation_traps": [
-   "You think it is just another standard ghost tale about things going bump in the night",
-   "You expect the comedy to overshadow the genuine chills and creeping dread"
+   "You might think it is a standard haunted house spook-fest with vengeful spirits.",
+   "You could mistake the eccentric doctor's entry for pure slapstick comedy."
   ],
   "tone_mix": [
    {
     "tone": "tense",
-    "pct": 40
+    "pct": 35
    },
    {
-    "tone": "dark",
+    "tone": "scary",
     "pct": 30
    },
    {
     "tone": "funny",
-    "pct": 30
+    "pct": 20
+   },
+   {
+    "tone": "thought-provoking",
+    "pct": 15
    }
   ],
   "arc": {
-   "shape": "rise_fall_rise",
+   "shape": "fall_rise",
    "start": "curious",
-   "middle": "dread",
+   "middle": "terrifying",
    "end": "resolved"
   },
   "ending": "cathartic",
-  "spoiler_ending": "Ganga's erratic behavior is ultimately diagnosed as severe dissociative identity disorder stemming from her obsession with local folklore. During a tense ritual on Durgashtami, an eccentric psychiatrist uses a clever trick with a straw dummy to let her enact her revenge safely. Convinced she has killed her perceived tormentor, the vengeful persona departs, and Ganga fully recovers.",
+  "spoiler_ending": "The terrifying haunting is diagnosed as severe Dissociative Identity Disorder in Ganga, who internalized the persona of a slain dancer. A clever trick involving a straw dummy convinces her she has exacted revenge, successfully curing her affliction. The family bids a warm farewell while the doctor proposes to Sridevi.",
   "bandwidth": {
    "pace": "steady",
    "attention": "full_focus",
    "emotional_weight": 3
   },
   "content_flags": [
+   "violence",
    "disturbing_themes"
   ],
   "family": "teens_up",
   "good_for": [
-   "rainy weekend nights",
-   "fans of atmospheric mysteries"
+   "late night movie nights",
+   "mystery enthusiasts"
   ],
   "skip_if": [
-   "you want cheap jump scares instead of slow-burn dread"
+   "you scare easily at night",
+   "you want pure comedy"
   ],
-  "vibe": "A young couple moves into a forbidden ancestral mansion despite dark local legends, sparking a wave of inexplicable and terrifying events. An eccentric psychiatrist is brought in to unravel the deepening psychological mystery before it tears the family apart.",
+  "vibe": "A curious couple moves into a rumoured haunted mansion in Kerala against family warnings, triggering inexplicable fires and eerie midnight dances. An eccentric psychiatrist must unravel a dark historical legend to save them.",
   "confidence": {
    "level": "high",
    "sources_read": 10,
    "agreement": "strong",
-   "generated_at": "2026-10-01",
+   "generated_at": "2026-10-03",
    "refresh_after": null
   }
  },
@@ -15461,59 +15464,58 @@
    "note": null
   },
   "honest_read": {
-   "looks_like": "An urban investigative drama about a journalist digging into local traffic violations and road accidents.",
-   "actually_is": "A tense genre-hopper that shifts quickly from a grounded journalistic probe into a supernatural thriller driven by ghostly vengeance."
+   "looks_like": "A routine investigative drama about civic rule-breaking and urban journalism.",
+   "actually_is": "A gripping mystery that unexpectedly shifts into supernatural territory as a journalistic inquiry collides with vengeful ghostly forces."
   },
   "expectation_traps": [
-   "You might think it stays a grounded social drama about civic sense",
-   "You might expect a straightforward police procedural instead of a supernatural tale"
+   "You might think it is a grounded police procedural about city traffic.",
+   "Expect a standard newspaper expose rather than a supernatural confrontation."
   ],
   "tone_mix": [
    {
-    "tone": "thrilling",
+    "tone": "tense",
     "pct": 40
    },
    {
-    "tone": "tense",
+    "tone": "scary",
     "pct": 30
    },
    {
-    "tone": "dark",
+    "tone": "thought-provoking",
     "pct": 30
    }
   ],
   "arc": {
    "shape": "rise_fall",
    "start": "curious",
-   "middle": "dread",
-   "end": "unsettled"
+   "middle": "desperate",
+   "end": "haunted"
   },
   "ending": "unsettling",
-  "spoiler_ending": "Rachana takes the illegal U-turn herself and meets the ghost of Maya, who died with her child because of moved concrete blocks. They trace the culprit to Rachana's boyfriend, but the final twist reveals Maya's own husband actually moved the blocks. He tries to jump off a balcony in guilt, but Maya's ghost saves him so he must live with his suffering.",
+  "spoiler_ending": "Rachana takes the illegal U-turn herself and meets the ghost of Maya, who agrees to spare her if she uncovers the person responsible for the fatal accident. After tracking down the clues, Rachana realizes the tragic chain leads back to her circle and eventually forces the real culprit to confess. Maya's ghost spares him from death so he must suffer his grief forever.",
   "bandwidth": {
    "pace": "steady",
    "attention": "full_focus",
    "emotional_weight": 3
   },
   "content_flags": [
-   "violence",
+   "self_harm_themes",
    "disturbing_themes"
   ],
   "family": "teens_up",
   "good_for": [
-   "mystery lovers",
-   "late night thrillers"
+   "late-night viewing",
+   "mystery fans"
   ],
   "skip_if": [
-   "you want a purely realistic police procedural",
-   "you dislike ghost stories"
+   "you want a strictly grounded police mystery"
   ],
-  "vibe": "A routine reporting assignment about dangerous driving on a city flyover spirals into a dark supernatural mystery. It keeps you guessing as a journalist and a cop chase forces beyond explanation.",
+  "vibe": "An inquisitive young reporter digging into deadly traffic violations accidentally crosses paths with a vengeful spirit. What begins as a local news piece spirals into a chilling supernatural reckoning.",
   "confidence": {
    "level": "medium",
    "sources_read": 10,
    "agreement": "mixed",
-   "generated_at": "2026-10-01",
+   "generated_at": "2026-10-03",
    "refresh_after": null
   }
  },
@@ -21737,19 +21739,19 @@
   ],
   "truth": {
    "status": "fiction",
-   "note": null
+   "note": "Based on an original screenplay by Park Joo-suk."
   },
   "honest_read": {
-   "looks_like": "A slick, high-speed zombie action flick racing across South Korea.",
-   "actually_is": "A relentlessly tense claustrophobic thriller that trades cheap scares for sharp social commentary and a surprisingly heavy emotional core."
+   "looks_like": "A slick, high-speed action blockbuster about fighting off a zombie horde on a train.",
+   "actually_is": "A breathless, claustrophobic thriller that uses an undead outbreak to test human selfishness, family bonds, and heartbreaking sacrifice under impossible pressure."
   },
   "expectation_traps": [
-   "Expecting just another brainless monster movie",
-   "Thinking character survival is guaranteed"
+   "You might think it is just another mindless CGI gore-fest.",
+   "You might expect the characters to be mere cannon fodder for the monsters."
   ],
   "tone_mix": [
    {
-    "tone": "thrilling",
+    "tone": "scary",
     "pct": 40
    },
    {
@@ -21757,22 +21759,22 @@
     "pct": 30
    },
    {
-    "tone": "heartbreaking",
+    "tone": "thrilling",
     "pct": 20
    },
    {
-    "tone": "dark",
+    "tone": "heartbreaking",
     "pct": 10
    }
   ],
   "arc": {
    "shape": "rise_fall",
-   "start": "calm",
+   "start": "tense",
    "middle": "frantic",
-   "end": "heavy"
+   "end": "somber"
   },
   "ending": "bittersweet",
-  "spoiler_ending": "Seok-woo gets bitten during a final struggle and chooses to jump off the train after securing his daughter and a survivor in the engine room. The remaining pair eventually arrive at a military blockade and walk to safety through a tunnel.",
+  "spoiler_ending": "Seok-woo gets bitten during a final struggle with an infected corporate executive and jumps from the train after saying a final goodbye to his daughter. The young girl and a pregnant survivor finally reach a military quarantine blockade on foot, with the child softly singing a song to honor her father. The journey ends with survival, but at a devastating personal cost.",
   "bandwidth": {
    "pace": "fast",
    "attention": "full_focus",
@@ -21785,18 +21787,19 @@
   ],
   "family": "teens_up",
   "good_for": [
-   "fans of fast-paced thrillers",
-   "weekend movie nights"
+   "adrenaline-heavy movie nights",
+   "watching with older teenagers"
   ],
   "skip_if": [
-   "you are already low tonight"
+   "you are feeling fragile",
+   "you hate jump scares and gore"
   ],
-  "vibe": "A routine train ride transforms into a desperate struggle for survival when an epidemic strikes the country. Passengers trapped inside must outrun the relentless horde while battling human greed and fear.",
+  "vibe": "A divorced father and his estranged daughter board a morning express train from Seoul to Busan, unaware that a violent pandemic is sweeping the country. As infected passengers turn the carriages into traps, the surviving travelers must fight an escalating war for survival.",
   "confidence": {
    "level": "high",
    "sources_read": 10,
    "agreement": "strong",
-   "generated_at": "2026-10-01",
+   "generated_at": "2026-10-03",
    "refresh_after": null
   }
  },
@@ -21916,35 +21919,39 @@
    "note": null
   },
   "honest_read": {
-   "looks_like": "A sleek, stylish revenge thriller about a secret agent hunting a sadistic serial killer.",
-   "actually_is": "A relentless, stomach-churning marathon of violence where the hunter sinks to the villain's level, offering zero comfortable moral resolutions."
+   "looks_like": "A slick action thriller about a secret agent hunting a brutal serial killer.",
+   "actually_is": "A punishing, deeply sad descent into a war of attrition where chasing a monster destroys the hunter's soul entirely."
   },
   "expectation_traps": [
-   "You think it is a standard detective procedural where justice eventually prevails cleanly",
-   "You expect a neat moral boundary between the hero and the monster"
+   "You might expect a satisfying action movie where the hero beats up the bad guy and saves the day.",
+   "You might think the violence is just stylistic popcorn-thriller blood."
   ],
   "tone_mix": [
    {
-    "tone": "dark",
+    "tone": "scary",
     "pct": 40
    },
    {
-    "tone": "tense",
+    "tone": "dark",
     "pct": 30
    },
    {
-    "tone": "thrilling",
-    "pct": 30
+    "tone": "tense",
+    "pct": 20
+   },
+   {
+    "tone": "melancholy",
+    "pct": 10
    }
   ],
   "arc": {
    "shape": "fall",
-   "start": "grim",
+   "start": "determined",
    "middle": "relentless",
-   "end": "devastating"
+   "end": "hollow"
   },
   "ending": "devastating",
-  "spoiler_ending": "After a brutal game of catch and release, the agent finally traps the killer permanently and rigs a device to punish him in front of his family. The murderer is blown apart, leaving the vengeful agent completely hollow and weeping bitterly alone on a dark street.",
+  "spoiler_ending": "After a long game of cat and mouse where the agent repeatedly captures, tortures, and releases the killer to inflict maximum suffering, he finally finishes him off. However, the victory brings no peace or relief. Instead, the agent is left utterly broken, sobbing alone in the street as the realization of what he has become sinks in.",
   "bandwidth": {
    "pace": "steady",
    "attention": "full_focus",
@@ -21953,24 +21960,24 @@
   "content_flags": [
    "violence",
    "gore",
-   "strong_language",
-   "disturbing_themes"
+   "disturbing_themes",
+   "strong_language"
   ],
   "family": "adults_only",
   "good_for": [
-   "extreme cinema fans",
-   "late night endurance tests"
+   "extreme thriller fans",
+   "late-night intense viewing"
   ],
   "skip_if": [
-   "you are feeling fragile",
-   "you hate excessive gore"
+   "you are sensitive to graphic violence",
+   "you want a feel-good ending"
   ],
-  "vibe": "A secret agent goes off the grid to torture and hunt the psychopath who murdered his fiancee, descending into a spiral of endless cruelty. It is visually striking yet deeply harrowing from start to finish.",
+  "vibe": "A grieving agent tracks a vicious serial killer, dragging himself into a dark, merciless cycle of torture and retribution. It is beautifully shot yet overwhelmingly bleak.",
   "confidence": {
    "level": "medium",
-   "sources_read": 8,
-   "agreement": "mixed",
-   "generated_at": "2026-10-01",
+   "sources_read": 3,
+   "agreement": "strong",
+   "generated_at": "2026-10-03",
    "refresh_after": null
   }
  },
@@ -22324,38 +22331,42 @@
   ],
   "truth": {
    "status": "fiction",
-   "note": null
+   "note": "It functions as a separate narrative expansion following the events of an earlier acclaimed outbreak film."
   },
   "honest_read": {
-   "looks_like": "A thrilling, high-stakes continuation of a beloved zombie survival masterwork.",
-   "actually_is": "A loud action flick trading claustrophobic tension for wild car chases and generic dystopian turf wars."
+   "looks_like": "A high-octane action follow-up packed with fast-paced zombie chases across a ruined peninsula.",
+   "actually_is": "A glossy, loud genre mashup trading intimate claustrophobia for sprawling vehicular combat, drawing more from dystopian demolition derbies than its tense predecessor."
   },
   "expectation_traps": [
-   "Expecting the same tight, emotional suspense as the original film.",
-   "Thinking it focuses purely on survival rather than a high-stakes cash heist."
+   "Expecting the same tight, emotional dread and claustrophobic terror as the original movie.",
+   "Thinking it is a direct continuation of the first story's characters rather than a new group years later."
   ],
   "tone_mix": [
    {
-    "tone": "thrilling",
-    "pct": 40
-   },
-   {
-    "tone": "tense",
+    "tone": "scary",
     "pct": 35
    },
    {
+    "tone": "thrilling",
+    "pct": 30
+   },
+   {
+    "tone": "tense",
+    "pct": 20
+   },
+   {
     "tone": "dark",
-    "pct": 25
+    "pct": 15
    }
   ],
   "arc": {
-   "shape": "fall_rise",
-   "start": "grim",
-   "middle": "chaotic",
-   "end": "hopeful"
+   "shape": "rise_fall_rise",
+   "start": "dread",
+   "middle": "chaos",
+   "end": "relief"
   },
   "ending": "uplifting",
-  "spoiler_ending": "A corrupt captain tries to steal the cash truck and lets zombies onto an extraction ship, killing everyone aboard. Min-jung holds off the undead so her daughters can board a U.N. helicopter. Jung-seok bravely returns to save her, and the remaining family successfully escapes the peninsula together.",
+  "spoiler_ending": "After surviving a deadly arena game and double-crossing ruthless militia members, the remaining survivors reach the port for extraction. The corrupt captain tries to steal the final transport truck but inadvertently triggers a final zombie swarm that destroys the ship. Meanwhile, the soldiers and family members manage to signal a passing United Nations helicopter and successfully fly away from the wasteland.",
   "bandwidth": {
    "pace": "fast",
    "attention": "some_focus",
@@ -22363,24 +22374,23 @@
   },
   "content_flags": [
    "violence",
-   "gore",
    "disturbing_themes"
   ],
-  "family": "adults_only",
+  "family": "teens_up",
   "good_for": [
    "action movie nights",
    "zombie fans"
   ],
   "skip_if": [
-   "you expect the emotional depth of the original",
-   "you dislike heavy cgi car chases"
+   "you loved the original for its quiet emotional depth",
+   "you dislike heavy cgi car stunts"
   ],
-  "vibe": "A disgraced soldier returns to a quarantined, zombie-infested South Korea to retrieve a fortune in cash. Along the way, he crosses paths with a ruthless militia and a resilient family fighting to escape.",
+  "vibe": "Four years after a viral outbreak ruins South Korea, a disgraced former soldier returns on a dangerous cash retrieval mission. He encounters a rogue military unit and a resilient family, leading to massive vehicular showdowns against hordes of infected.",
   "confidence": {
    "level": "medium",
    "sources_read": 10,
    "agreement": "mixed",
-   "generated_at": "2026-10-01",
+   "generated_at": "2026-10-03",
    "refresh_after": null
   }
  },
@@ -25294,6 +25304,939 @@
    "sources_read": 3,
    "agreement": "strong",
    "generated_at": "2026-10-01",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-419430",
+  "tmdb_id": 419430,
+  "type": "movie",
+  "title": "Get Out",
+  "original_title": "Get Out",
+  "year": 2017,
+  "runtime_min": 104,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.6,
+   "votes": 19406
+  },
+  "watch_in": [
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A tense weekend getaway to meet a well-meaning girlfriend's wealthy white family.",
+   "actually_is": "A razor-sharp psychological thriller blending sharp social satire with genuine horror, exposing the terrifying reality of hidden racism beneath polite smiles."
+  },
+  "expectation_traps": [
+   "You might expect a straightforward family drama about meeting the parents.",
+   "You might think the social commentary takes over and leaves out genuine scares."
+  ],
+  "tone_mix": [
+   {
+    "tone": "tense",
+    "pct": 40
+   },
+   {
+    "tone": "scary",
+    "pct": 30
+   },
+   {
+    "tone": "thought-provoking",
+    "pct": 20
+   },
+   {
+    "tone": "funny",
+    "pct": 10
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "uneasy",
+   "middle": "dread",
+   "end": "vindicated"
+  },
+  "ending": "cathartic",
+  "spoiler_ending": "Chris discovers the family is harvesting Black bodies for wealthy white buyers through brain surgery and hypnosis. After fighting his way out and eliminating his attackers in self-defense, he is rescued at the last second by his loyal friend Rod.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "full_focus",
+   "emotional_weight": 4
+  },
+  "content_flags": [
+   "violence",
+   "strong_language",
+   "disturbing_themes"
+  ],
+  "family": "adults_only",
+  "good_for": [
+   "smart horror fans",
+   "movie night with friends"
+  ],
+  "skip_if": [
+   "you want a mindless popcorn flick"
+  ],
+  "vibe": "A young Black man visits his white girlfriend's suburban family estate for the weekend. What starts as awkward racial microaggressions quickly spirals into a terrifying trap.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-10-03",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-1933",
+  "tmdb_id": 1933,
+  "type": "movie",
+  "title": "The Others",
+  "original_title": "The Others",
+  "year": 2001,
+  "runtime_min": 101,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/p8g1vlTvpM6nr2hMMiZ1fUlKF0D.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.6,
+   "votes": 7445
+  },
+  "watch_in": [
+   "Prime Video"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A spooky haunted house ghost story about bumps in the dark.",
+   "actually_is": "A slow, atmospheric psychological thriller centered on a tightly wound mother guarding her light-sensitive children inside a heavy, darkened mansion."
+  },
+  "expectation_traps": [
+   "You might expect cheap jump scares, but it relies entirely on creeping dread and heavy atmosphere.",
+   "You might think it is a standard Victorian ghost story, but the emotional core is deeply personal."
+  ],
+  "tone_mix": [
+   {
+    "tone": "tense",
+    "pct": 40
+   },
+   {
+    "tone": "scary",
+    "pct": 30
+   },
+   {
+    "tone": "dark",
+    "pct": 20
+   },
+   {
+    "tone": "melancholy",
+    "pct": 10
+   }
+  ],
+  "arc": {
+   "shape": "fall",
+   "start": "guarded",
+   "middle": "anxious",
+   "end": "unsettling"
+  },
+  "ending": "unsettling",
+  "spoiler_ending": "The family discovers that the gravestones in the garden belong to their new servants who died decades earlier. Grace realizes during a séance that she previously suffered a mental breakdown and killed her children before taking her own life. The living inhabitants eventually move out, leaving Grace and her children to accept that they are the ghosts haunting the manor for good.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "full_focus",
+   "emotional_weight": 4
+  },
+  "content_flags": [
+   "disturbing_themes"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "rainy nights",
+   "mystery fans"
+  ],
+  "skip_if": [
+   "you want a light comedy",
+   "you dislike slow burns"
+  ],
+  "vibe": "Set in a dim, fog-shrouded island mansion after World War II, a strict mother protects her light-sensitive children from unseen presences. The film trades cheap tricks for a heavy, claustrophobic atmosphere of creeping dread.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-10-03",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-745",
+  "tmdb_id": 745,
+  "type": "movie",
+  "title": "The Sixth Sense",
+  "original_title": "The Sixth Sense",
+  "year": 1999,
+  "runtime_min": 107,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/vOyfUXNFSnaTk7Vk5AjpsKTUWsu.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 8,
+   "votes": 13383
+  },
+  "watch_in": [],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A spooky supernatural horror flick about a troubled child haunted by ghosts.",
+   "actually_is": "A patient, melancholy drama about grief, isolation, and a quiet bond between a troubled boy and a damaged psychologist."
+  },
+  "expectation_traps": [
+   "You think you are in for a relentless, jump-scare-heavy ghost train.",
+   "You expect a typical Hollywood thriller where the good doctor easily cures the kid."
+  ],
+  "tone_mix": [
+   {
+    "tone": "melancholy",
+    "pct": 40
+   },
+   {
+    "tone": "tense",
+    "pct": 30
+   },
+   {
+    "tone": "thought-provoking",
+    "pct": 30
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "isolated",
+   "middle": "heavy",
+   "end": "at_peace"
+  },
+  "ending": "bittersweet",
+  "spoiler_ending": "Malcolm realizes through a series of clues that he was actually killed by a former patient at the beginning of the film and has been a ghost the whole time. He manages to communicate with his grieving wife and tell her he loves her before his spirit finally moves on into the light.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "full_focus",
+   "emotional_weight": 4
+  },
+  "content_flags": [
+   "disturbing_themes"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "a quiet night in",
+   "deep-dive viewing"
+  ],
+  "skip_if": [
+   "you are feeling fragile about loss",
+   "you want fast-paced action"
+  ],
+  "vibe": "A child psychologist tries to help a nine-year-old boy who claims he can see dead people. Beneath the supernatural mystery lies a deeply sorrowful story about family grief and missed connections.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-10-02",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-107937",
+  "tmdb_id": 107937,
+  "type": "movie",
+  "title": "Bhoot",
+  "original_title": "भूत",
+  "year": 2003,
+  "runtime_min": 113,
+  "series": null,
+  "languages": [
+   "hi"
+  ],
+  "poster_path": "/tbQMeDyLSYUqHOcOexuJVeE3wLy.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.1,
+   "votes": 35
+  },
+  "watch_in": [
+   "Prime Video",
+   "Brew"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A slick modern ghost story about an urban couple trapped in a haunted high-rise apartment.",
+   "actually_is": "A relentless, claustrophobic psychological nightmare that brings supernatural dread into a brightly lit Mumbai flat without relying on traditional genre tropes."
+  },
+  "expectation_traps": [
+   "You might expect the typical Bollywood tropes of songs, ghosts in white saris, and sprawling haunted mansions.",
+   "You might think the absence of musical numbers means a slow drama rather than a full-throttle scare."
+  ],
+  "tone_mix": [
+   {
+    "tone": "scary",
+    "pct": 45
+   },
+   {
+    "tone": "tense",
+    "pct": 30
+   },
+   {
+    "tone": "dark",
+    "pct": 25
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise_fall",
+   "start": "uneasy",
+   "middle": "terrifying",
+   "end": "lingering"
+  },
+  "ending": "unsettling",
+  "spoiler_ending": "Vishal discovers that the previous tenant did not commit suicide as claimed, but was pushed to her death by the owner's son during an assault. The ghost of the dead woman possesses Vishal's wife to enact her revenge and track down the killer. After the culprit is cornered and locked away, the spirit departs, but the final moments reveal the haunting is far from truly over.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "full_focus",
+   "emotional_weight": 4
+  },
+  "content_flags": [
+   "violence",
+   "disturbing_themes"
+  ],
+  "family": "adults_only",
+  "good_for": [
+   "late night horror sessions",
+   "thrill seekers"
+  ],
+  "skip_if": [
+   "you scare easily at home"
+  ],
+  "vibe": "A young married couple rents a heavily discounted high-rise flat in Mumbai, completely unaware of the violent tragedy that took place inside. Soon, inexplicable visions and terrifying behavioral changes turn their dream home into a waking nightmare.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-10-03",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-1112426",
+  "tmdb_id": 1112426,
+  "type": "movie",
+  "title": "Stree 2",
+  "original_title": "स्त्री 2: सरकटे का आतंक",
+  "year": 2024,
+  "runtime_min": 143,
+  "series": null,
+  "languages": [
+   "hi"
+  ],
+  "poster_path": "/nfnhwfUEFuSOxxf4jDdBlY6Lccw.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.7,
+   "votes": 103
+  },
+  "watch_in": [
+   "Prime Video"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A goofy horror comedy where quirky small-town friends battle a brand-new supernatural threat.",
+   "actually_is": "A chaotic franchise extension leaning heavily on broad gags, familiar faces, and loud monster battles, though it sometimes loses the sharp edge of the original."
+  },
+  "expectation_traps": [
+   "You might expect the same fresh, subtle satire of the first film, but this one trades nuance for louder laughs and franchise building.",
+   "You might think the scares will overshadow the humor, but it leans much harder into comedy and ensemble banter."
+  ],
+  "tone_mix": [
+   {
+    "tone": "funny",
+    "pct": 40
+   },
+   {
+    "tone": "thrilling",
+    "pct": 30
+   },
+   {
+    "tone": "dark",
+    "pct": 20
+   },
+   {
+    "tone": "chaotic",
+    "pct": 10
+   }
+  ],
+  "arc": {
+   "shape": "rise",
+   "start": "curious",
+   "middle": "frantic",
+   "end": "triumphant"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "After tracking down the writer of the mysterious letters, the group learns that the headless demon can only be beaten by someone who embodies both genders. The mysterious woman merges her soul with Vicky to temporarily defeat the entity before her mother, Stree, drags the monster into lava to save the town. In a post-credits scene, the villain's ghost possesses his descendant in a mental asylum while a new threat emerges in Delhi.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "violence",
+   "disturbing_themes"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "weekend movie night",
+   "fans of horror comedies"
+  ],
+  "skip_if": [
+   "you loved the subtlety of the original and hate franchise setups"
+  ],
+  "vibe": "A headless entity starts abducting women in Chanderi, forcing a reluctant group of friends to team up with a mysterious woman and supernatural allies to save their town. It mixes jump scares, broad comedy, and universe-building lore.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-10-03",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-tv-72844",
+  "tmdb_id": 72844,
+  "type": "series",
+  "title": "The Haunting of Hill House",
+  "original_title": "The Haunting of Hill House",
+  "year": 2018,
+  "runtime_min": null,
+  "series": {
+   "seasons": 1,
+   "episode_min": 59,
+   "status": "ended",
+   "style": "binge",
+   "gets_good_after": null,
+   "later_seasons_note": null
+  },
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/nWPZb800NCGiDPNGsKCfY0w44Z2.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 8.1,
+   "votes": 2867
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Loosely based on the 1959 novel by Shirley Jackson."
+  },
+  "honest_read": {
+   "looks_like": "A straightforward ghost story about a family terrorized by a creepy old mansion.",
+   "actually_is": "A heavy, slow-burning family drama disguised as horror, tracing childhood trauma, grief, and the lingering scars of the past across two timelines."
+  },
+  "expectation_traps": [
+   "You might expect a relentless barrage of cheap jump scares.",
+   "You might think it is just a standard haunted house spook-fest."
+  ],
+  "tone_mix": [
+   {
+    "tone": "dark",
+    "pct": 40
+   },
+   {
+    "tone": "tense",
+    "pct": 35
+   },
+   {
+    "tone": "melancholy",
+    "pct": 25
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "fearful",
+   "middle": "haunted",
+   "end": "resolved"
+  },
+  "ending": "bittersweet",
+  "spoiler_ending": "Following another tragedy years after fleeing the mansion, the estranged siblings and their father reunite. They are forced to confront how their terrifying childhood experiences in Hill House ultimately shaped their lives.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "full_focus",
+   "emotional_weight": 4
+  },
+  "content_flags": [
+   "disturbing_themes"
+  ],
+  "family": "adults_only",
+  "good_for": [
+   "late night viewing",
+   "fans of deep drama"
+  ],
+  "skip_if": [
+   "you only want cheap jump scares",
+   "you dislike slow pacing"
+  ],
+  "vibe": "Five adult siblings and their father confront lingering trauma and paranormal events from their childhood home across past and present timelines. It blends chilling supernatural horror with an intense family drama.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-10-02",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-1187058",
+  "tmdb_id": 1187058,
+  "type": "movie",
+  "title": "Munjya",
+  "original_title": "मुंज्या",
+  "year": 2024,
+  "runtime_min": 121,
+  "series": null,
+  "languages": [
+   "hi"
+  ],
+  "poster_path": "/ylYdXu0SM79Qs7vOz6q7mBxanVD.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.2,
+   "votes": 45
+  },
+  "watch_in": [
+   "JioHotstar",
+   "VI movies and tv"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "While the Munjya spirit is a figure from Indian folklore, the film's plot is an invented story."
+  },
+  "honest_read": {
+   "looks_like": "A lighthearted, fun supernatural romp rooted in Indian folklore and village legends.",
+   "actually_is": "A CGI-heavy horror-comedy that balances creature-feature thrills with family drama, though it occasionally struggles to maintain its momentum."
+  },
+  "expectation_traps": [
+   "Expecting it to be as consistently funny as other films in the same universe",
+   "Assuming it will maintain a high-energy pace throughout the entire runtime",
+   "Thinking it is a strictly traditional or accurate cultural retelling"
+  ],
+  "tone_mix": [
+   {
+    "tone": "tense",
+    "pct": 40
+   },
+   {
+    "tone": "funny",
+    "pct": 30
+   },
+   {
+    "tone": "dark",
+    "pct": 20
+   },
+   {
+    "tone": "whimsical",
+    "pct": 10
+   }
+  ],
+  "arc": {
+   "shape": "rise_fall_rise",
+   "start": "curious",
+   "middle": "restless",
+   "end": "relieved"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "After a chaotic struggle, Bittu manages to trap the spirit of Munjya within the haunted peepal tree and sets it on fire. While Bittu moves on with his life, the final scene shows charred wood from the tree being transported to a new location, suggesting the spirit survives.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "violence",
+   "disturbing_themes"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "weekend movie night",
+   "fans of creature features"
+  ],
+  "skip_if": [
+   "you prefer grounded storytelling",
+   "you dislike CGI-heavy monsters"
+  ],
+  "vibe": "A young man accidentally unleashes a vengeful spirit from his family's past, leading to a frantic battle to save his loved ones. It blends local folklore with slapstick humor and supernatural thrills.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-10-03",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-49018",
+  "tmdb_id": 49018,
+  "type": "movie",
+  "title": "Insidious",
+  "original_title": "Insidious",
+  "year": 2011,
+  "runtime_min": 102,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/tmlDFIUpGRKiuWm9Ixc6CYDk4y0.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7,
+   "votes": 7635
+  },
+  "watch_in": [],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A classic haunted house story about a family dealing with a mysterious, comatose child.",
+   "actually_is": "A tense, sound-heavy supernatural thriller that shifts from atmospheric dread into an imaginative, high-stakes journey through a dark, otherworldly dimension."
+  },
+  "expectation_traps": [
+   "Expect a grounded ghost story throughout",
+   "Think it is only about a haunted house",
+   "Assume it relies on gore to be scary"
+  ],
+  "tone_mix": [
+   {
+    "tone": "tense",
+    "pct": 40
+   },
+   {
+    "tone": "scary",
+    "pct": 30
+   },
+   {
+    "tone": "dark",
+    "pct": 20
+   },
+   {
+    "tone": "thought-provoking",
+    "pct": 10
+   }
+  ],
+  "arc": {
+   "shape": "rise_fall",
+   "start": "uneasy",
+   "middle": "frightened",
+   "end": "unsettled"
+  },
+  "ending": "unsettling",
+  "spoiler_ending": "Josh enters an astral plane to rescue his son from a demonic realm. He succeeds in bringing his son back, but he inadvertently allows a parasitic spirit to possess his own body. In the final moments, the entity kills the medium helping them, leaving the family in a state of hidden horror.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "full_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [
+   "disturbing_themes"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "horror movie night",
+   "fans of supernatural thrillers"
+  ],
+  "skip_if": [
+   "you dislike jump scares",
+   "you prefer grounded stories"
+  ],
+  "vibe": "A family struggles to save their son from a mysterious coma, only to discover he is being held captive by spirits in another dimension. It relies on building dread and sharp sound design rather than typical gore.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-10-03",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-138843",
+  "tmdb_id": 138843,
+  "type": "movie",
+  "title": "The Conjuring",
+  "original_title": "The Conjuring",
+  "year": 2013,
+  "runtime_min": 112,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/wVYREutTvI2tmxr6ujrHT704wGF.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.5,
+   "votes": 13122
+  },
+  "watch_in": [
+   "Prime Video",
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "inspired_by",
+   "note": "Inspired by the purported case files of paranormal investigators Ed and Lorraine Warren."
+  },
+  "honest_read": {
+   "looks_like": "A classic haunted farmhouse ghost story featuring paranormal investigators and a menacing presence.",
+   "actually_is": "A relentlessly chilling old-school fright fest that builds thick dread and delivers genuine, nerve-shredding shocks."
+  },
+  "expectation_traps": [
+   "You might think it is just another generic haunted house flick relying purely on cheap jump scares.",
+   "You could assume the human drama gets lost beneath all the supernatural terror."
+  ],
+  "tone_mix": [
+   {
+    "tone": "scary",
+    "pct": 45
+   },
+   {
+    "tone": "tense",
+    "pct": 35
+   },
+   {
+    "tone": "dark",
+    "pct": 20
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "curious",
+   "middle": "dread",
+   "end": "relieved"
+  },
+  "ending": "cathartic",
+  "spoiler_ending": "Ed and Lorraine Warren race to save the possessed mother from harming her children. Ed performs an emergency exorcism while Lorraine brings her back using a cherished memory. The malevolent spirit is defeated and cast back to hell.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "full_focus",
+   "emotional_weight": 4
+  },
+  "content_flags": [
+   "violence",
+   "disturbing_themes"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "watching with horror fans",
+   "late night thrills"
+  ],
+  "skip_if": [
+   "you scare easily",
+   "you are home alone tonight"
+  ],
+  "vibe": "Paranormal investigators step in to help a family terrorized by a dark, malevolent force taking over their new farmhouse. It is a masterclass in building tension and delivering classic supernatural scares.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-10-03",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-447332",
+  "tmdb_id": 447332,
+  "type": "movie",
+  "title": "A Quiet Place",
+  "original_title": "A Quiet Place",
+  "year": 2018,
+  "runtime_min": 91,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/nAU74GmpUk7t5iklEp3bufwDq4n.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.4,
+   "votes": 15772
+  },
+  "watch_in": [
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Adapted from an original screenplay by Scott Beck and Bryan Woods."
+  },
+  "honest_read": {
+   "looks_like": "A tense family drama about surviving blind predators in a silent, desolate world.",
+   "actually_is": "A relentlessly nerve-wracking creature feature that weaponizes absolute silence to fry your nerves and test parental dread."
+  },
+  "expectation_traps": [
+   "You might expect a standard monster movie full of screaming and gunfire.",
+   "You might think the quiet means a slow, gentle family drama."
+  ],
+  "tone_mix": [
+   {
+    "tone": "scary",
+    "pct": 40
+   },
+   {
+    "tone": "tense",
+    "pct": 30
+   },
+   {
+    "tone": "dark",
+    "pct": 20
+   },
+   {
+    "tone": "melancholy",
+    "pct": 10
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "frightened",
+   "middle": "panicked",
+   "end": "defiant"
+  },
+  "ending": "cathartic",
+  "spoiler_ending": "The father sacrifices himself to distract a creature from his children. Meanwhile, the mother discovers that a high-pitched feedback sound from a hearing aid weakens the monsters, exposing their vulnerable flesh. She uses a shotgun to kill one creature, and the family prepares to fight off the remaining pack.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "full_focus",
+   "emotional_weight": 4
+  },
+  "content_flags": [
+   "violence",
+   "gore",
+   "disturbing_themes"
+  ],
+  "family": "adults_only",
+  "good_for": [
+   "nighttime viewing",
+   "adrenaline seekers"
+  ],
+  "skip_if": [
+   "you hate sudden jump scares",
+   "you are easily stressed"
+  ],
+  "vibe": "Blind extraterrestrial creatures with hyper-sensitive hearing have decimated the population. A tight-knit family must navigate daily life in total silence to avoid being hunted.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-10-03",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-714338",
+  "tmdb_id": 714338,
+  "type": "movie",
+  "title": "Bulbbul",
+  "original_title": "बुलबुल",
+  "year": 2020,
+  "runtime_min": 94,
+  "series": null,
+  "languages": [
+   "hi"
+  ],
+  "poster_path": "/4XYEqHqvcf6vxFhNyeKZz5xbUfV.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.6,
+   "votes": 179
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "An original fictional story written by Anvita Dutt, set in the 1880s Bengal presidency."
+  },
+  "honest_read": {
+   "looks_like": "A lush historical fairy tale about a mystical woman in a haunted village.",
+   "actually_is": "A striking gothic fable blending traditional folklore with a brutal look at feudal abuse and a woman's cold, justified rage."
+  },
+  "expectation_traps": [
+   "Expecting a standard cheap jump-scare ghost story",
+   "Thinking it is a light fantasy adventure"
+  ],
+  "tone_mix": [
+   {
+    "tone": "scary",
+    "pct": 40
+   },
+   {
+    "tone": "tense",
+    "pct": 30
+   },
+   {
+    "tone": "dark",
+    "pct": 20
+   },
+   {
+    "tone": "melancholy",
+    "pct": 10
+   }
+  ],
+  "arc": {
+   "shape": "rise_fall",
+   "start": "innocent",
+   "middle": "strong",
+   "end": "haunted"
+  },
+  "ending": "devastating",
+  "spoiler_ending": "Bulbbul is unmasked as the supernatural entity with reversed feet haunting the region. She slaughters the wicked men who inflicted physical and psychological torment upon her in the past. The tale concludes on a grim, tragic note of vengeance.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "full_focus",
+   "emotional_weight": 4
+  },
+  "content_flags": [
+   "violence",
+   "disturbing_themes"
+  ],
+  "family": "adults_only",
+  "good_for": [
+   "watching with folklore fans",
+   "atmospheric horror nights"
+  ],
+  "skip_if": [
+   "you want a cheerful fairy tale",
+   "you are sensitive to abuse themes"
+  ],
+  "vibe": "Set in neoclassical Bengal, a former child bride presides over her household while a bloodthirsty spirit stalks the local men. It turns a familiar village myth into a stylish exploration of female power and feudal cruelty.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 3,
+   "agreement": "strong",
+   "generated_at": "2026-10-03",
    "refresh_after": null
   }
  }

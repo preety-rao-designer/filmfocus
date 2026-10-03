@@ -147,7 +147,7 @@ Rules:
 - Use only the sources given. If they don't support something, say less (or null where allowed); never guess facts.
 - Write everything in your own words. Never copy or closely paraphrase a sentence from the sources or reviews; no quotes.
 - Spoilers only in spoiler_ending. Every other field must be safe to read before watching: no twists, deaths, reveals, or who ends up with whom.
-- tone_mix: 3 to 5 tones from the list, percentages are whole numbers that add up to 100, biggest first.
+- tone_mix: 3 to 5 tones from the list, percentages are whole numbers that add up to 100, biggest first. Horror and ghost stories made to frighten always include "scary" (with a real share); "tense" alone undersells them.
 - emotional_weight is 1 to 5. family: family_ok = fine with parents and kids; teens_up; adults_only.
 - content_flags: include every one that genuinely applies, none that don't.
 - truth_status: true_story = it tells what really happened to real people; inspired_by = its central characters or central events are real but it takes big liberties; fiction = invented, including adaptations of novels, plays, comics or other films (say what it's adapted from in truth_note), and invented stories set against real history (a war, an era, a real backdrop), crime sagas, and alternate history.
