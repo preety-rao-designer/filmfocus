@@ -13,7 +13,8 @@ export const FAMILY = ['family_ok', 'teens_up', 'adults_only']
 
 // ---------- facts (TMDB only) ----------
 
-const ADS_OR_CHANNEL = /with ads|channel|amazon channel/i
+// Ad tiers, channels, and telecom bundles (Vi's app) are dropped: Preety chose to show only the streaming services people think of.
+const ADS_OR_CHANNEL = /with ads|channel|amazon channel|^vi movies/i
 const NAME = { 'Amazon Prime Video': 'Prime Video' }
 
 export async function gather({ type, id }) {

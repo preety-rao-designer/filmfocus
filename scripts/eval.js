@@ -46,13 +46,16 @@ const JUDGE_SCHEMA = {
   required: ['fit', 'reason', 'why_lines_refer_to_input'],
 }
 
+// EVAL_JUDGE=lite scores with Flash-Lite when the Flash models are out of their 20-a-day free quota. It's a more
+// lenient judge, so every row records which model scored it and the summary says when Flash-Lite was used.
+const JUDGE_CHAIN = process.env.EVAL_JUDGE === 'lite' ? MODELS.rerank : MODELS.judge
+
 async function judge(m, res) {
   const picks = res.picks.map((p) => `- ${p.card.title} (${p.card.year}, ${p.card.type}, ${p.card.languages[0]}): ${p.card.honest_read.actually_is} | why: ${p.why_this_fits}`).join('\n')
   // Short timeouts: when Gemini is overloaded a hung call otherwise costs 90s × 3 tries × 4 models per mood.
-  const { data } = await generateJSON({
-    chain: MODELS.judge,
+  const { data, model } = await generateJSON({
+    chain: JUDGE_CHAIN,
     timeoutMs: 30000,
-    attempts: 2,
     system: 'You judge a mood-to-movie app for viewers in India. Use your own knowledge of these titles. Score 1–5: would a thoughtful friend who knows these titles make these three picks for this mood? 5 = all three are spot on; 4 = good, one is a stretch; 3 = mixed; 2 = mostly wrong; 1 = absurd. Be strict. The viewer saved Hindi and English as languages and Netflix, Prime Video and JioHotstar as platforms.',
     prompt: `Mood: "${m.text}"\nPicks:\n${picks}`,
     schema: JUDGE_SCHEMA,
@@ -60,7 +63,7 @@ async function judge(m, res) {
     thinking: 'medium',
     attempts: 4,
   })
-  return data
+  return { ...data, judge: model }
 }
 
 const store = new Set(JSON.parse(readFileSync('data/cards.json', 'utf8')).map((c) => c.id))
@@ -100,7 +103,7 @@ for (const m of moods) {
   let j = { fit: 0, reason: 'no picks', why_lines_refer_to_input: false }
   if (res.picks.length) j = await judge(m, res)
   if (!j.why_lines_refer_to_input) fails.push('why lines miss what they said')
-  const row = { ...m, picks: res.picks.map((p) => ({ title: p.card.title, year: p.card.year, lang: p.card.languages[0], why: p.why_this_fits })), fails, pass: fails.length === 0, fit: j.fit, reason: j.reason, followup: Boolean(res.askedFollowup), no_match: res.no_match || null, ms }
+  const row = { ...m, picks: res.picks.map((p) => ({ title: p.card.title, year: p.card.year, lang: p.card.languages[0], why: p.why_this_fits })), fails, pass: fails.length === 0, fit: j.fit, reason: j.reason, judge: j.judge, followup: Boolean(res.askedFollowup), no_match: res.no_match || null, ms }
   results.push(row)
   writeFileSync(partial, JSON.stringify(results))
   console.log(`${m.n}. ${row.pass ? 'PASS' : 'FAIL'} fit ${j.fit} · ${row.picks.map((p) => p.title).join(' | ')}${fails.length ? ` · ${fails.join('; ')}` : ''} · ${Math.round(ms / 1000)}s`)
@@ -122,6 +125,7 @@ const md = [
   `- **Average fit:** ${avg.toFixed(2)} (bar: 4.0)`,
   `- **Moods below 3:** ${below3.length ? below3.map((r) => r.n).join(', ') : 'none'} (bar: none)`,
   `- **Meets the pass bar:** ${meets ? 'yes' : 'no'}`,
+  `- **Fit scored by:** ${Object.entries(results.reduce((a, r) => ((a[r.judge || 'n/a'] = (a[r.judge || 'n/a'] || 0) + 1), a), {})).map(([k, v]) => `${k} (${v})`).join(', ')}${results.some((r) => /lite/.test(r.judge || '')) ? '. Flash-Lite judged some moods because the Flash models were out of free quota; it is a more lenient judge than Flash.' : ''}`,
   '',
   '## Best three',
   ...sorted.slice(0, 3).map((r) => `- **${r.n}. ${r.text}** (fit ${r.fit}): ${r.picks.map((p) => p.title).join(', ')}`),
