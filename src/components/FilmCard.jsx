@@ -1,4 +1,5 @@
 import { Fragment, useId, useState } from 'react'
+import { splitPlatforms, watchLink } from '../platforms.js'
 
 // S3, the film card: a paper ticket. Anatomy and tokens from docs/DESIGN_DIRECTION.md, data from docs/CARD_SCHEMA.md.
 // Variants: Movie and Series come from card.type; Loading is `loading` (or no card). Same layout in all three.
@@ -10,7 +11,7 @@ const LANGUAGES = {
   mr: 'Marathi', gu: 'Gujarati', pa: 'Punjabi', ko: 'Korean', ja: 'Japanese', es: 'Spanish', fr: 'French',
 }
 
-const ARC_NAMES = {
+export const ARC_NAMES = {
   rise: 'Climbs all the way',
   fall: 'Slides all the way down',
   fall_rise: 'Falls, then climbs out',
@@ -31,12 +32,12 @@ const ARC_PATHS = {
 }
 
 const TRUTH = { true_story: 'True story.', inspired_by: 'Inspired by real events.', fiction: 'Fiction.' }
-const ATTENTION = { background_ok: 'Fine in the background', some_focus: 'Some focus', full_focus: 'Full focus' }
+export const ATTENTION = { background_ok: 'Fine in the background', some_focus: 'Some focus', full_focus: 'Full focus' }
 const TONE_SHADES = ['bg-ink', 'bg-ink/70', 'bg-ink/50', 'bg-ink/35', 'bg-ink/20']
 
-const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1)
+export const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1)
 
-function runtime(min) {
+export function runtime(min) {
   const h = Math.floor(min / 60)
   const m = min % 60
   return h ? `${h} h${m ? ` ${m} min` : ''}` : `${m} min`
@@ -65,7 +66,7 @@ function factsLine(card) {
   return parts
 }
 
-function seriesLine(series) {
+export function seriesLine(series) {
   const parts = [series.style === 'binge' ? 'Made for bingeing.' : 'Works an episode at a time.']
   if (series.gets_good_after) parts.push(`Gets good after ${series.gets_good_after}.`)
   if (series.later_seasons_note) parts.push(series.later_seasons_note)
@@ -182,29 +183,39 @@ function Pairs({ card }) {
   )
 }
 
-function WhereToWatch({ platforms }) {
+// Each name opens that service's search for the title (src/platforms.js). Services the person has come first:
+// "You have it on Netflix. Also on Prime Video." Without saved services it reads as before: "Watch on A or B".
+function PlatformLinks({ names, title }) {
+  return names.map((p, i) => (
+    <span key={p}>
+      {i > 0 && (i === names.length - 1 ? ' or ' : ', ')}
+      <a href={watchLink(p, title)} target="_blank" rel="noopener noreferrer" className="font-medium underline decoration-1 underline-offset-4">
+        {p}
+        <span className="sr-only"> (opens in a new tab)</span>
+      </a>
+    </span>
+  ))
+}
+
+function WhereToWatch({ platforms, title, mine }) {
   if (!platforms) return <p className="text-body"><Bar chars={26} /></p>
   if (platforms.length === 0) return <p className="text-body">Not streaming in India right now.</p>
+  const { yours, others } = splitPlatforms(platforms, mine)
+  if (!yours.length) return <p className="text-body">Watch on <PlatformLinks names={others} title={title} /></p>
   return (
     <p className="text-body">
-      Watch on{' '}
-      {platforms.map((p, i) => (
-        <span key={p}>
-          {i > 0 && (i === platforms.length - 1 ? ' or ' : ', ')}
-          {/* Inert until the real engine supplies links. */}
-          <a href="#" onClick={(e) => e.preventDefault()} className="font-medium underline decoration-1 underline-offset-4">
-            {p}
-          </a>
-        </span>
-      ))}
+      You have it on <PlatformLinks names={yours} title={title} />.
+      {others.length > 0 && <> Also on <PlatformLinks names={others} title={title} />.</>}
     </p>
   )
 }
 
+// On the ticket the pill is always Ink on the tint; on (saved, in compare) is the same filled pill as a chosen chip.
 const pill =
-  'inline-flex min-h-[44px] items-center rounded-pill border border-ink/40 px-4 text-caption font-medium text-ink disabled:opacity-50'
+  'inline-flex min-h-[44px] items-center rounded-pill border border-ink/40 px-4 text-caption font-medium text-ink disabled:opacity-50 ' +
+  'aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-screen'
 
-export default function FilmCard({ card, why, tint = 'rose', loading = false }) {
+export default function FilmCard({ card, why, tint = 'rose', loading = false, saved = false, onSave, comparing = false, onCompare, compareFull = false, mine = [] }) {
   const [revealed, setRevealed] = useState(false)
   const uid = useId().replace(/:/g, '')
   const isLoading = loading || !card
@@ -251,15 +262,29 @@ export default function FilmCard({ card, why, tint = 'rose', loading = false }) 
         <ToneMix tones={c?.tone_mix} />
         <Pairs card={c} />
 
-        <p className="text-body italic">{c ? why : <Bar chars={36} />}</p>
+        {/* The why line belongs to a search; a card opened from the watchlist or compare has none. */}
+        {(isLoading || why) && <p className="text-body italic">{c ? why : <Bar chars={36} />}</p>}
 
-        <WhereToWatch platforms={c ? c.watch_in : null} />
+        <WhereToWatch platforms={c ? c.watch_in : null} title={c?.title} mine={mine} />
 
         <div>
           <div className="flex flex-wrap gap-2">
-            {/* Watchlist and compare are inert until Phase 4. */}
-            <button type="button" className={pill} disabled={isLoading}>Add to watchlist</button>
-            <button type="button" className={pill} disabled={isLoading}>Add to compare</button>
+            {(onSave || isLoading) && (
+              <button type="button" className={pill} disabled={isLoading} aria-pressed={saved} onClick={() => onSave?.(c)}>
+                {saved ? 'On your watchlist' : 'Add to watchlist'}
+              </button>
+            )}
+            {(onCompare || isLoading) && (
+              <button
+                type="button"
+                className={pill}
+                disabled={isLoading || (compareFull && !comparing)}
+                aria-pressed={comparing}
+                onClick={() => onCompare?.(c)}
+              >
+                {comparing ? 'In compare' : compareFull ? 'Compare is full' : 'Add to compare'}
+              </button>
+            )}
             <button
               type="button"
               className={pill}

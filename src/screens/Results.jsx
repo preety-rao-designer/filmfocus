@@ -37,7 +37,7 @@ function Note({ children, actions, pills = false }) {
   )
 }
 
-export default function Results({ text, chips, view, batch, onOthers, onChangeMood, onRetry, onAnswer, onLoosen }) {
+export default function Results({ text, chips, view, batch, onOthers, onChangeMood, onRetry, onAnswer, onLoosen, lists }) {
   const { status, picks = [], followup, noMatch, error } = view
   const loading = status === 'loading'
 
@@ -62,7 +62,18 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
                 {loading || !picks[i] ? (
                   <FilmCard loading tint={tint} />
                 ) : (
-                  <FilmCard key={picks[i].card.id} card={picks[i].card} why={picks[i].why_this_fits} tint={tint} />
+                  <FilmCard
+                    key={picks[i].card.id}
+                    card={picks[i].card}
+                    why={picks[i].why_this_fits}
+                    tint={tint}
+                    saved={lists.savedIds.includes(picks[i].card.id)}
+                    onSave={lists.onSave}
+                    comparing={lists.compareIds.includes(picks[i].card.id)}
+                    compareFull={lists.compareFull}
+                    onCompare={lists.onCompare}
+                    mine={lists.mine}
+                  />
                 )}
               </div>
             ))}
