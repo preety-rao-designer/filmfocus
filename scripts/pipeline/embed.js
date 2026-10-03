@@ -2,17 +2,9 @@
 // The text is what a mood is matched against: the vibe, the honest read, tone and arc words, and what it's good for.
 import { readFileSync, writeFileSync } from 'node:fs'
 import { embed, MODELS, EMBED_DIMS } from '../../api/_lib/gemini.js'
+import { embedText } from '../../api/_lib/cardtext.js'
 
 process.loadEnvFile('.env')
-
-export const embedText = (c) =>
-  [
-    c.vibe,
-    c.honest_read.actually_is,
-    `Tone: ${c.tone_mix.map((t) => t.tone).join(', ')}.`,
-    `Feels ${c.arc.start}, then ${c.arc.middle}, then ${c.arc.end}; ending ${c.ending}.`,
-    `Good for ${c.good_for.join('; ')}.`,
-  ].join(' ')
 
 const cards = JSON.parse(readFileSync('data/cards.json', 'utf8'))
 const vectors = await embed(cards.map(embedText))

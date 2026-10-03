@@ -69,7 +69,7 @@ export default function App() {
       const ids = res.picks.map((p) => p.card.id)
       // When the engine starts a new cycle, the seen list starts again too.
       seen.current = ids.some((id) => seen.current.includes(id)) ? ids : [...seen.current, ...ids]
-      setView({ status: 'ready', picks: res.picks })
+      setView({ status: 'ready', picks: res.picks, missingTitle: res.missing_title || null })
     } catch (e) {
       if (e.name === 'AbortError') return
       setView({ status: 'error', error: e.kind || 'failed' })

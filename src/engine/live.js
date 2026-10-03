@@ -16,3 +16,21 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
   if (!res.ok) throw Object.assign(new Error(`HTTP ${res.status}`), { kind: res.status === 503 || res.status === 429 ? 'busy' : 'failed' })
   return res.json()
 }
+
+// Launch L4: make (or fetch) the card for a title the store doesn't have. Resolves to { card } or { error } where
+// error is 'not_found' | 'limit' | 'busy' | 'failed' | 'offline'.
+export async function cardFor(title, signal) {
+  try {
+    const res = await fetch('/api/card', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title }),
+      signal,
+    })
+    const body = await res.json().catch(() => ({}))
+    return res.ok ? body : { error: body.error || 'failed' }
+  } catch (e) {
+    if (e.name === 'AbortError') throw e
+    return { error: 'offline' }
+  }
+}

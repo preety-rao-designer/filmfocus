@@ -2,7 +2,8 @@
 // (git-ignored: it holds third-party text), so re-runs are free and resumable.
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
 
-const CACHE = 'data/cache'
+// On Vercel (on-demand cards) only /tmp is writable, and the cache there lasts as long as the server instance.
+const CACHE = process.env.VERCEL ? '/tmp/filmfocus-cache' : 'data/cache'
 const UA = 'FilmFocus/0.1 (mood-to-movie prototype; non-commercial)'
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
@@ -33,8 +34,9 @@ async function getJSON(url, opts = {}, tries = 4) {
 
 // ---- TMDB ----
 const tmdbKey = () => process.env.TMDB_API_KEY
+// api.tmdb.org is TMDB's alternate API domain; some Indian ISPs (Jio) block api.themoviedb.org.
 export const tmdb = (path, params = {}) =>
-  getJSON(`https://api.themoviedb.org/3${path}?${new URLSearchParams({ api_key: tmdbKey(), ...params })}`)
+  getJSON(`https://api.tmdb.org/3${path}?${new URLSearchParams({ api_key: tmdbKey(), ...params })}`)
 
 export function tmdbDetails(type, id) {
   const extra = type === 'movie' ? 'external_ids,keywords,watch/providers,release_dates' : 'external_ids,keywords,watch/providers,content_ratings'

@@ -2,13 +2,14 @@
 // Body: { text, chips: { company, time, stay_or_shift }, exclude: [card ids], prefs: { languages, platforms, subtitles_ok },
 //         answer: { slot, value }, loosen: [constraint keys] }
 // Response (docs/CARD_SCHEMA.md "The engine's response shape"): { followup, picks: [{ card, why_this_fits }], understood }
-// plus `no_match` when hard constraints leave nothing (3.7).
+// plus `no_match` when hard constraints leave nothing (3.7), and `missing_title`: a title they named that the store
+// lacks, so the app can offer to make its card (L4).
 //
 // Parse (Flash-Lite) → maybe one follow-up → filter on hard constraints → embed the mood, cosine top 30 →
 // rerank to 3 (Flash) with ratings as a quality floor → "why this fits" in the person's own terms.
 // Picks only ever come from the store: the reranker chooses among ids we give it, and anything else is dropped.
 import { generateJSON, embed, MODELS } from './_lib/gemini.js'
-import { store, dot } from './_lib/store.js'
+import { loadStore, dot } from './_lib/store.js'
 
 const TONES = ['warm', 'funny', 'romantic', 'hopeful', 'uplifting', 'nostalgic', 'whimsical', 'thrilling', 'tense', 'scary', 'dark', 'melancholy', 'heartbreaking', 'thought-provoking', 'chaotic']
 const ENDINGS = ['uplifting', 'bittersweet', 'devastating', 'open', 'cathartic', 'unsettling']
@@ -45,13 +46,15 @@ const PARSE_SCHEMA = {
     true_story_only: { type: 'BOOLEAN' },
     max_weight: { type: 'INTEGER', nullable: true, description: 'Only if they explicitly ask for something light, easy or not heavy: 2 (or 3 for "not too heavy"). Wanting to laugh or be cheered up is not a weight limit. Else null.' },
     ideal: { type: 'STRING', description: 'Describe the ideal title for them as a short film-card vibe: tone, feel, arc, setting cues. Do not name titles.' },
+    named_titles: arr({ type: 'STRING' }),
   },
   required: ['mood', 'needs_followup', 'languages', 'hard_nos', 'avoid_tones', 'avoid_endings', 'true_story_only', 'ideal'],
 }
 
 const PARSE_SYSTEM = `You read what someone types into a mood-to-movie app in India and turn it into search constraints. Input may be English, Hindi, or Hinglish.
 Only set a constraint when they actually asked for it. "languages" only if they name languages. "hard_nos" only for content they reject (e.g. "not gory" → gore; "no violence"). "avoid_tones"/"avoid_endings" for feelings they reject (e.g. "nothing tense" → tense, thrilling, scary; "no sad ending" → devastating, bittersweet; "no romance" → romantic; "not scary" → scary).
-format: "episode" when they want one episode of a series; "series" for a show or binge; "movie" for a film.`
+format: "episode" when they want one episode of a series; "series" for a show or binge; "movie" for a film.
+named_titles: any specific movie or show they mention by name ("something like Andhadhun", "is Laapataa Ladies good tonight?"), spelled as its usual title. Empty if none.`
 
 // When the parse model is unavailable (daily free quota, overload), read the obvious hard constraints from keywords
 // so search still works, matching on the embedding of their own words. No follow-up in this mode.
@@ -199,7 +202,7 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
   // The one follow-up: only when the gap really changes the picks, and only once.
   if (p.needs_followup && !stay && !answer) return { followup: FOLLOWUP, picks: [], understood }
 
-  const { cards, vectors } = store()
+  const { cards, vectors, aliases } = await loadStore()
   const rules = constraints(p, chips, prefs).filter((r) => !loosen.includes(r.key))
   const seen = new Set(exclude)
   let pool = cards.filter((c) => rules.every((r) => r.test(c)))
@@ -262,7 +265,14 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
     if (chosen.length >= 3) break
     if (!chosen.some((x) => x.card.id === card.id)) chosen.push({ card, why_this_fits: `Close to what you described: ${card.tone_mix.slice(0, 2).map((t) => t.tone).join(' and ')}, ending ${card.ending}.` })
   }
-  return { followup: null, picks: chosen, understood }
+  return { followup: null, picks: chosen, understood, missing_title: missingTitle(p.named_titles, cards, aliases) }
+}
+
+// A title they named that the store doesn't have yet: the app offers to make its card (api/card.js, Launch L4).
+const norm = (t) => t.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, ' ').trim()
+function missingTitle(named = [], cards, aliases = []) {
+  const have = new Set([...cards.flatMap((c) => [norm(c.title), norm(c.original_title || '')]), ...aliases.map((a) => norm(a.name))])
+  return named.map((t) => t.trim()).find((t) => t.length > 1 && !have.has(norm(t))) || null
 }
 
 // A small per-visitor limit so one tab can't burn the free model quota: 12 requests a minute (RATE_LIMIT_PER_MIN).

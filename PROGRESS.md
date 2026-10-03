@@ -243,6 +243,17 @@ Verified so far: empty and first-run preferences → loading → results passed 
 - Vercel: `vercel whoami` → `preetyrao435-8943`.
 - Firebase: project `filmfocus-8ffc5`, Firestore in asia-south1, production mode. Key added by Preety as `FIREBASE_SERVICE_ACCOUNT` (base64), never printed. Verified by a real round trip with `firebase-admin`: wrote, read back and deleted `_healthcheck/setup`.
 
+### L2 Card store + L4 on-demand cards
+- **Bar:** a title the store lacks becomes a real, validated card on request, saved for everyone; the seed store stays bundled.
+- **Reference:** docs/CARD_SCHEMA.md; the pipeline's own validator (same checks as the 311 seed cards); approved card and Loading variant.
+- **Limits:** keys server-side only; Firestore on Spark (reads on cold start = on-demand cards only); a daily cap on on-demand cards (Gemini free quota is shared with search) and a per-visitor limit; only titles TMDB knows with enough votes; a card that fails validation is never saved.
+- **Check:** request a title not in the store → card saved in Firestore, appears in `store()` for the next search, second request returns the saved card without generating; a nonsense title → a plain "couldn't find it"; Playwright on the Results flow with the Loading ticket.
+- Built: `api/_lib/firebase.js` (server-only Firestore), `api/_lib/store.js` (bundled seed + Firestore `cards` merged, refreshed every 5 min, `addCard` for this server), `api/_lib/cardtext.js` (one embed text for seed and on-demand), `api/card.js`, parse field `named_titles` → response `missing_title`, Results offer "Make its card" → Loading ticket → the card under its own heading, `vercel.json` (bundled data, 120s for card making, SPA rewrites).
+- Found and fixed: TMDB is unreachable on Jio (`api.themoviedb.org` resolves to a Jio address that times out), so the pipeline now uses TMDB's alternate domain `api.tmdb.org`.
+- Found and fixed: picking the most-voted loose TMDB match turned "Piku" into "Twin Peaks: Fire Walk with Me" (card made and saved; deleted). Now: our store and earlier request names first, then exact title, then a title containing the request, then TMDB's top relevant hit only if it shares a word; "Queen 2014" searches with the year.
+- Check: Laapataa Ladies made in 19s (high confidence, Netflix), repeat request 1s with no generation; Piku, Udaan made; "Queen", "queen 2014", "lost ladies", "Laapataa Ladies" resolve to existing cards; nonsense → not_found; cap of 0 → `limit` without generating. Browser: offer → Loading ticket → Udaan card, save to watchlist works, no page errors. Watchlist/compare check still 29/29.
+- Known: an on-demand title's own request ("something like Udaan") doesn't steer search toward Udaan's vibe yet; picks come from the mood words as before.
+
 ## Decisions made on my own
 - **Tailwind 3 with a `tailwind.config.js`** (not v4's CSS `@theme`), because the runbook asks for tokens "in the Tailwind config". Default palette, spacing, radii and shadows are replaced, so nothing off-direction can be used by accident.
 - **Honest read above the title**, following the direction's top-to-bottom anatomy literally (counterfoil → honest read → title). You might prefer the title first, so it anchors the card.

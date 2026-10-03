@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/recommend.js": { "includeFiles": "data/{cards,embeddings}.json" },
+    "api/card.js": { "includeFiles": "data/{cards,embeddings}.json", "maxDuration": 120 }
+  },
+  "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }]
+}
