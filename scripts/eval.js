@@ -48,8 +48,11 @@ const JUDGE_SCHEMA = {
 
 async function judge(m, res) {
   const picks = res.picks.map((p) => `- ${p.card.title} (${p.card.year}, ${p.card.type}, ${p.card.languages[0]}): ${p.card.honest_read.actually_is} | why: ${p.why_this_fits}`).join('\n')
+  // Short timeouts: when Gemini is overloaded a hung call otherwise costs 90s × 3 tries × 4 models per mood.
   const { data } = await generateJSON({
     chain: MODELS.judge,
+    timeoutMs: 30000,
+    attempts: 2,
     system: 'You judge a mood-to-movie app for viewers in India. Use your own knowledge of these titles. Score 1–5: would a thoughtful friend who knows these titles make these three picks for this mood? 5 = all three are spot on; 4 = good, one is a stretch; 3 = mixed; 2 = mostly wrong; 1 = absurd. Be strict. The viewer saved Hindi and English as languages and Netflix, Prime Video and JioHotstar as platforms.',
     prompt: `Mood: "${m.text}"\nPicks:\n${picks}`,
     schema: JUDGE_SCHEMA,
@@ -61,8 +64,17 @@ async function judge(m, res) {
 }
 
 const store = new Set(JSON.parse(readFileSync('data/cards.json', 'utf8')).map((c) => c.id))
-const results = []
+// Saved after every mood, so a run stopped part-way (quota waits, time limits) picks up where it left off.
+// EVAL_FRESH=1 starts the round over.
+const round = process.env.EVAL_ROUND || '1'
+const partial = `data/eval-partial-${round}.json`
+let results = []
+try {
+  if (!process.env.EVAL_FRESH) results = JSON.parse(readFileSync(partial, 'utf8'))
+} catch {}
+if (results.length) console.log(`Resuming round ${round}: ${results.length} moods already done.`)
 for (const m of moods) {
+  if (results.some((r) => r.n === m.n)) continue
   const text = m.n === 29 ? '' : m.text
   const t = Date.now()
   let res
@@ -72,6 +84,7 @@ for (const m of moods) {
     if (res.followup) res = { ...(await recommend({ text, chips: {}, prefs: PREFS, answer: { slot: res.followup.slot, value: res.followup.options[0] } })), askedFollowup: true }
   } catch (e) {
     results.push({ ...m, error: e.message, pass: false, fit: 0 })
+    writeFileSync(partial, JSON.stringify(results))
     console.log(`${m.n}. ERROR ${e.message}`)
     continue
   }
@@ -89,6 +102,7 @@ for (const m of moods) {
   if (!j.why_lines_refer_to_input) fails.push('why lines miss what they said')
   const row = { ...m, picks: res.picks.map((p) => ({ title: p.card.title, year: p.card.year, lang: p.card.languages[0], why: p.why_this_fits })), fails, pass: fails.length === 0, fit: j.fit, reason: j.reason, followup: Boolean(res.askedFollowup), no_match: res.no_match || null, ms }
   results.push(row)
+  writeFileSync(partial, JSON.stringify(results))
   console.log(`${m.n}. ${row.pass ? 'PASS' : 'FAIL'} fit ${j.fit} · ${row.picks.map((p) => p.title).join(' | ')}${fails.length ? ` · ${fails.join('; ')}` : ''} · ${Math.round(ms / 1000)}s`)
 }
 
@@ -96,8 +110,8 @@ const passed = results.filter((r) => r.pass).length
 const avg = results.reduce((a, r) => a + r.fit, 0) / results.length
 const below3 = results.filter((r) => r.fit < 3)
 const meets = passed >= 28 && avg >= 4 && below3.length === 0
+results.sort((a, b) => a.n - b.n)
 const date = new Date().toISOString().slice(0, 10)
-const round = process.env.EVAL_ROUND || '1'
 const sorted = [...results].sort((a, b) => b.fit - a.fit)
 const md = [
   `# Engine eval, ${date}, round ${round}`,

@@ -301,6 +301,10 @@ export async function assemble(src, out) {
   const endsDown = ['fall', 'rise_fall', 'fall_rise_fall'].includes(card.arc.shape)
   if ((endsDown && ['uplifting', 'cathartic'].includes(card.ending)) || (!endsDown && card.ending === 'devastating'))
     problems.push(`arc_shape ${card.arc.shape} contradicts a ${card.ending} ending; pick the shape that matches how it feels at the end.`)
+  // Horror made to frighten must carry "scary", or "scary but not gory" can't find it. Caught by the card's own words,
+  // since TMDB files some (The Haunting of Hill House) under drama or mystery.
+  if (/horror|ghost stor|haunting|genuine scares|supernatural dread/i.test(`${card.honest_read.actually_is} ${card.vibe}`) && !card.tone_mix.some((t) => t.tone === 'scary'))
+    problems.push('This is horror made to frighten, so tone_mix must include "scary" with a real share.')
   if (card.honest_read.actually_is && card.honest_read.actually_is.split(/\s+/).length > 40) problems.push('actually_is is too long; keep it to one sentence of about 30 words.')
 
   // Own words: no 10-word run shared with any source.

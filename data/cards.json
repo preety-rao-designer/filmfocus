@@ -7189,56 +7189,57 @@
   ],
   "truth": {
    "status": "fiction",
-   "note": "Loosely based on the Naale Baa urban legend from Karnataka in the 1990s."
+   "note": "Loosely based on the 1990s Kannada urban legend Naale Baa."
   },
   "honest_read": {
-   "looks_like": "A quirky small-town comedy about men hiding from a ghost.",
-   "actually_is": "A sharp horror-comedy mixing eccentric local folklore, genuine scares, and social satire where the men of a sleepy town live in absolute dread after dark."
+   "looks_like": "A quirky small-town comedy about men hiding from a notorious local ghost.",
+   "actually_is": "A witty blend of local folklore and deadpan laughs where the men of a sleepy town live in absolute dread of a nocturnal spirit."
   },
   "expectation_traps": [
-   "You might expect a mindless slapstick comedy rather than a film with actual scares.",
-   "You might think it is just a lightweight ghost story without any social commentary."
+   "You might think it is just a silly, low-stakes spoof without any real scares.",
+   "You could expect a light romp that completely breezes past its darker undertones."
   ],
   "tone_mix": [
    {
-    "tone": "funny",
+    "tone": "scary",
     "pct": 40
    },
    {
-    "tone": "thrilling",
-    "pct": 30
+    "tone": "funny",
+    "pct": 35
    },
    {
-    "tone": "thought-provoking",
-    "pct": 30
+    "tone": "tense",
+    "pct": 25
    }
   ],
   "arc": {
-   "shape": "fall_rise",
-   "start": "uneasy",
-   "middle": "curious",
-   "end": "triumphant"
+   "shape": "rise_fall_rise",
+   "start": "curious",
+   "middle": "anxious",
+   "end": "relieved"
   },
   "ending": "uplifting",
-  "spoiler_ending": "Vicky discovers he fits a prophecy to defeat the spirit and successfully cuts off her braid with the mysterious woman's advice, making the ghost disappear. The town celebrates and erects a statue, causing the returning spirit to leave peacefully a year later. Meanwhile, the mysterious woman departs with the braid, hinting at her own ambitions.",
+  "spoiler_ending": "Vicky discovers that Stree was once a wronged courtesan seeking love and respect. Following a prophecy, he cuts off her powerful braid, causing her to vanish. A year later, she returns peacefully after the town erects a protective statue in her honor.",
   "bandwidth": {
    "pace": "steady",
    "attention": "some_focus",
    "emotional_weight": 2
   },
   "content_flags": [
-   "disturbing_themes",
-   "violence"
+   "violence",
+   "disturbing_themes"
   ],
   "family": "teens_up",
   "good_for": [
    "watching with friends",
-   "a fun movie night"
+   "late night viewing"
   ],
   "skip_if": [
-   "you are easily frightened by ghosts"
+   "you dislike ghost stories",
+   "you want pure slapstick comedy"
   ],
-  "vibe": "In a sleepy town where men fear going out after dark, a tailor and his friends try to outsmart a vengeful spirit. It blends quirky small-town eccentricities with genuine supernatural dread.",
+  "vibe": "In a quiet town governed by strict nighttime rules, a tailor and his friends try to outsmart a vengeful spirit. It mixes eccentric characters and sharp humor with genuine chills.",
   "confidence": {
    "level": "high",
    "sources_read": 10,
@@ -7521,38 +7522,38 @@
   ],
   "truth": {
    "status": "fiction",
-   "note": null
+   "note": "Drawn from Arab folklore and set in a fictional dystopian future."
   },
   "honest_read": {
-   "looks_like": "A gritty military thriller about interrogating a dangerous, high-profile terrorist in a secret camp.",
-   "actually_is": "A claustrophobic horror miniseries set in a dystopian police state, where a terrifying prisoner turns interrogation tactics around and forces guards to face their darkest secrets."
+   "looks_like": "A sleek military thriller about hunting terrorists in a dark underground prison.",
+   "actually_is": "A claustrophobic horror miniseries where a zealous officer in a dystopian detention camp realizes her captive is an ancient, flesh-eating monster turning the guards' darkest secrets against them."
   },
   "expectation_traps": [
-   "You might expect a typical action-heavy military procedural.",
-   "You might think it is just a standard monster-in-a-box horror flick."
+   "You might expect a straightforward military action-thriller about counter-terrorism.",
+   "You might think it is a standard zombie or vampire flick, but it draws on Arabic folklore."
   ],
   "tone_mix": [
    {
-    "tone": "tense",
+    "tone": "scary",
     "pct": 40
    },
    {
-    "tone": "dark",
+    "tone": "tense",
     "pct": 35
    },
    {
-    "tone": "melancholy",
+    "tone": "dark",
     "pct": 25
    }
   ],
   "arc": {
    "shape": "fall",
-   "start": "tense",
-   "middle": "dread",
-   "end": "grim"
+   "start": "eager",
+   "middle": "trapped",
+   "end": "terrified"
   },
-  "ending": "unsettling",
-  "spoiler_ending": "The captive prisoner is revealed to be a supernatural ghoul from Arabic folklore that exposes everyone's hidden sins. As the entity terrorizes the underground detention camp, the regime's brutal facade crumbles from within. Nida is left to face the horrific true nature of the authoritarian system she once blindly served.",
+  "ending": "devastating",
+  "spoiler_ending": "Nida discovers that the dreaded prisoner Ali Saeed is actually an ancient ghoul capable of assuming the forms of others after consuming them. The creature systematically exposes the guards' and interrogators' most shameful secrets, driving them to turn on one another. Nida ultimately confronts the monster as the brutal reality of the fascist regime closes in around them.",
   "bandwidth": {
    "pace": "steady",
    "attention": "full_focus",
@@ -7564,19 +7565,19 @@
   ],
   "family": "adults_only",
   "good_for": [
-   "watching late at night",
-   "horror fans craving atmosphere"
+   "late-night horror binges",
+   "fans of atmospheric monster stories"
   ],
   "skip_if": [
-   "you want a light comedy",
-   "you dislike dark dystopian themes"
+   "you want uplifting television",
+   "you dislike claustrophobic settings"
   ],
-  "vibe": "Set in a dystopian future under a fascist regime, a newly recruited military officer is sent to a secret internment camp to interrogate a dreaded terrorist. Things take a terrifying turn as supernatural elements from folklore emerge and hidden secrets are dragged into the light.",
+  "vibe": "Set in a dystopian future under a fascist regime, a covert military interrogation camp becomes the hunting ground for a terrifying shape-shifting creature from Arabic folklore. It is a grim, atmospheric ride that mixes political dread with classic monster horror.",
   "confidence": {
    "level": "medium",
    "sources_read": 10,
    "agreement": "mixed",
-   "generated_at": "2026-10-01",
+   "generated_at": "2026-10-03",
    "refresh_after": null
   }
  },
@@ -7895,43 +7896,46 @@
   ],
   "truth": {
    "status": "fiction",
-   "note": null
+   "note": "An entirely fictional horror series created by Patrick Graham."
   },
   "honest_read": {
-   "looks_like": "A slick military thriller where modern soldiers battle colonial zombie redcoats.",
-   "actually_is": "A messy creature feature blending corporate greed with the undead, though it often feels more silly than truly terrifying."
+   "looks_like": "A high-octane military-versus-zombie action thriller set in a remote Indian village.",
+   "actually_is": "A clunky supernatural horror involving colonial ghosts and modern development disputes that often feels more repetitive than genuinely frightening."
   },
   "expectation_traps": [
-   "Expecting a polished, high-stakes blockbuster thriller",
-   "Looking for genuine, edge-of-your-seat terror",
-   "Hoping for airtight writing behind the big production names"
+   "Expect a terrifying Indian take on great zombie shows, but find the scares largely miss the mark.",
+   "Think it will deliver wall-to-wall military action, but get bogged down in repetitive plotting."
   ],
   "tone_mix": [
    {
-    "tone": "thrilling",
-    "pct": 45
-   },
-   {
-    "tone": "dark",
+    "tone": "scary",
     "pct": 35
    },
    {
-    "tone": "chaotic",
+    "tone": "tense",
+    "pct": 30
+   },
+   {
+    "tone": "dark",
     "pct": 20
+   },
+   {
+    "tone": "chaotic",
+    "pct": 15
    }
   ],
   "arc": {
    "shape": "fall",
-   "start": "tense",
-   "middle": "messy",
-   "end": "explosive"
+   "start": "trapped",
+   "middle": "desperate",
+   "end": "doomed"
   },
-  "ending": "bittersweet",
-  "spoiler_ending": "Vikram confronts his past and triggers a cataclysmic showdown. He sacrifices himself to destroy the colonial shrine, ensuring the undead are defeated and Saanvi is safely released.",
+  "ending": "devastating",
+  "spoiler_ending": "Commandant Vikram confronts his past and chooses self-sacrifice to stop the supernatural horde. His final act triggers a cataclysmic explosion that destroys the colonel's shrine. Though the shrine falls and saves others, it leaves behind total devastation.",
   "bandwidth": {
    "pace": "fast",
    "attention": "some_focus",
-   "emotional_weight": 3
+   "emotional_weight": 4
   },
   "content_flags": [
    "violence",
@@ -7940,19 +7944,19 @@
   ],
   "family": "adults_only",
   "good_for": [
-   "late night creature feature watch",
-   "zombie completists"
+   "watching horror in one sitting",
+   "zombie genre fans"
   ],
   "skip_if": [
-   "you want genuinely terrifying horror",
-   "you expect airtight writing"
+   "you expect top-tier production values",
+   "you want seamless editing"
   ],
-  "vibe": "A development crew accidentally wakes up a cursed battalion of British redcoat zombies in a remote village. It tries to tackle colonial exploitation and corporate greed, though the execution frequently stumbles.",
+  "vibe": "A squad of modern soldiers and a corrupt tycoon clash with an army of British East India Company zombies trapped beneath a remote village. The four-episode run mixes folklore with undead military horror.",
   "confidence": {
    "level": "medium",
    "sources_read": 10,
    "agreement": "mixed",
-   "generated_at": "2026-10-01",
+   "generated_at": "2026-10-03",
    "refresh_after": null
   }
  },
@@ -25754,61 +25758,62 @@
   ],
   "truth": {
    "status": "fiction",
-   "note": "Loosely based on the 1959 novel by Shirley Jackson."
+   "note": "Adapted from the classic 1959 book written by Shirley Jackson."
   },
   "honest_read": {
-   "looks_like": "A straightforward ghost story about a family terrorized by a creepy old mansion.",
-   "actually_is": "A heavy, slow-burning family drama disguised as horror, tracing childhood trauma, grief, and the lingering scars of the past across two timelines."
+   "looks_like": "A creepy ghost story about a cursed mansion and things that go bump.",
+   "actually_is": "A heavy, terrifying look at grief and family trauma, wrapped in genuine scares and deep sorrow."
   },
   "expectation_traps": [
-   "You might expect a relentless barrage of cheap jump scares.",
-   "You might think it is just a standard haunted house spook-fest."
+   "You might think it is just a string of cheap jump scares.",
+   "You might expect a breezy supernatural mystery rather than a heavy emotional drama."
   ],
   "tone_mix": [
    {
-    "tone": "dark",
+    "tone": "scary",
     "pct": 40
    },
    {
-    "tone": "tense",
-    "pct": 35
+    "tone": "dark",
+    "pct": 30
    },
    {
     "tone": "melancholy",
-    "pct": 25
+    "pct": 30
    }
   ],
   "arc": {
-   "shape": "fall_rise",
-   "start": "fearful",
-   "middle": "haunted",
-   "end": "resolved"
+   "shape": "rise_fall",
+   "start": "tense",
+   "middle": "painful",
+   "end": "melancholic"
   },
   "ending": "bittersweet",
-  "spoiler_ending": "Following another tragedy years after fleeing the mansion, the estranged siblings and their father reunite. They are forced to confront how their terrifying childhood experiences in Hill House ultimately shaped their lives.",
+  "spoiler_ending": "After gathering together to face the ghosts of their past following a fresh tragedy, the surviving siblings manage to break free from the house's supernatural grip. Their father chooses to stay behind with their mother inside the mansion forever, uniting the family in death while the remaining children try to heal in the real world.",
   "bandwidth": {
    "pace": "steady",
    "attention": "full_focus",
    "emotional_weight": 4
   },
   "content_flags": [
-   "disturbing_themes"
+   "disturbing_themes",
+   "substance_use"
   ],
   "family": "adults_only",
   "good_for": [
-   "late night viewing",
-   "fans of deep drama"
+   "watching with the lights on",
+   "deep-dive weekend viewing"
   ],
   "skip_if": [
-   "you only want cheap jump scares",
-   "you dislike slow pacing"
+   "you are looking for a light supernatural romp",
+   "you want to avoid heavy family grief"
   ],
-  "vibe": "Five adult siblings and their father confront lingering trauma and paranormal events from their childhood home across past and present timelines. It blends chilling supernatural horror with an intense family drama.",
+  "vibe": "Five estranged siblings grapple with the lingering terror of the massive mansion they grew up in. Flashing between their youth and adulthood, the show explores how childhood trauma refuses to stay buried.",
   "confidence": {
    "level": "high",
    "sources_read": 10,
    "agreement": "strong",
-   "generated_at": "2026-10-02",
+   "generated_at": "2026-10-03",
    "refresh_after": null
   }
  },
@@ -25836,43 +25841,38 @@
   ],
   "truth": {
    "status": "fiction",
-   "note": "While the Munjya spirit is a figure from Indian folklore, the film's plot is an invented story."
+   "note": "Based on traditional Indian folklore surrounding the Munjya spirit, but the plot itself is entirely fictional."
   },
   "honest_read": {
-   "looks_like": "A lighthearted, fun supernatural romp rooted in Indian folklore and village legends.",
-   "actually_is": "A CGI-heavy horror-comedy that balances creature-feature thrills with family drama, though it occasionally struggles to maintain its momentum."
+   "looks_like": "A cheeky CGI monster comedy blending local folklore scares and laughs.",
+   "actually_is": "A noisy folkloric creature feature that mixes goofy supernatural stalking with family panic, leaning heavily on computer-generated antics and chaotic rural chases."
   },
   "expectation_traps": [
-   "Expecting it to be as consistently funny as other films in the same universe",
-   "Assuming it will maintain a high-energy pace throughout the entire runtime",
-   "Thinking it is a strictly traditional or accurate cultural retelling"
+   "you might expect a deeply terrifying traditional ghost story",
+   "you might think the CGI monster is purely scary rather than mischievous"
   ],
   "tone_mix": [
    {
     "tone": "tense",
-    "pct": 40
+    "pct": 45
    },
    {
     "tone": "funny",
-    "pct": 30
+    "pct": 35
    },
    {
-    "tone": "dark",
+    "tone": "chaotic",
     "pct": 20
-   },
-   {
-    "tone": "whimsical",
-    "pct": 10
    }
   ],
   "arc": {
-   "shape": "rise_fall_rise",
-   "start": "curious",
-   "middle": "restless",
+   "shape": "fall_rise",
+   "start": "uneasy",
+   "middle": "chaotic",
    "end": "relieved"
   },
-  "ending": "uplifting",
-  "spoiler_ending": "After a chaotic struggle, Bittu manages to trap the spirit of Munjya within the haunted peepal tree and sets it on fire. While Bittu moves on with his life, the final scene shows charred wood from the tree being transported to a new location, suggesting the spirit survives.",
+  "ending": "open",
+  "spoiler_ending": "Bittu and his family travel back to their ancestral village to perform a complex exorcism and trap the vengeful spirit. After a chaotic chain of possessions involving animals and family members, Bittu traps Munjya inside the haunted peepal tree and sets it ablaze. However, the final scenes and post-credits reveal that the spirit has survived and is ready to strike again.",
   "bandwidth": {
    "pace": "steady",
    "attention": "some_focus",
@@ -25888,10 +25888,10 @@
    "fans of creature features"
   ],
   "skip_if": [
-   "you prefer grounded storytelling",
-   "you dislike CGI-heavy monsters"
+   "you dislike cgi heavy monsters",
+   "you want highbrow horror"
   ],
-  "vibe": "A young man accidentally unleashes a vengeful spirit from his family's past, leading to a frantic battle to save his loved ones. It blends local folklore with slapstick humor and supernatural thrills.",
+  "vibe": "A timid young man accidentally releases a vengeful folkloric spirit that is desperately seeking a bride. He must navigate wild family dynamics and frantic rituals to survive the creature's relentless stalking.",
   "confidence": {
    "level": "medium",
    "sources_read": 10,

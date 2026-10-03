@@ -12,3 +12,5 @@ data/dev.log
 data/redo.log
 data/redo.txt
 data/eval.log
+data/eval-partial-*.json
+data/embed.log
