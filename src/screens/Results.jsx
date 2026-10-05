@@ -246,11 +246,12 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
   })
 
   const forLine = (
-    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-caption text-muted">
-      <span>
-        For <span className="text-paper">{askedFor(text, chips)}</span>
-      </span>
-      <button type="button" onClick={onChangeMood} className={`${quiet} text-caption`}>
+    // One line: a long request is cut short (it's in full on the home screen), the link always stays in view.
+    <div className="flex max-w-[640px] items-baseline gap-4 text-caption text-muted">
+      <p className="min-w-0 truncate" title={askedFor(text, chips)}>
+        For <span className="text-paper/80">{askedFor(text, chips)}</span>
+      </p>
+      <button type="button" onClick={onChangeMood} className={`${quiet} shrink-0 text-caption`}>
         Change my mood
       </button>
     </div>
@@ -315,7 +316,7 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
           </div>
         )}
         <div className="relative mx-auto flex w-full max-w-page flex-col px-4 pt-[22vh] pb-8 md:grid md:grid-cols-[minmax(0,560px)_1fr] md:items-end md:gap-x-12 md:px-12 md:pt-[120px] md:pb-12">
-          <div className="order-1 mb-5 md:col-start-1 md:row-start-1">{forLine}</div>
+          <div className="order-1 mb-6 md:col-start-1 md:row-start-1 md:mb-8">{forLine}</div>
 
           <div className="order-2 mb-8 md:col-start-2 md:row-start-2 md:mb-0">
             <div className="flex items-end gap-3 md:justify-end md:gap-4">
@@ -340,8 +341,8 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
           </div>
 
           <div className={`focus-swap order-3 md:col-start-1 md:row-start-2 ${out ? 'out' : ''}`}>
-            <div className="flex items-start gap-4">
-              <span aria-hidden="true" className="text-num font-thin tabular md:text-num-lg">{two(shown + 1)}</span>
+            <div className="flex items-start gap-4 md:gap-6">
+              <span aria-hidden="true" className="text-num font-thin text-paper/40 tabular md:text-num-lg">{two(shown + 1)}</span>
               <div className="min-w-0">
                 {c ? <h2 className="text-title font-bold md:text-title-lg">{c.title}</h2> : <LoadingLine />}
                 {c ? <Facts card={c} /> : <p className="mt-3 text-caption"><Bar chars={36} /></p>}
@@ -352,7 +353,7 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
                 <HonestRead card={c} />
                 {pick.why_this_fits && <Aside>{pick.why_this_fits}</Aside>}
                 <Actions card={c} lists={lists} />
-                <button type="button" onClick={() => onOpen(c)} className={`${quiet} mt-3 text-caption`}>
+                <button type="button" onClick={() => onOpen(c)} className={`${quiet} mt-4 text-caption`}>
                   See the full page →
                 </button>
               </>

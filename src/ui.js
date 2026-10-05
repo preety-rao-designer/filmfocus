@@ -1,6 +1,6 @@
 // Shared control styles and image helpers for "The Late Show" (docs/DESIGN_DIRECTION.md). Tokens only.
 export const btn =
-  'inline-flex min-h-[48px] items-center justify-center gap-2 rounded-pill border border-line px-6 text-body font-medium text-paper ' +
+  'inline-flex min-h-[48px] items-center justify-center gap-2 rounded-pill border border-line px-6 text-body font-normal text-paper ' +
   'hover:border-paper disabled:opacity-50 disabled:hover:border-line ' +
   'aria-pressed:border-paper aria-pressed:bg-paper aria-pressed:text-night'
 export const primary =

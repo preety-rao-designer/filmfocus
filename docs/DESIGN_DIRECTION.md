@@ -35,7 +35,9 @@ Images come only from TMDB (posters and backdrops), credited in the footer.
 - **Indian scripts:** Noto Sans Devanagari is loaded; Tamil, Telugu, Malayalam, Kannada, Bengali and Gujarati fall back to their Noto Sans families.
 - Tabular figures for runtimes, ratings, percentages and counts.
 
-**Scale (px, phone / desktop):** 12 label, 14 caption, 16 body, 18 lead, 20 / 22 the "Actually is" read, 34 / 54 title, 44 / 80 headline, 72 / 120 numeral. Line height 1.5 for text, 1.4 for the read, about 1.0 for titles and headlines with tight tracking. Sentence case everywhere; no all-caps labels.
+**Scale (px, phone / desktop):** 12 label, 14 caption, 16 body, 18 lead, 20 / 24 the "Actually is" read, 34 / 54 title, 44 / 80 headline, 56 / 88 numeral.
+
+**Hierarchy in the focused pick** (revised 2026-10-06 after "noisy and tight"): the title leads; the numeral is thin Paper at 40% so it marks position without competing; the facts are one even Muted line; "Actually is" is the one big read, with 32–40px of air above the read block and 20–24px between "Looks like" and it; why it fits is a smaller Muted aside; secondary buttons are regular weight so only the Amber one is bold. The "For …" line stays on one line, cut short if long, with "Change my mood" always in view. Line height 1.5 for text, 1.4 for the read, about 1.0 for titles and headlines with tight tracking. Sentence case everywhere; no all-caps labels.
 
 ## Spacing and shape
 

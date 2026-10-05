@@ -64,7 +64,7 @@ function factsParts(card) {
     const src = card.rating.source === 'imdb' ? 'IMDb' : 'TMDB'
     parts.push(
       <>
-        <span className="text-paper">{card.rating.value}</span> on {src}
+        {card.rating.value} on {src}
         {card.rating.votes ? ` (${compactVotes(card.rating.votes)} votes)` : ''}
       </>,
     )
@@ -74,7 +74,7 @@ function factsParts(card) {
 
 export function Facts({ card }) {
   return (
-    <p className="mt-3 text-caption text-muted tabular">
+    <p className="mt-3 text-caption text-muted tabular md:mt-4">
       {factsParts(card).map((part, i) => (
         <Fragment key={i}>
           {i > 0 && ' · '}
@@ -95,13 +95,13 @@ export function seriesLine(series) {
 // The product's core idea, always read before anything else about the title.
 export function HonestRead({ card }) {
   return (
-    <div className="mt-6 grid gap-3">
+    <div className="mt-8 grid gap-5 md:mt-10 md:gap-6">
       <p className="text-caption text-muted">
-        <span className="block text-label font-medium">Looks like</span>
+        <span className="mb-1 block text-label font-medium tracking-wide text-paper/50">Looks like</span>
         {card.honest_read.looks_like}
       </p>
-      <p className="text-read md:text-read-lg">
-        <span className="block text-label font-medium text-amber">Actually is</span>
+      <p className="text-read [text-wrap:pretty] md:text-read-lg">
+        <span className="mb-2 block text-label font-medium tracking-wide text-amber">Actually is</span>
         {card.honest_read.actually_is}
       </p>
     </div>
@@ -110,7 +110,7 @@ export function HonestRead({ card }) {
 
 // A line with the amber rule: why this fits (on results) or the truth note (on a title's page).
 export function Aside({ children }) {
-  return <p className="mt-4 border-l-2 border-amber pl-3 text-body text-muted">{children}</p>
+  return <p className="mt-6 max-w-read border-l border-amber/70 pl-4 text-caption text-muted md:text-body">{children}</p>
 }
 
 // The primary action opens the person's own service first (src/platforms.js), else the first one it streams on.
@@ -120,7 +120,7 @@ export function Actions({ card, lists, extra }) {
   const saved = lists.savedIds.includes(card.id)
   const comparing = lists.compareIds.includes(card.id)
   return (
-    <div className="mt-6 grid grid-cols-2 gap-3 md:flex md:flex-wrap">
+    <div className="mt-8 grid grid-cols-2 gap-3 md:flex md:flex-wrap">
       {first && (
         <a
           href={watchLink(first, card.title)}
