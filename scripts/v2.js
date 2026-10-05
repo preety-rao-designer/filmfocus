@@ -107,10 +107,10 @@ try {
     await ready(page)
     const t1 = await focused(page)
     check(t1.length > 0, `${tag} results focus pick 1 (${t1})`)
-    const watch = page.getByRole('link', { name: /^Watch on / })
+    const watch = page.getByRole('link', { name: /^Find it on / })
     if (await watch.count()) {
       const href = await watch.getAttribute('href')
-      check(/netflix|primevideo|hotstar|apple|sunnxt|justwatch|sonyliv|zee5|aha/.test(href), `${tag} Watch opens a service search (${href.slice(0, 40)}…)`)
+      check(/netflix|primevideo|hotstar|apple|sunnxt|justwatch|sonyliv|zee5|aha/.test(href), `${tag} Find it on opens a service search (${href.slice(0, 40)}…)`)
       const [popup] = await Promise.all([context.waitForEvent('page'), watch.click()])
       await popup.close()
     }

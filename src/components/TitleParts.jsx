@@ -114,6 +114,7 @@ export function Aside({ children }) {
 }
 
 // The primary action opens the person's own service first (src/platforms.js), else the first one it streams on.
+// It says "Find it on": services don't allow links to a title, so it opens that service's search for it.
 export function Actions({ card, lists, extra }) {
   const { yours, others } = splitPlatforms(card.watch_in, lists.mine)
   const first = yours[0] || others[0]
@@ -129,7 +130,7 @@ export function Actions({ card, lists, extra }) {
           onClick={() => lists.onWatch(card, first)}
           className={`${primary} col-span-2`}
         >
-          Watch on {first} <span aria-hidden="true">↗</span>
+          Find it on {first} <span aria-hidden="true">↗</span>
           <span className="sr-only"> (opens in a new tab)</span>
         </a>
       )}
@@ -243,7 +244,7 @@ function WhereToWatch({ card, lists }) {
           {others.length > 0 && <> Also on <PlatformLinks names={others} card={card} onWatch={lists.onWatch} />.</>}
         </p>
       ) : (
-        <p>Watch on <PlatformLinks names={others} card={card} onWatch={lists.onWatch} />.</p>
+        <p>Streaming on <PlatformLinks names={others} card={card} onWatch={lists.onWatch} />.</p>
       )}
     </Panel>
   )

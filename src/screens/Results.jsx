@@ -194,7 +194,7 @@ function Poster({ pick, i, current, loading, onClick }) {
       >
         {!c && <Reel i={i} />}
       </span>
-      <span className={`mt-[10px] flex items-baseline gap-2 text-caption ${current ? 'text-paper' : 'text-muted'}`}>
+      <span className={`mt-[10px] flex items-baseline gap-2 text-caption ${current ? 'text-paper' : 'text-paper/70'}`}>
         <span className="text-[22px] font-thin leading-none text-paper tabular">{two(i + 1)}</span>
         <span className="truncate">{c ? c.title : <Bar chars={10} />}</span>
       </span>
@@ -333,7 +333,7 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
             </div>
             {/* Regenerate: three different picks for the same mood (the engine skips ones already shown). */}
             <div className="mt-4 flex justify-end">
-              <button type="button" onClick={onOthers} disabled={loading} aria-label="Regenerate: show me three others" className={btn}>
+              <button type="button" onClick={onOthers} disabled={loading} aria-label="Regenerate: show me three others" className={`${btn} bg-night/60`}>
                 <RefreshIcon spinning={loading} />
                 {loading ? 'Finding…' : 'Regenerate'}
               </button>
@@ -353,9 +353,19 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
                 <HonestRead card={c} />
                 {pick.why_this_fits && <Aside>{pick.why_this_fits}</Aside>}
                 <Actions card={c} lists={lists} />
-                <button type="button" onClick={() => onOpen(c)} className={`${quiet} mt-4 text-caption`}>
-                  See the full page →
-                </button>
+                {/* The details sit under the fold; say so, and take them there. */}
+                <div className="mt-4 flex flex-wrap gap-x-6">
+                  <button
+                    type="button"
+                    onClick={() => document.getElementById('pick-details')?.scrollIntoView({ behavior: still() ? 'auto' : 'smooth' })}
+                    className={`${quiet} text-caption`}
+                  >
+                    How it feels, tone and ending ↓
+                  </button>
+                  <button type="button" onClick={() => onOpen(c)} className={`${quiet} text-caption`}>
+                    See the full page →
+                  </button>
+                </div>
               </>
             ) : (
               <div className="mt-6 grid gap-3" aria-hidden="true">
@@ -369,7 +379,7 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
       </section>
 
       {c && (
-        <section aria-label={`More about ${c.title}`} className={`focus-swap mx-auto max-w-page px-4 pt-2 pb-8 md:px-12 md:pt-6 ${out ? 'out' : ''}`}>
+        <section id="pick-details" aria-label={`More about ${c.title}`} className={`focus-swap mx-auto scroll-mt-4 max-w-page px-4 pt-2 pb-8 md:px-12 md:pt-6 ${out ? 'out' : ''}`}>
           <Details card={c} lists={lists} />
         </section>
       )}
