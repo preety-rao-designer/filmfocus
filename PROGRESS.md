@@ -324,3 +324,11 @@ Verified so far: empty and first-run preferences → loading → results passed 
 
 ## Cut or deferred
 <!-- Anything cut under the time-box rule, and why. -->
+
+### V2 visual refresh: direction and mock (2026-10-05)
+- **Bar:** a new direction, "The Late Show": dark, image-led, one pick in focus at a time, built from Preety's three references. Mocked as the home screen and the results screen with one pick open.
+- **Reference:** Preety's references: the Kurosawa VHS shelf (spines, the chosen one pulled forward), the Sandhill "Netflix" concept (tall poster strips that widen, open into a full-width still), and the Kong cinema page (full-bleed backdrop, big 01 numeral and title, next picks as posters beside it). Data from docs/CARD_SCHEMA.md.
+- **Limits:** keep the product's honesty: "looks like" versus "actually is" stays the first thing read, above any rating. Three picks only, no browsing grid. One accent color, one type family (with Devanagari fallback). Mobile-first at 390px, also 1280px. Images only from TMDB, with the credit. Motion: the focus change and the shelf drift, both off under reduced motion.
+- **Check:** a working HTML mock in docs/design/v2/ with snaps at 390 and 1280, then C1-style sign-off from Preety before any screen is rebuilt.
+- **Built:** `docs/design/v2/mock.html`, plus snaps at 390 and 1280 (home, results, results with pick 2 focused). No page errors and no sideways scroll at either width. Draft tokens: Night `#0D0B0C`, Night raised `#171314`, Paper `#F4EFE9`, Muted `#A9A19A`, one accent Amber `#F5B841`. Type: Inter Tight 200/400/500/700 (thin numerals, bold titles) with Noto Sans Devanagari as the fallback. Phone order: picks rail first, then the focused pick, so all three are visible at once; details sit below the hero, with the ending folded away.
+- **Waiting for Preety:** sign-off on the mock before DESIGN_DIRECTION.md v2 is written and the screens are rebuilt.

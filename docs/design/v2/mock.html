@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FilmFocus V2 mock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200;300;400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="data.js"></script>
+<style>
+  /* "The Late Show" tokens (draft for docs/DESIGN_DIRECTION.md v2) */
+  :root {
+    --night: #0D0B0C;        /* page */
+    --night-2: #171314;      /* raised panels */
+    --line: rgba(244,239,233,.14);
+    --paper: #F4EFE9;        /* text */
+    --muted: #A9A19A;        /* secondary text */
+    --amber: #F5B841;        /* the one accent: primary action, arc line, focus */
+    --ink: #0D0B0C;
+    --font: "Inter Tight", "Noto Sans Devanagari", system-ui, sans-serif;
+    --img: "https://image.tmdb.org/t/p/";
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--night); color: var(--paper); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+  body { font-size: 16px; line-height: 1.5; }
+  button, textarea { font: inherit; color: inherit; }
+  a { color: inherit; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 900px) { .wrap { padding: 0 48px; } }
+
+  /* Header */
+  header { position: relative; z-index: 5; }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .mark { font-weight: 700; font-size: 18px; letter-spacing: -.01em; }
+  .mark span { color: var(--amber); }
+  nav { display: flex; gap: 20px; font-size: 14px; color: var(--muted); }
+  nav a { text-decoration: none; }
+  nav a:hover { color: var(--paper); }
+  nav .count { color: var(--amber); font-variant-numeric: tabular-nums; margin-left: 4px; }
+
+  /* Shared controls */
+  .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--line); background: transparent; cursor: pointer; font-weight: 500; font-size: 15px; text-decoration: none; transition: border-color .2s, background .2s; }
+  .btn:hover { border-color: var(--paper); }
+  .btn.primary { background: var(--amber); color: var(--ink); border-color: var(--amber); font-weight: 700; }
+  .btn.primary:hover { background: #FFC85C; }
+  .chip { min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: rgba(244,239,233,.04); cursor: pointer; font-size: 14px; color: var(--paper); }
+  .chip:hover { border-color: var(--paper); }
+  .quiet { background: none; border: 0; padding: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; font-size: 14px; }
+  .quiet:hover { color: var(--paper); }
+  :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+  /* ---------- HOME ---------- */
+  #home { display: none; }
+  body.show-home #home { display: block; }
+  .home-top { padding-block: 40px 32px; }
+  @media (min-width: 900px) { .home-top { padding-block: 72px 48px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: end; } }
+  h1 { font-weight: 700; font-size: 44px; line-height: 1.02; letter-spacing: -.035em; margin: 0 0 24px; }
+  h1 em { font-style: normal; font-weight: 200; display: block; }
+  @media (min-width: 900px) { h1 { font-size: 80px; margin: 0; } }
+  .ask textarea { width: 100%; min-height: 128px; resize: vertical; padding: 18px 20px; border-radius: 20px; border: 1px solid var(--line); background: var(--night-2); font-size: 18px; line-height: 1.45; }
+  .ask textarea::placeholder { color: var(--muted); }
+  .ask .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 20px; }
+  .ask .go { display: flex; align-items: center; gap: 20px; }
+  .shelf-label { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; color: var(--muted); margin-bottom: 14px; }
+  @media (hover: none) { .shelf-label .hint { display: none; } }
+  .shelf-label b { color: var(--paper); font-weight: 500; }
+  .shelf { overflow: hidden; padding-bottom: 48px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .rail { display: flex; gap: 10px; width: max-content; animation: drift 90s linear infinite; }
+  .shelf:hover .rail { animation-play-state: paused; }
+  @keyframes drift { to { transform: translateX(-50%); } }
+  .strip { position: relative; width: 72px; height: 300px; border-radius: 10px; overflow: hidden; flex: none; background: var(--night-2) center / cover; transition: width .45s cubic-bezier(.2,.7,.2,1), filter .3s; filter: saturate(.85) brightness(.8); cursor: pointer; border: 0; padding: 0; }
+  .strip:nth-child(3n+2) { margin-top: 18px; height: 282px; }
+  .strip:nth-child(3n) { margin-top: 8px; height: 292px; }
+  .strip span { position: absolute; left: 12px; right: 12px; bottom: 12px; text-align: left; font-size: 13px; font-weight: 500; line-height: 1.25; opacity: 0; transition: opacity .2s .1s; }
+  .strip::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(13,11,12,.85)); opacity: 0; transition: opacity .3s; }
+  .strip:hover, .strip:focus-visible { width: 200px; filter: none; }
+  .strip:hover::after, .strip:focus-visible::after { opacity: 1; }
+  .strip:hover span, .strip:focus-visible span { opacity: 1; z-index: 1; }
+  @media (min-width: 900px) { .strip { width: 96px; height: 380px; } .strip:nth-child(3n+2) { height: 356px; margin-top: 24px; } .strip:nth-child(3n) { height: 368px; margin-top: 12px; } .strip:hover, .strip:focus-visible { width: 254px; } }
+
+  /* ---------- RESULTS ---------- */
+  #results { display: none; }
+  body.show-results #results { display: block; }
+  body.show-results header { position: absolute; inset: 0 0 auto; }
+  .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+  .bd { position: absolute; inset: 0 0 auto; height: 70svh; background: center 25% / cover no-repeat; opacity: 0; transition: opacity .6s ease; transform: scale(1.03); }
+  .bd.on { opacity: 1; transform: scale(1); transition: opacity .6s ease, transform 6s ease-out; }
+  .scrim { position: absolute; inset: 0; background:
+      linear-gradient(180deg, rgba(13,11,12,.6) 0%, rgba(13,11,12,.2) 12%, rgba(13,11,12,.55) 24%, rgba(13,11,12,.94) 40%, var(--night) 60%); }
+  @media (min-width: 900px) { .bd { inset: 0; height: auto; } .scrim { background:
+      linear-gradient(90deg, rgba(13,11,12,.96) 0%, rgba(13,11,12,.86) 34%, rgba(13,11,12,.25) 62%, rgba(13,11,12,.1) 100%),
+      linear-gradient(180deg, rgba(13,11,12,.5) 0%, transparent 20%, transparent 70%, var(--night) 100%); } }
+  .hero-in { position: relative; z-index: 2; padding-top: 22vh; padding-bottom: 32px; display: flex; flex-direction: column; }
+  .hero-in .for { order: 1; } .hero-in .rail3 { order: 2; margin-bottom: 28px; } .hero-in #focus { order: 3; }
+  @media (min-width: 900px) { .hero-in { padding-top: 120px; padding-bottom: 56px; display: grid; grid-template-columns: minmax(0, 560px) 1fr; column-gap: 48px; align-items: end; }
+    .hero-in .for { grid-column: 1; grid-row: 1; } .hero-in #focus { grid-column: 1; grid-row: 2; } .hero-in .rail3 { grid-column: 2; grid-row: 2; margin: 0; } }
+  .for { font-size: 14px; color: var(--muted); margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+  .for q { color: var(--paper); }
+  .pickhead { display: flex; align-items: flex-start; gap: 16px; }
+  .num { font-weight: 200; font-size: 72px; line-height: .82; letter-spacing: -.05em; font-variant-numeric: tabular-nums; color: var(--paper); }
+  .ttl { font-weight: 700; font-size: 34px; line-height: 1.02; letter-spacing: -.03em; margin: 0; }
+  @media (min-width: 900px) { .num { font-size: 120px; } .ttl { font-size: 54px; } }
+  .facts { font-size: 14px; color: var(--muted); margin-top: 10px; font-variant-numeric: tabular-nums; }
+  .facts .rt { color: var(--paper); }
+  .read { margin-top: 24px; display: grid; gap: 14px; }
+  .looks { font-size: 14px; color: var(--muted); }
+  .looks b, .is b { display: block; font-size: 12px; font-weight: 500; letter-spacing: .02em; margin-bottom: 2px; }
+  .looks b { color: var(--muted); }
+  .is b { color: var(--amber); }
+  .is { font-size: 20px; line-height: 1.4; font-weight: 400; }
+  @media (min-width: 900px) { .is { font-size: 22px; } }
+  .why { margin-top: 16px; font-size: 15px; color: var(--muted); border-left: 2px solid var(--amber); padding-left: 12px; }
+  .acts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 24px; }
+  .acts .btn { justify-content: center; } .acts .primary { grid-column: 1 / -1; }
+  @media (min-width: 900px) { .acts { display: flex; flex-wrap: wrap; } }
+  .anim { transition: opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1); }
+  .anim.out { opacity: 0; transform: translateY(12px); }
+
+  /* Pick rail: the three posters */
+  .picks { display: flex; gap: 12px; align-items: flex-end; }
+  @media (min-width: 900px) { .picks { margin: 0; justify-content: flex-end; gap: 16px; } }
+  .pk { position: relative; border: 0; padding: 0; background: none; cursor: pointer; text-align: left; flex: 1; max-width: 120px; }
+  @media (min-width: 900px) { .pk { flex: none; width: 168px; max-width: none; } }
+  .pk .pimg { aspect-ratio: 2/3; border-radius: 10px; background: var(--night-2) center / cover; filter: brightness(.55) saturate(.7); transition: filter .3s, transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .3s; }
+  .pk:hover .pimg { filter: brightness(.85); }
+  .pk[aria-current="true"] .pimg { filter: none; transform: translateY(-10px); box-shadow: 0 0 0 2px var(--amber); }
+  .pk .pl { display: flex; gap: 8px; align-items: baseline; margin-top: 10px; font-size: 13px; color: var(--muted); }
+  .pk .pl i { font-style: normal; font-weight: 200; font-size: 22px; color: var(--paper); line-height: 1; }
+  .pk[aria-current="true"] .pl { color: var(--paper); }
+  .pk .pl span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .arrows { display: none; }
+  @media (min-width: 900px) { .arrows { display: flex; gap: 10px; justify-content: flex-end; margin-top: 18px; } }
+  .arr { width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--line); background: rgba(13,11,12,.4); cursor: pointer; font-size: 18px; }
+  .arr:hover { border-color: var(--paper); }
+
+  /* Details below the hero */
+  .more { padding-block: 8px 48px; }
+  @media (min-width: 900px) { .more { padding-block: 24px 72px; } .more-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; } }
+  .panel { border-top: 1px solid var(--line); padding: 20px 0; }
+  .panel h3 { margin: 0 0 12px; font-size: 14px; font-weight: 500; color: var(--muted); }
+  .arc svg { width: 100%; height: 72px; overflow: visible; }
+  .arc path { fill: none; stroke: var(--amber); stroke-width: 2.5; stroke-linecap: round; }
+  .arc .words { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .tone .bar { display: flex; height: 8px; border-radius: 999px; overflow: hidden; gap: 2px; }
+  .tone .bar span { display: block; }
+  .tone .keys { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .tone .keys i { display: inline-block; width: 8px; height: 8px; border-radius: 999px; margin-right: 6px; vertical-align: 1px; }
+  .pairs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; }
+  .pairs dt { font-size: 13px; color: var(--muted); }
+  .pairs dd { margin: 0; font-weight: 500; }
+  details summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; font-weight: 500; min-height: 44px; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after { content: "+"; font-weight: 200; font-size: 26px; color: var(--muted); }
+  details[open] summary::after { content: "–"; }
+  details p { color: var(--muted); margin: 8px 0 0; }
+  .where a { color: var(--paper); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--amber); }
+  .others { display: flex; justify-content: center; padding: 8px 0 56px; }
+  footer { border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); padding: 24px 0 40px; }
+
+  /* Mock-only switch */
+  .mockbar { position: fixed; right: 12px; bottom: 12px; z-index: 50; display: flex; gap: 6px; padding: 6px; border-radius: 999px; background: rgba(23,19,20,.9); border: 1px solid var(--line); font-size: 12px; }
+  .mockbar button { border: 0; background: none; padding: 6px 12px; border-radius: 999px; cursor: pointer; color: var(--muted); }
+  .mockbar button[aria-pressed="true"] { background: var(--paper); color: var(--ink); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rail { animation: none; }
+    .bd, .bd.on, .anim, .strip, .pk .pimg { transition: none; transform: none; }
+  }
+</style>
+</head>
+<body class="show-home">
+<header>
+  <div class="wrap">
+    <div class="mark">Film<span>Focus</span></div>
+    <nav><a href="#">Watchlist<span class="count">2</span></a><a href="#">What I watch on</a></nav>
+  </div>
+</header>
+
+<main id="home">
+  <div class="wrap home-top">
+    <h1>What are you <em>in the mood for?</em></h1>
+    <div class="ask">
+      <textarea aria-label="Your mood" placeholder="Rough day. Want something warm but not dumb."></textarea>
+      <div class="chips"><button class="chip">Who's watching</button><button class="chip">How long</button><button class="chip">Stay in this mood or shift it</button></div>
+      <div class="go"><button class="btn primary" onclick="show('results')">Find my three</button><button class="quiet">Surprise me</button></div>
+    </div>
+  </div>
+  <div class="wrap shelf-label"><span><b>457 titles</b>, each with an honest card</span><span class="hint">Hover one</span></div>
+  <div class="shelf"><div class="rail" id="rail"></div></div>
+</main>
+
+<main id="results">
+  <section class="hero" aria-label="Your three">
+    <div class="bd" id="bd0"></div><div class="bd" id="bd1"></div>
+    <div class="scrim"></div>
+    <div class="wrap hero-in">
+      <div class="for">For <q>long week, want something funny and warm, nothing heavy</q> <button class="quiet" onclick="show('home')">Change my mood</button></div>
+      <div class="anim" id="focus"></div>
+      <div class="rail3">
+        <div class="picks" id="picks" role="tablist" aria-label="Your three picks"></div>
+        <div class="arrows"><button class="arr" aria-label="Previous pick" onclick="go(cur-1)">←</button><button class="arr" aria-label="Next pick" onclick="go(cur+1)">→</button></div>
+      </div>
+    </div>
+  </section>
+  <section class="wrap more anim" id="more" aria-label="More about this pick"></section>
+  <div class="others"><button class="btn">Show me three others</button></div>
+</main>
+
+<footer><div class="wrap">Film details and images from TMDB. This product uses the TMDB API but is not endorsed or certified by TMDB. Where to watch in India from JustWatch. Every card is written in our own words.</div></footer>
+
+<div class="mockbar" aria-label="Mock screens"><button id="m-home" onclick="show('home')">Home</button><button id="m-results" onclick="show('results')">Results</button></div>
+
+<script>
+const IMG = 'https://image.tmdb.org/t/p/'
+const { picks, shelf } = window.MOCK
+const LANG = { hi: 'Hindi', en: 'English', ta: 'Tamil', ml: 'Malayalam' }
+const ARC_NAMES = { rise: 'Climbs all the way', fall: 'Slides all the way down', fall_rise: 'Falls, then climbs out', rise_fall: 'Rises, then falls', rise_fall_rise: 'Up, down, up again', fall_rise_fall: 'Down, up, down again' }
+const ARC = {
+  rise: 'M2 52 C 60 50, 110 44, 160 32 S 250 12, 298 7', fall: 'M2 8 C 60 10, 110 17, 160 28 S 250 47, 298 53',
+  fall_rise: 'M2 12 C 50 15, 95 51, 148 52 S 248 24, 298 9', rise_fall: 'M2 50 C 52 46, 98 10, 150 9 S 250 37, 298 51',
+  rise_fall_rise: 'M2 40 C 30 33, 62 11, 98 12 S 160 51, 198 50 S 268 15, 298 8', fall_rise_fall: 'M2 16 C 32 25, 64 48, 100 47 S 162 10, 200 11 S 270 43, 298 52' }
+const ATT = { background_ok: 'Fine in the background', some_focus: 'Some focus', full_focus: 'Full focus' }
+const TRUTH = { true_story: 'True story.', inspired_by: 'Inspired by real events.', fiction: 'Fiction.' }
+const SHADES = ['rgba(244,239,233,.95)', 'rgba(244,239,233,.6)', 'rgba(244,239,233,.35)', 'rgba(244,239,233,.2)']
+const cap = (s) => s[0].toUpperCase() + s.slice(1)
+const rt = (m) => `${Math.floor(m / 60)} h ${m % 60} min`
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+
+// Home shelf: the list twice so the drift loops seamlessly.
+document.getElementById('rail').innerHTML = [...shelf, ...shelf].map((s) =>
+  `<button class="strip" style="background-image:url(${IMG}w342${s.poster_path})" aria-label="${esc(s.title)}"><span>${esc(s.title)}<br><small style="color:var(--muted)">${s.year}</small></span></button>`).join('')
+
+// Results
+document.getElementById('picks').innerHTML = picks.map((p, i) =>
+  `<button class="pk" role="tab" onclick="go(${i})" aria-label="${String(i + 1).padStart(2, '0')} ${esc(p.title)}"><div class="pimg" style="background-image:url(${IMG}w342${p.poster_path})"></div><div class="pl"><i>${String(i + 1).padStart(2, '0')}</i><span>${esc(p.title)}</span></div></button>`).join('')
+
+let cur = -1, layer = 0
+function go(i) {
+  i = (i + picks.length) % picks.length
+  if (i === cur) return
+  const p = picks[i]
+  const next = document.getElementById('bd' + (layer ^ 1)), prev = document.getElementById('bd' + layer)
+  next.style.backgroundImage = `url(${IMG}w1280${p.backdrop_path})`
+  next.classList.add('on'); prev.classList.remove('on'); layer ^= 1
+  document.querySelectorAll('.pk').forEach((b, k) => b.setAttribute('aria-current', k === i))
+  const focus = document.getElementById('focus'), more = document.getElementById('more')
+  const first = cur === -1
+  cur = i
+  const render = () => {
+    focus.innerHTML = `
+      <div class="pickhead"><div class="num">${String(i + 1).padStart(2, '0')}</div>
+        <div><h2 class="ttl">${esc(p.title)}</h2>
+        <div class="facts">${p.type === 'movie' ? 'Movie' : 'Series'} · ${p.year} · ${rt(p.runtime_min)} · ${p.languages.map((l) => LANG[l] || l).join(', ')} · <span class="rt">${p.rating.value}</span> on TMDB</div></div></div>
+      <div class="read">
+        <div class="looks"><b>Looks like</b>${esc(p.honest_read.looks_like)}</div>
+        <div class="is"><b>Actually is</b>${esc(p.honest_read.actually_is)}</div>
+      </div>
+      <div class="why">${esc(p.why)}</div>
+      <div class="acts"><a class="btn primary" href="#">Watch on ${esc(p.watch_in[0])} ↗</a><button class="btn">Add to watchlist</button><button class="btn">Compare</button></div>`
+    more.innerHTML = `<div class="more-grid">
+      <div>
+        <div class="panel arc"><h3>How it feels · ${ARC_NAMES[p.arc.shape]}</h3>
+          <svg viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true"><path d="${ARC[p.arc.shape]}" vector-effect="non-scaling-stroke"/></svg>
+          <div class="words"><span>${esc(p.arc.start)}</span><span>${esc(p.arc.middle)}</span><span>${esc(p.arc.end)}</span></div></div>
+        <div class="panel tone"><h3>Tone</h3>
+          <div class="bar">${p.tone_mix.map((t, k) => `<span style="flex:${t.pct};background:${SHADES[k]}"></span>`).join('')}</div>
+          <div class="keys">${p.tone_mix.map((t, k) => `<span><i style="background:${SHADES[k]}"></i>${cap(t.tone)} ${t.pct}%</span>`).join('')}</div></div>
+      </div>
+      <div>
+        <div class="panel"><dl class="pairs">
+          <div><dt>Ending</dt><dd>${cap(p.ending)}</dd></div><div><dt>Pace</dt><dd>${cap(p.bandwidth.pace)}</dd></div>
+          <div><dt>Attention</dt><dd>${ATT[p.bandwidth.attention]}</dd></div><div><dt>Weight</dt><dd>${p.bandwidth.emotional_weight} of 5</dd></div></dl></div>
+        <div class="panel where">${p.watch_in.length ? `Streaming on ${p.watch_in.map((w) => `<a href="#">${esc(w)}</a>`).join(', ')}` : 'Not streaming in India right now'} · ${TRUTH[p.truth.status]}</div>
+        <div class="panel"><details><summary>Read how it ends</summary><p>${esc(p.spoiler_ending)}</p></details></div>
+      </div></div>`
+  }
+  if (first) return render()
+  focus.classList.add('out'); more.classList.add('out')
+  setTimeout(() => { render(); focus.classList.remove('out'); more.classList.remove('out') }, 220)
+}
+addEventListener('keydown', (e) => { if (!document.body.classList.contains('show-results')) return; if (e.key === 'ArrowRight') go(cur + 1); if (e.key === 'ArrowLeft') go(cur - 1) })
+
+function show(s) {
+  document.body.className = 'show-' + s
+  document.getElementById('m-home').setAttribute('aria-pressed', s === 'home')
+  document.getElementById('m-results').setAttribute('aria-pressed', s === 'results')
+  if (s === 'results' && cur === -1) go(0)
+  scrollTo(0, 0)
+  history.replaceState(null, '', '#' + s)
+}
+show(location.hash === '#results' ? 'results' : 'home')
+</script>
+</body>
+</html>
