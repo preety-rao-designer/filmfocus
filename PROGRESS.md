@@ -1,7 +1,7 @@
 # FilmFocus progress
 
-**Live URL:** https://filmfocus.vercel.app (up since 2026-10-03, not shared anywhere; awaiting C3 sign-off before L9)
-**Current phase / step:** Launch L8 → **C3, waiting for Preety** (try the site on your phone). L3 catalogue growth running a day at a time in the background.
+**Live URL:** https://filmfocus.vercel.app (up since 2026-10-03; C3 approved 2026-10-05)
+**Current phase / step:** Launch L9 production (C3 approved "for now" on 2026-10-05). L3 catalogue growth continues a day at a time.
 
 ## Waiting for Preety
 **C3: try the site on your phone, then approve or tell me what to change.** https://filmfocus.vercel.app
@@ -283,6 +283,8 @@ Verified so far: empty and first-run preferences → loading → results passed 
 - Check (Playwright, iPhone 13 viewport, live site): first-run preferences → 3 picks in 6s with why lines; "show me others" in 4s; watchlist by direct URL; page width 390; no page errors; no API failures; events stored untagged (live) and the test ones deleted. `/api/card` live: Piku from store in 3s; "Rocket Singh: Salesman of the Year" made and saved in 14s (high confidence).
 
 ## Decisions made on my own
+- **C3 approved "for now" (2026-10-05).** The site stays up at the same address. The TMDB credit stays text only: TMDB allows text alone, and the logo would be a new asset outside the design tokens.
+- **Before the L9 deploy:** embedded all 457 cards (the 146 L3 cards had no vectors yet) and re-ran the 30-mood eval as round 4, so the bigger store is checked before it ships.
 - **Tailwind 3 with a `tailwind.config.js`** (not v4's CSS `@theme`), because the runbook asks for tokens "in the Tailwind config". Default palette, spacing, radii and shadows are replaced, so nothing off-direction can be used by accident.
 - **Honest read above the title**, following the direction's top-to-bottom anatomy literally (counterfoil → honest read → title). You might prefer the title first, so it anchors the card.
 - **Shades of Ink** (Ink at 10–70% opacity) are used for the tone bar segments (the direction asks for this), and also for the Loading placeholders and the pill borders. No new hues.

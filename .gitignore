@@ -17,3 +17,5 @@ data/embed.log
 # Firebase key files, if one is ever saved into the folder
 *firebase-adminsdk*.json
 serviceAccount*.json
+.vercel
+.env*
