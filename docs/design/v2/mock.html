@@ -79,9 +79,21 @@
   @media (min-width: 900px) { .strip { width: 96px; height: 380px; } .strip:nth-child(3n+2) { height: 356px; margin-top: 24px; } .strip:nth-child(3n) { height: 368px; margin-top: 12px; } .strip:hover, .strip:focus-visible { width: 254px; } }
 
   /* ---------- RESULTS ---------- */
-  #results { display: none; }
-  body.show-results #results { display: block; }
-  body.show-results header { position: absolute; inset: 0 0 auto; }
+  #results, #detail { display: none; }
+  body.show-results #results, body.show-detail #detail { display: block; }
+  body.show-results header, body.show-detail header { position: absolute; inset: 0 0 auto; }
+  #detail .hero { min-height: 88svh; }
+  #detail .hero-in { display: block; width: 100%; }
+  #detail .hero-in #dfocus { max-width: 640px; }
+  #detail .for { margin-bottom: 8px; }
+  .lists > div { margin-bottom: 16px; }
+  .back { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+  .full { margin-top: 14px; font-size: 14px; }
+  .lists { display: grid; gap: 0 48px; }
+  @media (min-width: 900px) { .lists { grid-template-columns: repeat(3, 1fr); } }
+  .lists ul { margin: 0; padding-left: 18px; color: var(--paper); }
+  .lists li { margin-bottom: 6px; }
+  .lists li::marker { color: var(--amber); }
   .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
   .bd { position: absolute; inset: 0 0 auto; height: 70svh; background: center 25% / cover no-repeat; opacity: 0; transition: opacity .6s ease; transform: scale(1.03); }
   .bd.on { opacity: 1; transform: scale(1); transition: opacity .6s ease, transform 6s ease-out; }
@@ -207,6 +219,18 @@
   <div class="others"><button class="btn">Show me three others</button></div>
 </main>
 
+<main id="detail">
+  <section class="hero" aria-label="Title details">
+    <div class="bd on" id="dbd"></div>
+    <div class="scrim"></div>
+    <div class="wrap hero-in">
+      <div class="for"><button class="quiet back" onclick="goBack()">← Back</button></div>
+      <div id="dfocus"></div>
+    </div>
+  </section>
+  <section class="wrap more" id="dmore" aria-label="More about this title"></section>
+</main>
+
 <footer><div class="wrap">Film details and images from TMDB. This product uses the TMDB API but is not endorsed or certified by TMDB. Where to watch in India from JustWatch. Every card is written in our own words.</div></footer>
 
 <div class="mockbar" aria-label="Mock screens"><button id="m-home" onclick="show('home')">Home</button><button id="m-results" onclick="show('results')">Results</button></div>
@@ -229,7 +253,7 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&l
 
 // Home shelf: the list twice so the drift loops seamlessly.
 document.getElementById('rail').innerHTML = [...shelf, ...shelf].map((s) =>
-  `<button class="strip" style="background-image:url(${IMG}w342${s.poster_path})" aria-label="${esc(s.title)}"><span>${esc(s.title)}<br><small style="color:var(--muted)">${s.year}</small></span></button>`).join('')
+  `<button class="strip" onclick="fromShelf('${s.id}')" style="background-image:url(${IMG}w342${s.poster_path})" aria-label="${esc(s.title)}, see its details"><span>${esc(s.title)}<br><small style="color:var(--muted)">${s.year}</small></span></button>`).join('')
 
 
 // Shelf: drifts slowly on its own, and people can scroll it (trackpad, swipe, drag, or the arrows).
@@ -258,12 +282,65 @@ function nudge(dir) { hold(); shelfEl.scrollBy({ left: dir * shelfEl.clientWidth
 let drag = null
 shelfEl.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; drag = { x: e.clientX, left: shelfEl.scrollLeft, moved: false } })
 addEventListener('pointermove', (e) => { if (!drag) return; const dx = e.clientX - drag.x; if (Math.abs(dx) > 4) { drag.moved = true; shelfEl.classList.add('dragging') } shelfEl.scrollLeft = drag.left - dx; hold() })
-addEventListener('pointerup', () => { drag = null; shelfEl.classList.remove('dragging') })
+let dragEnded = 0
+addEventListener('pointerup', () => { if (drag?.moved) dragEnded = performance.now(); drag = null; shelfEl.classList.remove('dragging') })
+// A drag that ends over a poster shouldn't count as a tap on it.
+function fromShelf(id) { if (performance.now() - dragEnded < 250) return; openTitle(id) }
 requestAnimationFrame(() => { shelfEl.scrollLeft = 1; requestAnimationFrame(tick) })
 
 // Results
 document.getElementById('picks').innerHTML = picks.map((p, i) =>
-  `<button class="pk" role="tab" onclick="go(${i})" aria-label="${String(i + 1).padStart(2, '0')} ${esc(p.title)}"><div class="pimg" style="background-image:url(${IMG}w342${p.poster_path})"></div><div class="pl"><i>${String(i + 1).padStart(2, '0')}</i><span>${esc(p.title)}</span></div></button>`).join('')
+  `<button class="pk" role="tab" onclick="cur === ${i} ? openTitle('${p.id}') : go(${i})" aria-label="${String(i + 1).padStart(2, '0')} ${esc(p.title)}"><div class="pimg" style="background-image:url(${IMG}w342${p.poster_path})"></div><div class="pl"><i>${String(i + 1).padStart(2, '0')}</i><span>${esc(p.title)}</span></div></button>`).join('')
+
+const facts = (p) => [p.type === 'movie' ? 'Movie' : `Series · ${p.series.seasons} season${p.series.seasons > 1 ? 's' : ''}`, p.year,
+  p.type === 'movie' ? rt(p.runtime_min) : `${p.series.episode_min} min episodes`, p.languages.map((l) => LANG[l] || l).join(', '),
+  `<span class="rt">${p.rating.value}</span> on TMDB`].join(' · ')
+const readHTML = (p) => `<div class="read">
+    <div class="looks"><b>Looks like</b>${esc(p.honest_read.looks_like)}</div>
+    <div class="is"><b>Actually is</b>${esc(p.honest_read.actually_is)}</div></div>`
+const actsHTML = (p) => `<div class="acts">${p.watch_in.length ? `<a class="btn primary" href="#">Watch on ${esc(p.watch_in[0])} ↗</a>` : ''}<button class="btn">Add to watchlist</button><button class="btn">Compare</button></div>`
+const moreHTML = (p) => `<div class="more-grid">
+  <div>
+    <div class="panel arc"><h3>How it feels · ${ARC_NAMES[p.arc.shape]}</h3>
+      <svg viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true"><path d="${ARC[p.arc.shape]}" vector-effect="non-scaling-stroke"/></svg>
+      <div class="words"><span>${esc(p.arc.start)}</span><span>${esc(p.arc.middle)}</span><span>${esc(p.arc.end)}</span></div></div>
+    <div class="panel tone"><h3>Tone</h3>
+      <div class="bar">${p.tone_mix.map((t, k) => `<span style="flex:${t.pct};background:${SHADES[k]}"></span>`).join('')}</div>
+      <div class="keys">${p.tone_mix.map((t, k) => `<span><i style="background:${SHADES[k]}"></i>${cap(t.tone)} ${t.pct}%</span>`).join('')}</div></div>
+  </div>
+  <div>
+    <div class="panel"><dl class="pairs">
+      <div><dt>Ending</dt><dd>${cap(p.ending)}</dd></div><div><dt>Pace</dt><dd>${cap(p.bandwidth.pace)}</dd></div>
+      <div><dt>Attention</dt><dd>${ATT[p.bandwidth.attention]}</dd></div><div><dt>Weight</dt><dd>${p.bandwidth.emotional_weight} of 5</dd></div></dl></div>
+    <div class="panel where">${p.watch_in.length ? `Streaming on ${p.watch_in.map((w) => `<a href="#">${esc(w)}</a>`).join(', ')}` : 'Not streaming in India right now'} · ${TRUTH[p.truth.status]}</div>
+    <div class="panel"><details><summary>Read how it ends</summary><p>${esc(p.spoiler_ending)}</p></details></div>
+  </div></div>`
+const listsHTML = (p) => `<div class="panel lists">
+  <div><h3>Good for</h3><ul>${p.good_for.map((x) => `<li>${esc(cap(x))}</li>`).join('')}</ul></div>
+  <div><h3>Skip it if</h3><ul>${p.skip_if.map((x) => `<li>${esc(cap(x))}</li>`).join('')}</ul></div>
+  <div><h3>Don't go in</h3><ul>${p.expectation_traps.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div></div>`
+
+// Details page: any poster on the shelf, or the focused pick's poster on results.
+const ALL = Object.fromEntries([...picks, ...shelf].map((p) => [p.id, p]))
+let cameFrom = 'home'
+function openTitle(id, push = true) {
+  const p = ALL[id]
+  if (!p) return show('home')
+  if (push) cameFrom = document.body.className.replace('show-', '') || 'home'
+  document.getElementById('dbd').style.backgroundImage = `url(${IMG}w1280${p.backdrop_path})`
+  document.getElementById('dfocus').innerHTML = `
+    <h1 class="ttl">${esc(p.title)}</h1>
+    <div class="facts">${facts(p)}</div>
+    ${readHTML(p)}
+    ${p.truth.note ? `<div class="why">${TRUTH[p.truth.status]} ${esc(p.truth.note)}</div>` : ''}
+    ${actsHTML(p)}`
+  document.getElementById('dmore').innerHTML = moreHTML(p) + listsHTML(p)
+  document.body.className = 'show-detail'
+  document.title = `${p.title} · FilmFocus V2 mock`
+  scrollTo(0, 0)
+  if (push) history.pushState(null, '', '#title/' + id)
+}
+function goBack() { history.length > 1 && cameFrom ? history.back() : show('home') }
 
 let cur = -1, layer = 0
 function go(i) {
@@ -281,29 +358,12 @@ function go(i) {
     focus.innerHTML = `
       <div class="pickhead"><div class="num">${String(i + 1).padStart(2, '0')}</div>
         <div><h2 class="ttl">${esc(p.title)}</h2>
-        <div class="facts">${p.type === 'movie' ? 'Movie' : 'Series'} · ${p.year} · ${rt(p.runtime_min)} · ${p.languages.map((l) => LANG[l] || l).join(', ')} · <span class="rt">${p.rating.value}</span> on TMDB</div></div></div>
-      <div class="read">
-        <div class="looks"><b>Looks like</b>${esc(p.honest_read.looks_like)}</div>
-        <div class="is"><b>Actually is</b>${esc(p.honest_read.actually_is)}</div>
-      </div>
+        <div class="facts">${facts(p)}</div></div></div>
+      ${readHTML(p)}
       <div class="why">${esc(p.why)}</div>
-      <div class="acts"><a class="btn primary" href="#">Watch on ${esc(p.watch_in[0])} ↗</a><button class="btn">Add to watchlist</button><button class="btn">Compare</button></div>`
-    more.innerHTML = `<div class="more-grid">
-      <div>
-        <div class="panel arc"><h3>How it feels · ${ARC_NAMES[p.arc.shape]}</h3>
-          <svg viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true"><path d="${ARC[p.arc.shape]}" vector-effect="non-scaling-stroke"/></svg>
-          <div class="words"><span>${esc(p.arc.start)}</span><span>${esc(p.arc.middle)}</span><span>${esc(p.arc.end)}</span></div></div>
-        <div class="panel tone"><h3>Tone</h3>
-          <div class="bar">${p.tone_mix.map((t, k) => `<span style="flex:${t.pct};background:${SHADES[k]}"></span>`).join('')}</div>
-          <div class="keys">${p.tone_mix.map((t, k) => `<span><i style="background:${SHADES[k]}"></i>${cap(t.tone)} ${t.pct}%</span>`).join('')}</div></div>
-      </div>
-      <div>
-        <div class="panel"><dl class="pairs">
-          <div><dt>Ending</dt><dd>${cap(p.ending)}</dd></div><div><dt>Pace</dt><dd>${cap(p.bandwidth.pace)}</dd></div>
-          <div><dt>Attention</dt><dd>${ATT[p.bandwidth.attention]}</dd></div><div><dt>Weight</dt><dd>${p.bandwidth.emotional_weight} of 5</dd></div></dl></div>
-        <div class="panel where">${p.watch_in.length ? `Streaming on ${p.watch_in.map((w) => `<a href="#">${esc(w)}</a>`).join(', ')}` : 'Not streaming in India right now'} · ${TRUTH[p.truth.status]}</div>
-        <div class="panel"><details><summary>Read how it ends</summary><p>${esc(p.spoiler_ending)}</p></details></div>
-      </div></div>`
+      ${actsHTML(p)}
+      <div class="full"><button class="quiet" onclick="openTitle('${p.id}')">See the full page →</button></div>`
+    more.innerHTML = moreHTML(p)
   }
   if (first) return render()
   focus.classList.add('out'); more.classList.add('out')
@@ -311,15 +371,22 @@ function go(i) {
 }
 addEventListener('keydown', (e) => { if (!document.body.classList.contains('show-results')) return; if (e.key === 'ArrowRight') go(cur + 1); if (e.key === 'ArrowLeft') go(cur - 1) })
 
-function show(s) {
+function show(s, push = false) {
   document.body.className = 'show-' + s
+  document.title = 'FilmFocus V2 mock'
   document.getElementById('m-home').setAttribute('aria-pressed', s === 'home')
   document.getElementById('m-results').setAttribute('aria-pressed', s === 'results')
   if (s === 'results' && cur === -1) go(0)
   scrollTo(0, 0)
   history.replaceState(null, '', '#' + s)
 }
-show(location.hash === '#results' ? 'results' : 'home')
+function route() {
+  const h = location.hash
+  if (h.startsWith('#title/')) openTitle(h.slice(7), false)
+  else show(h === '#results' ? 'results' : 'home')
+}
+addEventListener('popstate', route)
+route()
 </script>
 </body>
 </html>
