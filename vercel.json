@@ -3,7 +3,8 @@
     "api/recommend.js": { "includeFiles": "data/{cards,embeddings}.json" },
     "api/card.js": { "includeFiles": "data/{cards,embeddings}.json", "maxDuration": 120 },
     "api/shelf.js": { "includeFiles": "data/{cards,embeddings}.json" },
-    "api/title.js": { "includeFiles": "data/{cards,embeddings}.json" }
+    "api/title.js": { "includeFiles": "data/{cards,embeddings}.json" },
+    "api/search.js": { "includeFiles": "data/{cards,embeddings}.json" }
   },
   "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }]
 }

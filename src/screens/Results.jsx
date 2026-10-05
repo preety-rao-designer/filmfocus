@@ -44,7 +44,7 @@ function Note({ children, actions, pills = false }) {
   )
 }
 
-const MADE_ERRORS = {
+export const MADE_ERRORS = {
   not_found: "We couldn't find that title. Check the spelling and try it in a new search.",
   limit: "We've made all the new cards we can today. Try again tomorrow.",
   busy: 'Lots of people are choosing right now. Try again in a moment.',

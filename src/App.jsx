@@ -7,6 +7,7 @@ import Preferences from './screens/Preferences.jsx'
 import Watchlist from './screens/Watchlist.jsx'
 import Compare from './screens/Compare.jsx'
 import TitlePage from './screens/TitlePage.jsx'
+import TitleSearch from './components/TitleSearch.jsx'
 import { recommend } from './engine/live.js'
 import { loadPrefs, savePrefs } from './prefs.js'
 import { COMPARE_MAX, loadList, saveList, toggleCard } from './lists.js'
@@ -52,6 +53,7 @@ export default function App() {
   const [watchlist, setWatchlist] = useState(() => loadList('watchlist'))
   const [compare, setCompare] = useState(() => loadList('compare'))
   const [titleId, setTitleId] = useState(initial.titleId)
+  const [searching, setSearching] = useState(false)
   const known = useRef({}) // cards already on screen, so a title's page opens without asking the server again
   const seen = useRef([])
   const last = useRef(null) // the last request, so "Try again" repeats exactly it
@@ -128,7 +130,17 @@ export default function App() {
       } else inflight.current?.abort()
     }
     window.addEventListener('popstate', onPop)
-    return () => window.removeEventListener('popstate', onPop)
+    // "/" opens title search from anywhere, unless they're typing.
+    const onSlash = (e) => {
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.target.closest?.('input, textarea')) return
+      e.preventDefault()
+      setSearching(true)
+    }
+    window.addEventListener('keydown', onSlash)
+    return () => {
+      window.removeEventListener('popstate', onPop)
+      window.removeEventListener('keydown', onSlash)
+    }
   }, [])
 
   const cameFromTitle = useRef(false)
@@ -215,6 +227,7 @@ export default function App() {
     <>
       <Header
         overlay={overlay}
+        onSearch={() => setSearching(true)}
         onHome={toInput}
         onPrefs={toPrefs}
         onWatchlist={() => go('/watchlist', 'watchlist')}
@@ -289,6 +302,15 @@ export default function App() {
         />
       )}
       <Footer />
+      {searching && (
+        <TitleSearch
+          onClose={() => setSearching(false)}
+          onOpen={(item) => {
+            setSearching(false)
+            openTitle(item)
+          }}
+        />
+      )}
     </>
   )
 }

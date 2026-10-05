@@ -7,6 +7,8 @@
   .tabular { font-variant-numeric: tabular-nums; }
   :focus-visible { outline: 2px solid theme('colors.amber.DEFAULT'); outline-offset: 3px; }
   textarea::placeholder { color: theme('colors.muted'); }
+  /* Title search has its own Close; the browser's clear button would be a second, bigger ×. */
+  input[type='search']::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
 }
 
 /* The motion in docs/DESIGN_DIRECTION.md: the backdrop crossfade and the focus change on results, and the shelf
