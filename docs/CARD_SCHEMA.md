@@ -43,6 +43,7 @@ The single shape every part of FilmFocus agrees on: the mock engine (Phase 2), t
   "series": null,
   "languages": ["en"],
   "poster_path": "/example.jpg",
+  "backdrop_path": "/example-wide.jpg",
   "rating": { "source": "tmdb", "value": 7.9, "votes": 9000 },
   "watch_in": ["Netflix"],
   "truth": {

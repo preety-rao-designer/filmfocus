@@ -3,27 +3,32 @@
 @tailwind utilities;
 
 @layer base {
-  html { @apply bg-screen text-ink font-sans text-body; }
-  @media (prefers-color-scheme: dark) {
-    html { @apply bg-curtain-deep; }
-  }
+  html { @apply bg-night text-paper font-sans text-body antialiased; color-scheme: dark; }
   .tabular { font-variant-numeric: tabular-nums; }
-  :focus-visible { outline: 2px solid theme('colors.curtain.DEFAULT'); outline-offset: 2px; }
-  /* On the Curtain-deep page a Curtain outline disappears; page-level controls use Screen. Tickets keep Curtain. */
-  @media (prefers-color-scheme: dark) {
-    :focus-visible { outline-color: theme('colors.screen'); }
-    article :focus-visible { outline-color: theme('colors.curtain.DEFAULT'); }
-  }
-  header :focus-visible { outline-color: theme('colors.screen'); }
+  :focus-visible { outline: 2px solid theme('colors.amber.DEFAULT'); outline-offset: 3px; }
+  textarea::placeholder { color: theme('colors.muted'); }
 }
 
-/* The one orchestrated moment (docs/DESIGN_DIRECTION.md "Motion"): when results arrive, each ticket slides up into
-   place, 320ms ease-out, 80ms apart. Under reduced motion they simply appear. */
-@keyframes ticket-in {
-  from { transform: translateY(24px); opacity: 0; }
-  to { transform: none; opacity: 1; }
+/* The motion in docs/DESIGN_DIRECTION.md: the backdrop crossfade and the focus change on results, and the shelf
+   drift on home (src/components/Shelf.jsx). Under reduced motion, things simply change. */
+.backdrop { opacity: 0; transform: scale(1.03); transition: opacity .6s ease, transform .6s ease; }
+.backdrop.on { opacity: 1; transform: scale(1); transition: opacity .6s ease, transform 6s ease-out; }
+.focus-swap { transition: opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1); }
+.focus-swap.out { opacity: 0; transform: translateY(12px); }
+.strip { transition: width .45s cubic-bezier(.2,.7,.2,1), filter .3s; }
+.lift { transition: filter .3s, transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .3s; }
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.edge-fade { -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+
+/* Scrims: just enough dark over a backdrop for text to read. Phone: top to bottom; desktop: left to right. */
+.scrim { background: linear-gradient(180deg, rgba(13,11,12,.6) 0%, rgba(13,11,12,.2) 12%, rgba(13,11,12,.55) 24%, rgba(13,11,12,.94) 40%, #0D0B0C 60%); }
+@media (min-width: 900px) {
+  .scrim { background:
+    linear-gradient(90deg, rgba(13,11,12,.96) 0%, rgba(13,11,12,.86) 34%, rgba(13,11,12,.25) 62%, rgba(13,11,12,.1) 100%),
+    linear-gradient(180deg, rgba(13,11,12,.5) 0%, transparent 20%, transparent 70%, #0D0B0C 100%); }
 }
-.ticket-in { animation: ticket-in 320ms ease-out both; }
+
 @media (prefers-reduced-motion: reduce) {
-  .ticket-in { animation: none; }
+  .backdrop, .backdrop.on, .focus-swap, .strip, .lift { transition: none; transform: none; }
 }

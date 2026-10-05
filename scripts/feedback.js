@@ -38,13 +38,14 @@ try {
   // A search, a service tap and a save.
   await page.goto(base)
   await page.getByRole('textbox').fill('rough day, want something warm and funny')
-  await page.getByRole('button', { name: 'Find my three' }).click()
+  await page.getByRole('button', { name: 'Find my watch' }).click()
   await page.getByRole('button', { name: 'Show me three others' }).and(page.locator(':enabled')).waitFor({ timeout: 90000 })
   check((await page.locator('#match-q').count()) === 0, 'no match question on results')
-  const first = page.locator('article').first()
-  const [popup] = await Promise.all([context.waitForEvent('page'), first.locator('a[target="_blank"]').first().click()])
+  const [popup] = await Promise.all([context.waitForEvent('page'), page.locator('main a[target="_blank"]').first().click()])
   await popup.close()
-  await page.locator('article').nth(1).getByRole('button', { name: 'Add to watchlist' }).click()
+  await page.getByRole('button', { name: /^02 / }).click()
+  await page.waitForTimeout(600)
+  await page.getByRole('button', { name: 'Add to watchlist' }).click()
   await page.getByRole('button', { name: 'Show me three others' }).click()
   await page.getByRole('button', { name: 'Show me three others' }).and(page.locator(':enabled')).waitFor({ timeout: 90000 })
 

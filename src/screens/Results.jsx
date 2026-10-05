@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react'
-import FilmCard from '../components/FilmCard.jsx'
+import { useEffect, useRef, useState } from 'react'
+import Backdrop from '../components/Backdrop.jsx'
+import { Actions, Aside, Details, Facts, HonestRead } from '../components/TitleParts.jsx'
 import { cardFor } from '../engine/live.js'
 import { track } from '../track.js'
-import { CHIP_GROUPS, chip } from './MoodInput.jsx'
+import { CHIP_GROUPS } from './MoodInput.jsx'
+import { backdropUrl, btn, chip, posterUrl, primary, quiet, round, two } from '../ui.js'
 
-// S2, Results. Three FilmCards on rose, mint and marigold, 24px apart, and "Show me three others" below.
-// In place of the tickets, depending on what really happened: the Loading variant while the engine works, the one
-// follow-up question with pill answers, a "nothing fits" line with a one-tap way to loosen, or a plain error and retry.
+// S2, Results (V2, docs/DESIGN_DIRECTION.md "The Late Show"): one pick in focus at a time over its backdrop, with
+// a big thin numeral, the title, the honest read, why it fits and the actions. All three posters sit beside it
+// (above it on phones) so the three are always in view; tapping another poster moves the focus, tapping the focused
+// one opens its page. The details sit below the backdrop. In place of the picks, depending on what really happened:
+// the loading state, the one follow-up question with pill answers, a "nothing fits" line with a one-tap way to
+// loosen, or a plain error and retry.
 
-const TINT_ORDER = ['rose', 'mint', 'marigold']
-
-// What the person asked for, in their words and the chip labels they tapped.
 function askedFor(text, chips) {
   const parts = []
   if (text.trim()) parts.push(`“${text.trim()}”`)
@@ -27,14 +29,16 @@ const ERRORS = {
   failed: "Couldn't reach our film notes. Try again in a moment.",
 }
 
-const primary = 'inline-flex min-h-[48px] items-center rounded-pill bg-curtain px-6 text-body font-medium text-screen disabled:opacity-50'
+// Placeholder for loading: a soft bar sitting in a real line of text, so line heights match and nothing jumps.
+function Bar({ chars = 24 }) {
+  return <span aria-hidden="true" className="inline-block h-[0.9em] max-w-full rounded-pill bg-paper/10 align-middle" style={{ width: `${chars}ch` }} />
+}
 
-// In-place messages share one quiet block: a 22px line, then the actions. Pill answers sit 8px apart like every
-// other chip row; a button and a link sit 24px apart like S1's.
+// In-place messages: one line, then the actions.
 function Note({ children, actions, pills = false }) {
   return (
     <div role="status" className="py-8">
-      <p className="text-section [text-wrap:balance]">{children}</p>
+      <p className="max-w-read text-read [text-wrap:balance] md:text-read-lg">{children}</p>
       <div className={`mt-6 flex flex-wrap items-center ${pills ? 'gap-2' : 'gap-x-6 gap-y-4'}`}>{actions}</div>
     </div>
   )
@@ -48,9 +52,9 @@ const MADE_ERRORS = {
   offline: 'You seem to be offline. Check your connection, then try again.',
 }
 
-// Launch L4: they named a title we don't have. Offer to make its card; meanwhile the Loading ticket, then the card,
-// which is saved for everyone. One offer per search (the key resets it).
-function OnDemand({ title, lists }) {
+// Launch L4: they named a title we don't have. Offer to make its card; once made it's saved for everyone and opens
+// on its own page. One offer per search (the key resets it).
+function OnDemand({ title, lists, onOpen }) {
   const [state, setState] = useState({ status: 'offer' })
   useEffect(() => {
     if (state.status !== 'making') return
@@ -61,11 +65,32 @@ function OnDemand({ title, lists }) {
     return () => ctrl.abort()
   }, [state.status, title])
 
-  if (state.status === 'offer' || state.status === 'error')
+  if (state.status === 'made') {
+    const c = state.card
     return (
+      <div role="status" className="flex items-center gap-5 border-t border-line py-8">
+        <button type="button" onClick={() => onOpen(c)} className="w-[96px] shrink-0" aria-label={`${c.title}, see its page`}>
+          <span className="block aspect-[2/3] rounded-poster bg-night-raised bg-cover bg-center" style={{ backgroundImage: `url(${posterUrl(c)})` }} />
+        </button>
+        <div className="min-w-0">
+          <p className="text-caption text-muted">The card for “{title}” is ready</p>
+          <p className="mt-1 text-lead font-bold">{c.title}</p>
+          <p className="mt-1 text-muted">{c.honest_read.actually_is}</p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <button type="button" onClick={() => onOpen(c)} className={btn}>See its page</button>
+            <button type="button" aria-pressed={lists.savedIds.includes(c.id)} onClick={() => lists.onSave(c)} className={btn}>
+              {lists.savedIds.includes(c.id) ? 'On your watchlist' : 'Add to watchlist'}
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+  return (
+    <div className="border-t border-line">
       <Note
         actions={
-          state.status === 'offer' && (
+          state.status === 'offer' ? (
             <button
               type="button"
               onClick={() => {
@@ -76,131 +101,215 @@ function OnDemand({ title, lists }) {
             >
               Make its card
             </button>
-          )
+          ) : state.status === 'making' ? (
+            <p className="text-muted">Reading what’s out there and writing it now…</p>
+          ) : null
         }
       >
-        {state.status === 'offer'
-          ? `We don’t have a card for “${title}” yet. Making one takes about half a minute.`
-          : MADE_ERRORS[state.error] || MADE_ERRORS.failed}
+        {state.status === 'error'
+          ? MADE_ERRORS[state.error] || MADE_ERRORS.failed
+          : `We don’t have a card for “${title}” yet. Making one takes about half a minute.`}
       </Note>
-    )
-  return (
-    <div className="py-8">
-      {/* Its own heading, so it doesn't read as a fourth pick. */}
-      <h2 className="mb-6 text-section [text-wrap:balance]">The card for “{title}”</h2>
-      <p className="sr-only" role="status">{state.status === 'making' ? `Making the card for ${title}…` : `The card for ${state.card.title} is here.`}</p>
-      {state.status === 'making' ? (
-        <FilmCard loading tint="rose" />
-      ) : (
-        <FilmCard
-          card={state.card}
-          tint="rose"
-          saved={lists.savedIds.includes(state.card.id)}
-          onSave={lists.onSave}
-          comparing={lists.compareIds.includes(state.card.id)}
-          compareFull={lists.compareFull}
-          onCompare={lists.onCompare}
-          mine={lists.mine}
-          onWatch={lists.onWatch}
-        />
-      )}
     </div>
   )
 }
 
-export default function Results({ text, chips, view, batch, onOthers, onChangeMood, onRetry, onAnswer, onLoosen, lists }) {
+function Poster({ pick, i, current, loading, onClick }) {
+  const c = pick?.card
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={loading}
+      aria-current={current || undefined}
+      aria-label={loading ? `Pick ${i + 1}, loading` : current ? `${c.title}, see its page` : `${two(i + 1)} ${c.title}`}
+      className="group min-w-0 flex-1 text-left md:w-[168px] md:flex-none"
+    >
+      <span
+        className={`lift block aspect-[2/3] rounded-poster bg-cover bg-center ${c ? 'bg-night-raised' : 'bg-paper/5'} ${
+          current ? '-translate-y-[10px] ring-2 ring-amber' : 'brightness-[.55] saturate-[.7] group-hover:brightness-[.85]'
+        }`}
+        style={c ? { backgroundImage: `url(${posterUrl(c)})` } : undefined}
+      />
+      <span className={`mt-[10px] flex items-baseline gap-2 text-caption ${current ? 'text-paper' : 'text-muted'}`}>
+        <span className="text-[22px] font-thin leading-none text-paper tabular">{two(i + 1)}</span>
+        <span className="truncate">{c ? c.title : <Bar chars={10} />}</span>
+      </span>
+    </button>
+  )
+}
+
+export default function Results({ text, chips, view, batch, onOthers, onChangeMood, onRetry, onAnswer, onLoosen, lists, onOpen }) {
   const { status, picks = [], followup, noMatch, error, missingTitle } = view
   const loading = status === 'loading'
+  const [cur, setCur] = useState(0)
+  const [shown, setShown] = useState(0)
+  const [out, setOut] = useState(false)
+  const timer = useRef(null)
 
-  return (
-    <main className="mx-auto max-w-column px-4 pt-8 pb-16 text-ink dark:text-screen">
-      <h1 className="sr-only">Your three picks</h1>
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-        <p className="text-body">For {askedFor(text, chips)}</p>
-        <button type="button" onClick={onChangeMood} className="min-h-[44px] text-body underline decoration-1 underline-offset-4">
-          Change my mood
-        </button>
-      </div>
+  // A new set of picks starts on the first one.
+  useEffect(() => {
+    clearTimeout(timer.current)
+    setCur(0)
+    setShown(0)
+    setOut(false)
+  }, [batch])
 
-      {(loading || status === 'ready') && (
-        <>
-          <p className="sr-only" role="status">{loading ? 'Finding your three…' : 'Your three are here.'}</p>
-          <div className="mt-6 flex flex-col gap-6">
-            {TINT_ORDER.map((tint, i) => (
-              // The one animation moment: tickets pushed through the counter window, 80ms apart (index.css .ticket-in).
-              // Keyed by request, so the slide answers the tap, and the Loading ticket fills in place without moving.
-              <div key={`${batch}-${i}`} className="ticket-in" style={{ animationDelay: `${i * 80}ms` }}>
-                {loading || !picks[i] ? (
-                  <FilmCard loading tint={tint} />
-                ) : (
-                  <FilmCard
-                    key={picks[i].card.id}
-                    card={picks[i].card}
-                    why={picks[i].why_this_fits}
-                    tint={tint}
-                    saved={lists.savedIds.includes(picks[i].card.id)}
-                    onSave={lists.onSave}
-                    comparing={lists.compareIds.includes(picks[i].card.id)}
-                    compareFull={lists.compareFull}
-                    onCompare={lists.onCompare}
-                    mine={lists.mine}
-                    onWatch={lists.onWatch}
-                  />
-                )}
-              </div>
+  // Moving the focus: the text fades out, changes, and fades back in while the backdrop crossfades.
+  const focusOn = (i) => {
+    const n = (i + 3) % 3
+    if (n === cur || !picks[n]) return
+    setCur(n)
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (still) return setShown(n)
+    setOut(true)
+    clearTimeout(timer.current)
+    timer.current = setTimeout(() => {
+      setShown(n)
+      setOut(false)
+    }, 220)
+  }
+  useEffect(() => () => clearTimeout(timer.current), [])
+
+  useEffect(() => {
+    if (status !== 'ready') return
+    const onKey = (e) => {
+      if (e.target.closest?.('input, textarea')) return
+      if (e.key === 'ArrowRight') focusOn(cur + 1)
+      if (e.key === 'ArrowLeft') focusOn(cur - 1)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  })
+
+  const forLine = (
+    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-caption text-muted">
+      <span>
+        For <span className="text-paper">{askedFor(text, chips)}</span>
+      </span>
+      <button type="button" onClick={onChangeMood} className={`${quiet} text-caption`}>
+        Change my mood
+      </button>
+    </div>
+  )
+
+  if (!loading && status !== 'ready') {
+    return (
+      <main className="mx-auto max-w-page px-4 pt-[96px] pb-16 md:px-12 md:pt-[120px]">
+        <h1 className="sr-only">Your three picks</h1>
+        {forLine}
+        {status === 'followup' && followup && (
+          <Note
+            pills
+            actions={followup.options.map((o) => (
+              <button key={o} type="button" onClick={() => onAnswer(followup.slot, o)} className={chip}>
+                {o}
+              </button>
             ))}
+          >
+            {followup.question}
+          </Note>
+        )}
+        {status === 'nomatch' && (
+          <Note
+            actions={
+              noMatch ? (
+                <button type="button" onClick={() => onLoosen(noMatch.constraint)} className={primary}>
+                  Try without “{noMatch.label}”
+                </button>
+              ) : (
+                <button type="button" onClick={onChangeMood} className={primary}>
+                  Change my mood
+                </button>
+              )
+            }
+          >
+            {noMatch
+              ? `Nothing in our notes fits all of that. The tightest part is “${noMatch.label}”.`
+              : 'Nothing in our notes fits all of that yet.'}
+          </Note>
+        )}
+        {status === 'error' && (
+          <Note actions={<button type="button" onClick={onRetry} className={primary}>Try again</button>}>
+            {ERRORS[error] || ERRORS.failed}
+          </Note>
+        )}
+      </main>
+    )
+  }
+
+  const pick = loading ? null : picks[shown]
+  const c = pick?.card
+  return (
+    <main>
+      <h1 className="sr-only">Your three picks</h1>
+      <p className="sr-only" role="status">{loading ? 'Finding your three…' : `Your three are here. Showing ${c?.title}.`}</p>
+      <section aria-label={c ? `Pick ${shown + 1}: ${c.title}` : 'Your three'} className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden">
+        <Backdrop url={loading ? null : backdropUrl(picks[cur]?.card)} />
+        <div className="relative mx-auto flex w-full max-w-page flex-col px-4 pt-[22vh] pb-8 md:grid md:grid-cols-[minmax(0,560px)_1fr] md:items-end md:gap-x-12 md:px-12 md:pt-[120px] md:pb-12">
+          <div className="order-1 mb-5 md:col-start-1 md:row-start-1">{forLine}</div>
+
+          <div className="order-2 mb-8 md:col-start-2 md:row-start-2 md:mb-0">
+            <div className="flex items-end gap-3 md:justify-end md:gap-4">
+              {[0, 1, 2].map((i) => (
+                <Poster
+                  key={i}
+                  i={i}
+                  pick={picks[i]}
+                  loading={loading || !picks[i]}
+                  current={!loading && i === cur}
+                  onClick={() => (i === cur ? onOpen(picks[i].card) : focusOn(i))}
+                />
+              ))}
+            </div>
+            <div className="mt-4 hidden justify-end gap-3 md:flex">
+              <button type="button" aria-label="Previous pick" disabled={loading} onClick={() => focusOn(cur - 1)} className={round}>←</button>
+              <button type="button" aria-label="Next pick" disabled={loading} onClick={() => focusOn(cur + 1)} className={round}>→</button>
+            </div>
           </div>
-          <button type="button" onClick={onOthers} disabled={loading} className={`mt-8 ${primary}`}>
+
+          <div className={`focus-swap order-3 md:col-start-1 md:row-start-2 ${out ? 'out' : ''}`}>
+            <div className="flex items-start gap-4">
+              <span aria-hidden="true" className="text-num font-thin tabular md:text-num-lg">{two(shown + 1)}</span>
+              <div className="min-w-0">
+                <h2 className="text-title font-bold md:text-title-lg">{c ? c.title : <Bar chars={9} />}</h2>
+                {c ? <Facts card={c} /> : <p className="mt-3 text-caption"><Bar chars={36} /></p>}
+              </div>
+            </div>
+            {c ? (
+              <>
+                <HonestRead card={c} />
+                {pick.why_this_fits && <Aside>{pick.why_this_fits}</Aside>}
+                <Actions card={c} lists={lists} />
+                <button type="button" onClick={() => onOpen(c)} className={`${quiet} mt-3 text-caption`}>
+                  See the full page →
+                </button>
+              </>
+            ) : (
+              <div className="mt-6 grid gap-3" aria-hidden="true">
+                <p className="text-caption"><Bar chars={36} /></p>
+                <p className="text-read"><Bar chars={26} /> <Bar chars={18} /></p>
+                <p className="mt-4"><Bar chars={30} /></p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {c && (
+        <section aria-label={`More about ${c.title}`} className={`focus-swap mx-auto max-w-page px-4 pt-2 pb-8 md:px-12 md:pt-6 ${out ? 'out' : ''}`}>
+          <Details card={c} lists={lists} />
+        </section>
+      )}
+
+      <div className="mx-auto max-w-page px-4 pb-16 md:px-12">
+        <div className="flex justify-center py-4">
+          <button type="button" onClick={onOthers} disabled={loading} className={btn}>
             Show me three others
           </button>
-          {status === 'ready' && missingTitle && <OnDemand key={`${batch}-${missingTitle}`} title={missingTitle} lists={lists} />}
-        </>
-      )}
-
-      {status === 'followup' && followup && (
-        <Note
-          pills
-          actions={followup.options.map((o) => (
-            <button key={o} type="button" onClick={() => onAnswer(followup.slot, o)} className={chip}>
-              {o}
-            </button>
-          ))}
-        >
-          {followup.question}
-        </Note>
-      )}
-
-      {status === 'nomatch' && (
-        <Note
-          actions={
-            noMatch ? (
-              <button type="button" onClick={() => onLoosen(noMatch.constraint)} className={primary}>
-                Try without “{noMatch.label}”
-              </button>
-            ) : (
-              <button type="button" onClick={onChangeMood} className={primary}>
-                Change my mood
-              </button>
-            )
-          }
-        >
-          {noMatch
-            ? `Nothing in our notes fits all of that. The tightest part is “${noMatch.label}”.`
-            : 'Nothing in our notes fits all of that yet.'}
-        </Note>
-      )}
-
-      {status === 'error' && (
-        <Note
-          actions={
-            <button type="button" onClick={onRetry} className={primary}>
-              Try again
-            </button>
-          }
-        >
-          {ERRORS[error] || ERRORS.failed}
-        </Note>
-      )}
+        </div>
+        {status === 'ready' && missingTitle && <OnDemand key={`${batch}-${missingTitle}`} title={missingTitle} lists={lists} onOpen={onOpen} />}
+      </div>
     </main>
   )
 }

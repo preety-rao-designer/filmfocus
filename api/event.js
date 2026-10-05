@@ -3,7 +3,7 @@
 // `search` ties opens and saves to the search they came from. Mood text is never sent, only its length.
 import { db, ipOf } from './_lib/firebase.js'
 
-const NAMES = new Set(['visit', 'search', 'others', 'loosen', 'answer', 'open', 'save', 'compare', 'make_card', 'vote'])
+const NAMES = new Set(['visit', 'search', 'others', 'loosen', 'answer', 'open', 'save', 'compare', 'make_card', 'vote', 'open_title'])
 const ID = /^[a-z0-9-]{8,40}$/i
 const recent = new Map()
 

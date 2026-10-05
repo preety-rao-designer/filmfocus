@@ -6,23 +6,26 @@ import Results from './screens/Results.jsx'
 import Preferences from './screens/Preferences.jsx'
 import Watchlist from './screens/Watchlist.jsx'
 import Compare from './screens/Compare.jsx'
+import TitlePage from './screens/TitlePage.jsx'
 import { recommend } from './engine/live.js'
 import { loadPrefs, savePrefs } from './prefs.js'
 import { COMPARE_MAX, loadList, saveList, toggleCard } from './lists.js'
 import { newSearchId, rememberChosen, track, trackVisit } from './track.js'
 import MatchCheck from './components/MatchCheck.jsx'
 
-// Five screens, no router: the path picks the screen (`/` is S1, `/results?…` is S2, `/watchlist` is S4, `/compare` is
-// S5, `/preferences` is S6). The
-// query lives in the URL so S2 survives a reload and the back button works. All state lives here and is passed down.
+// Six screens, no router: the path picks the screen (`/` is S1, `/results?…` is S2, `/watchlist` is S4, `/compare` is
+// S5, `/preferences` is S6, `/title/<id>` is a title's own page). The query lives in the URL so S2 survives a reload
+// and the back button works. All state lives here and is passed down.
 
 const NO_CHIPS = { company: null, time: null, stay_or_shift: null }
 
 function readUrl() {
   const p = new URLSearchParams(window.location.search)
   const path = window.location.pathname
+  const title = path.match(/^\/title\/(tmdb-(?:movie|tv)-\d+)$/)
   return {
-    screen: { '/results': 'results', '/preferences': 'prefs', '/watchlist': 'watchlist', '/compare': 'compare' }[path] || 'input',
+    screen: title ? 'title' : { '/results': 'results', '/preferences': 'prefs', '/watchlist': 'watchlist', '/compare': 'compare' }[path] || 'input',
+    titleId: title?.[1] || null,
     text: p.get('q') || '',
     chips: { company: p.get('company'), time: p.get('time'), stay_or_shift: p.get('shift') },
   }
@@ -48,6 +51,8 @@ export default function App() {
   const [batch, setBatch] = useState(0)
   const [watchlist, setWatchlist] = useState(() => loadList('watchlist'))
   const [compare, setCompare] = useState(() => loadList('compare'))
+  const [titleId, setTitleId] = useState(initial.titleId)
+  const known = useRef({}) // cards already on screen, so a title's page opens without asking the server again
   const seen = useRef([])
   const last = useRef(null) // the last request, so "Try again" repeats exactly it
   const inflight = useRef(null)
@@ -70,6 +75,7 @@ export default function App() {
       if (res.followup) return setView({ status: 'followup', followup: res.followup })
       if (!res.picks.length) return setView({ status: 'nomatch', noMatch: res.no_match })
       const ids = res.picks.map((p) => p.card.id)
+      for (const p of res.picks) known.current[p.card.id] = p.card
       // When the engine starts a new cycle, the seen list starts again too.
       seen.current = ids.some((id) => seen.current.includes(id)) ? ids : [...seen.current, ...ids]
       setView({ status: 'ready', picks: res.picks, missingTitle: res.missing_title || null })
@@ -80,6 +86,7 @@ export default function App() {
   }
 
   const startSearch = (t, c) => {
+    cameFromTitle.current = false
     seen.current = []
     searchId.current = newSearchId()
     track('search', { chars: t.trim().length, chips: Object.values(c).filter(Boolean).length, surprise: !t.trim() && !Object.values(c).some(Boolean) }, searchId.current)
@@ -108,9 +115,13 @@ export default function App() {
     const onPop = () => {
       const u = readUrl()
       setScreen(u.screen)
+      setTitleId(u.titleId)
       setText(u.text)
       setChips({ ...NO_CHIPS, ...u.chips })
-      if (u.screen === 'results') {
+      // Back to results from a title's page keeps the same three; anything else asks again.
+      if (u.screen === 'results' && cameFromTitle.current && last.current) {
+        cameFromTitle.current = false
+      } else if (u.screen === 'results') {
         seen.current = []
         searchId.current = newSearchId()
         run({ text: u.text, chips: { ...NO_CHIPS, ...u.chips } })
@@ -119,6 +130,17 @@ export default function App() {
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
   }, [])
+
+  const cameFromTitle = useRef(false)
+  // A title's page: from a shelf poster (light item), a pick, the watchlist or compare.
+  const openTitle = (item) => {
+    if (item.honest_read) known.current[item.id] = item
+    cameFromTitle.current = screen === 'results'
+    track('open_title', { card: item.id, from: screen }, searchId.current)
+    go(`/title/${item.id}`, 'title')
+    setTitleId(item.id)
+  }
+  const back = () => (window.history.length > 1 ? window.history.back() : toInput())
 
   const toInput = () => {
     inflight.current?.abort()
@@ -141,6 +163,7 @@ export default function App() {
   // Side effects (storage, events) sit outside the state setters: React may run a setter twice in development.
   const toggleSaved = (card) => {
     const next = toggleCard(watchlist, card)
+    known.current[card.id] = card
     if (next.length > watchlist.length) {
       rememberChosen(card)
       track('save', { card: card.id }, searchId.current)
@@ -185,9 +208,13 @@ export default function App() {
     else window.history.back()
   }
 
+  // Over a backdrop (results with picks or loading, a title's page) the header floats on the image.
+  const overlay = screen === 'title' || (screen === 'results' && ['loading', 'ready'].includes(view.status))
+
   return (
     <>
       <Header
+        overlay={overlay}
         onHome={toInput}
         onPrefs={toPrefs}
         onWatchlist={() => go('/watchlist', 'watchlist')}
@@ -196,18 +223,19 @@ export default function App() {
         comparing={compare.length}
       />
       {screen === 'watchlist' && (
-        <Watchlist
-          list={watchlist}
-          compareIds={cardLists.compareIds}
-          compareFull={cardLists.compareFull}
-          mine={cardLists.mine}
-          onWatch={cardLists.onWatch}
-          onSave={toggleSaved}
-          onCompare={toggleCompare}
+        <Watchlist list={watchlist} lists={cardLists} onOpen={openTitle} onFind={toInput} />
+      )}
+      {screen === 'compare' && <Compare list={compare} onRemove={toggleCompare} onClear={clearCompare} onFind={toInput} onOpen={openTitle} />}
+      {screen === 'title' && titleId && (
+        <TitlePage
+          key={titleId}
+          id={titleId}
+          known={known.current[titleId] || watchlist.find((c) => c.id === titleId) || compare.find((c) => c.id === titleId)}
+          lists={cardLists}
+          onBack={back}
           onFind={toInput}
         />
       )}
-      {screen === 'compare' && <Compare list={compare} onRemove={toggleCompare} onClear={clearCompare} onFind={toInput} />}
       {screen === 'prefs' && (
         <Preferences
           initial={prefs}
@@ -230,9 +258,11 @@ export default function App() {
             setChips(NO_CHIPS)
             find('', NO_CHIPS)
           }}
-        />
+          onOpen={openTitle}
+        >
+          <MatchCheck />
+        </MoodInput>
       )}
-      {screen === 'input' && <MatchCheck />}
       {screen === 'results' && (
         <Results
           text={text}
@@ -255,6 +285,7 @@ export default function App() {
             run({ text, chips, loosen: [...(last.current?.loosen || []), key] })
           }}
           lists={cardLists}
+          onOpen={openTitle}
         />
       )}
       <Footer />

@@ -6,7 +6,7 @@ FilmFocus: a mood-to-movie web app for India. People describe how they feel in p
 1. `PROGRESS.md` — where we are, what's waiting, decisions made so far. Resume from the first unfinished step.
 2. `docs/RUNBOOK.md` — the steps, checkpoints and loop you follow.
 3. `docs/PRD.md` — what we're building and why.
-4. `docs/DESIGN_DIRECTION.md` — the visual bar ("The Single Screen").
+4. `docs/DESIGN_DIRECTION.md` — the visual bar ("The Late Show", V2).
 5. `docs/CARD_SCHEMA.md` — the one data shape everything shares.
 
 ## How you work

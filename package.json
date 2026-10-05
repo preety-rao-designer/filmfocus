@@ -8,11 +8,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "snap": "node scripts/snap.js",
-    "flow": "node scripts/flow.js",
     "eval": "node scripts/eval.js",
     "pipeline": "node scripts/pipeline/run.js",
     "embed": "node scripts/pipeline/embed.js",
-    "states": "node scripts/states.js"
+    "v2": "node scripts/v2.js"
   },
   "dependencies": {
     "firebase-admin": "^14.5.0",

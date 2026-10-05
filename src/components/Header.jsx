@@ -1,29 +1,28 @@
-// The Curtain header band (docs/DESIGN_DIRECTION.md palette: "Curtain … header band"). The wordmark is UI text, so Mukta.
-// The 2px Curtain-deep rule along the bottom is the counter-window slot the result tickets come through (Motion).
-// The three places you go back to sit on the right as caption links; the counts say what's waiting there.
-const navLink = 'min-h-[44px] text-caption text-screen underline decoration-1 underline-offset-4'
+// The header (docs/DESIGN_DIRECTION.md V2): the wordmark on the left, the places you go back to on the right. Over a
+// backdrop (results, a title's page) it floats on the image; elsewhere it sits on Night. Counts say what's waiting.
+const navLink = 'min-h-[44px] text-caption text-muted hover:text-paper'
 
-export default function Header({ onHome, onPrefs, onWatchlist, onCompare, saved = 0, comparing = 0 }) {
+export default function Header({ onHome, onPrefs, onWatchlist, onCompare, saved = 0, comparing = 0, overlay = false }) {
   return (
-    <header className="border-b-2 border-curtain-deep bg-curtain">
-      <div className="mx-auto flex max-w-column flex-wrap items-center justify-between gap-x-6 px-4 py-4">
+    <header className={overlay ? 'absolute inset-x-0 top-0 z-10' : 'relative'}>
+      <div className="mx-auto flex min-h-[64px] max-w-page flex-wrap items-center justify-between gap-x-6 px-4 md:px-12">
         <a
           href="/"
           onClick={(e) => {
             e.preventDefault()
             onHome()
           }}
-          className="text-lead font-bold text-screen"
+          className="text-body font-bold tracking-tight text-paper"
         >
-          FilmFocus
+          Film<span className="text-amber">Focus</span>
         </a>
-        <nav aria-label="Your lists" className="flex flex-wrap gap-x-4">
+        <nav aria-label="Your lists" className="flex flex-wrap gap-x-5">
           <button type="button" onClick={onWatchlist} className={`${navLink} tabular`}>
-            Watchlist{saved ? ` ${saved}` : ''}
+            Watchlist{saved ? <span className="ml-1 text-amber">{saved}</span> : ''}
           </button>
           {comparing > 0 && (
             <button type="button" onClick={onCompare} className={`${navLink} tabular`}>
-              Compare {comparing}
+              Compare<span className="ml-1 text-amber">{comparing}</span>
             </button>
           )}
           <button type="button" onClick={onPrefs} className={navLink}>

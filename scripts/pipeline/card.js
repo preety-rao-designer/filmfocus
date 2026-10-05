@@ -76,6 +76,7 @@ export function facts(src) {
           },
     languages: [d.original_language],
     poster_path: d.poster_path || null,
+    backdrop_path: d.backdrop_path || null,
     rating: d.vote_count >= 10 ? { source: 'tmdb', value: Math.round(d.vote_average * 10) / 10, votes: d.vote_count } : null,
     watch_in: watch,
   }

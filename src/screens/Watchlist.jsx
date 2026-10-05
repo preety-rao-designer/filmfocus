@@ -1,43 +1,50 @@
-import FilmCard from '../components/FilmCard.jsx'
+import { Actions, Facts } from '../components/TitleParts.jsx'
+import { posterUrl, primary } from '../ui.js'
 
-// S4, Watchlist: titles saved from any pick, newest first, as the same tickets in the same tint order as S2.
-// Tapping "On your watchlist" takes a title off; taking the last one off shows the empty state.
+// S4, Watchlist (V2): titles saved from anywhere, newest first. Each row is the poster (tap for its page), the title,
+// facts and honest read, and the same actions as everywhere else; "On your watchlist" takes a title off, and taking
+// the last one off shows the empty state.
 
-const TINT_ORDER = ['rose', 'mint', 'marigold']
-const primary = 'inline-flex min-h-[48px] items-center rounded-pill bg-curtain px-6 text-body font-medium text-screen'
-
-export default function Watchlist({ list, compareIds, compareFull, mine, onWatch, onSave, onCompare, onFind }) {
+export default function Watchlist({ list, lists, onOpen, onFind }) {
   return (
-    <main className="mx-auto max-w-column px-4 pt-12 pb-16 text-ink dark:text-screen md:pt-16">
-      <h1 className="font-display text-headline [text-wrap:balance] md:text-headline-lg">Your watchlist</h1>
+    <main className="mx-auto max-w-page px-4 pt-12 pb-16 md:px-12 md:pt-16">
+      <h1 className="text-headline font-bold md:text-headline-lg">
+        Your <span className="font-thin">watchlist</span>
+      </h1>
       {list.length === 0 ? (
         <div role="status">
-          <p className="mt-4 text-lead">Nothing saved yet. Tap “Add to watchlist” on any pick and it waits here for you.</p>
+          <p className="mt-4 max-w-read text-lead text-muted">Nothing saved yet. Tap “Add to watchlist” on any title and it waits here for you.</p>
           <button type="button" onClick={onFind} className={`mt-8 ${primary}`}>
             Find something
           </button>
         </div>
       ) : (
         <>
-          <p className="mt-4 text-lead">
+          <p className="mt-4 text-lead text-muted">
             {list.length === 1 ? 'One title' : `${list.length} titles`} saved in this browser only.
           </p>
-          <div className="mt-8 flex flex-col gap-6">
-            {list.map((card, i) => (
-              <FilmCard
-                key={card.id}
-                card={card}
-                tint={TINT_ORDER[i % 3]}
-                saved
-                onSave={onSave}
-                comparing={compareIds.includes(card.id)}
-                compareFull={compareFull}
-                onCompare={onCompare}
-                mine={mine}
-                onWatch={onWatch}
-              />
+          <ul className="mt-8">
+            {list.map((c) => (
+              <li key={c.id} className="border-t border-line py-6">
+                <div className="flex gap-4 md:gap-8">
+                  <button type="button" onClick={() => onOpen(c)} aria-label={`${c.title}, see its page`} className="w-[88px] shrink-0 md:w-[140px]">
+                    <span className="block aspect-[2/3] rounded-poster bg-night-raised bg-cover bg-center" style={{ backgroundImage: `url(${posterUrl(c)})` }} />
+                  </button>
+                  <div className="min-w-0 flex-1">
+                    <h2 className="text-lead font-bold md:text-[28px] md:leading-tight">
+                      <button type="button" onClick={() => onOpen(c)} className="text-left hover:underline">{c.title}</button>
+                    </h2>
+                    <Facts card={c} />
+                    <p className="mt-3 max-w-read text-muted md:text-lead md:text-paper">{c.honest_read.actually_is}</p>
+                  </div>
+                </div>
+                {/* Under the row on phones, so the buttons get the full width; under the text on desktop. */}
+                <div className="md:pl-[172px]">
+                  <Actions card={c} lists={lists} />
+                </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </>
       )}
     </main>
