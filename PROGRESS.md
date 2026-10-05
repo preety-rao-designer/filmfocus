@@ -9,6 +9,7 @@
 - **Heads-up:** I meant to deploy a password-protected preview, but the first deploy of a new Vercel project goes to production, so this address is already public. It isn't linked or shared anywhere. If you'd rather it be offline until you approve, say so and I'll take it down; otherwise it stays as is.
 - **Try:** a mood in your own words; "Show me three others"; save one to your watchlist and add two to compare; tap a service name (it opens that service's search); type a mood that names a film we don't have (e.g. "something like Swades") and tap "Make its card".
 - **Open question from earlier:** add TMDB's logo to the footer next to the required notice, or keep text only? TMDB asks for the logo "where possible"; text alone is allowed.
+- **Answered 2026-10-05: no sign-in for now.** The watchlist and compare stay in this browser only, as the PRD says. We'll look at sign-in again after launch if the 7-day return metric shows people coming back from other devices.
 - **Still growing:** the catalogue is going from 311 to about 960 titles, 150 new cards a day to leave Gemini quota for the live site. I'll re-run the 30-mood eval when it's done.
 
 **A decision for later (C5, money; I won't do this):** on the free tier, the live app can serve roughly **500 searches a day** in total, since each search uses one call on each of the two Flash-Lite models. Growing the catalogue to 1,000 titles at Launch (L3) also needs about two days of quota. If that's too tight for a public test, the option is enabling billing on your Gemini key. That's your call, at Launch.
