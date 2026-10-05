@@ -4,6 +4,8 @@
 **Current phase / step:** Launch L9 production (C3 approved "for now" on 2026-10-05). L3 catalogue growth continues a day at a time.
 
 ## Waiting for Preety
+**Visual refresh (asked 2026-10-05): send your references.** You'll provide the new visual direction. What bothers you today: the home screen feels empty, the look is flat and plain, the colors and type, and the cards are too long and wordy. Once the references arrive, I'll turn them into a new DESIGN_DIRECTION.md and mock the card and home screen for your sign-off (like C1), then rebuild the screens.
+
 **C3: try the site on your phone, then approve or tell me what to change.** https://filmfocus.vercel.app
 
 - **Heads-up:** I meant to deploy a password-protected preview, but the first deploy of a new Vercel project goes to production, so this address is already public. It isn't linked or shared anywhere. If you'd rather it be offline until you approve, say so and I'll take it down; otherwise it stays as is.
