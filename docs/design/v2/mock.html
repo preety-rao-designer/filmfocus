@@ -61,13 +61,13 @@
   .ask textarea::placeholder { color: var(--muted); }
   .ask .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 20px; }
   .ask .go { display: flex; align-items: center; gap: 20px; }
-  .shelf-label { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; color: var(--muted); margin-bottom: 14px; }
-  @media (hover: none) { .shelf-label .hint { display: none; } }
-  .shelf-label b { color: var(--paper); font-weight: 500; }
-  .shelf { overflow: hidden; padding-block: 16px 48px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
-  .rail { display: flex; gap: 10px; width: max-content; animation: drift 90s linear infinite; }
-  .shelf:hover .rail { animation-play-state: paused; }
-  @keyframes drift { to { transform: translateX(-50%); } }
+  .shelf-wrap { position: relative; padding-block: 16px 48px; }
+  .shelf { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; cursor: grab; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .shelf::-webkit-scrollbar { display: none; }
+  .shelf.dragging { cursor: grabbing; }
+  .shelf.dragging .strip { pointer-events: none; }
+  .rail { display: flex; gap: 10px; width: max-content; padding-inline: 16px; }
+  .shelf-arrows { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; }
   .strip { position: relative; width: 72px; height: 300px; border-radius: 10px; overflow: hidden; flex: none; background: var(--night-2) center / cover; transition: width .45s cubic-bezier(.2,.7,.2,1), filter .3s; filter: saturate(.85) brightness(.8); cursor: pointer; border: 0; padding: 0; }
   .strip:nth-child(3n+2) { margin-top: 18px; height: 282px; }
   .strip:nth-child(3n) { margin-top: 8px; height: 292px; }
@@ -163,7 +163,6 @@
   .mockbar button[aria-pressed="true"] { background: var(--paper); color: var(--ink); }
 
   @media (prefers-reduced-motion: reduce) {
-    .rail { animation: none; }
     .bd, .bd.on, .anim, .strip, .pk .pimg { transition: none; transform: none; }
   }
 </style>
@@ -185,7 +184,10 @@
       <div class="go"><button class="btn primary" onclick="show('results')">Find my watch</button><button class="quiet">Surprise me</button></div>
     </div>
   </div>
-  <div class="shelf"><div class="rail" id="rail"></div></div>
+  <div class="shelf-wrap">
+    <div class="shelf" id="shelf" aria-label="Some of the titles we have cards for"><div class="rail" id="rail"></div></div>
+    <div class="wrap shelf-arrows"><button class="arr" aria-label="Scroll the shelf left" onclick="nudge(-1)">←</button><button class="arr" aria-label="Scroll the shelf right" onclick="nudge(1)">→</button></div>
+  </div>
 </main>
 
 <main id="results">
@@ -228,6 +230,36 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&l
 // Home shelf: the list twice so the drift loops seamlessly.
 document.getElementById('rail').innerHTML = [...shelf, ...shelf].map((s) =>
   `<button class="strip" style="background-image:url(${IMG}w342${s.poster_path})" aria-label="${esc(s.title)}"><span>${esc(s.title)}<br><small style="color:var(--muted)">${s.year}</small></span></button>`).join('')
+
+
+// Shelf: drifts slowly on its own, and people can scroll it (trackpad, swipe, drag, or the arrows).
+// It loops: the list is there twice, and the scroll position wraps at the halfway point.
+const shelfEl = document.getElementById('shelf')
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches
+let pausedUntil = 0, hovering = false
+const half = () => shelfEl.scrollWidth / 2
+const wrapAround = () => { if (shelfEl.scrollLeft >= half()) shelfEl.scrollLeft -= half(); else if (shelfEl.scrollLeft <= 0) shelfEl.scrollLeft += half() }
+const hold = (ms = 4000) => { pausedUntil = performance.now() + ms }
+let carry = 0
+function tick(t) {
+  if (!still && !hovering && t > pausedUntil && document.body.classList.contains('show-home')) {
+    carry += 0.35; const step = Math.floor(carry); carry -= step
+    if (step) { shelfEl.scrollLeft += step; wrapAround() }
+  }
+  requestAnimationFrame(tick)
+}
+shelfEl.addEventListener('mouseenter', () => { hovering = true })
+shelfEl.addEventListener('mouseleave', () => { hovering = false })
+shelfEl.addEventListener('scroll', wrapAround, { passive: true })
+shelfEl.addEventListener('touchstart', () => hold(), { passive: true })
+shelfEl.addEventListener('wheel', () => hold(), { passive: true })
+function nudge(dir) { hold(); shelfEl.scrollBy({ left: dir * shelfEl.clientWidth * 0.6, behavior: still ? 'auto' : 'smooth' }) }
+// Drag to scroll with a mouse.
+let drag = null
+shelfEl.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; drag = { x: e.clientX, left: shelfEl.scrollLeft, moved: false } })
+addEventListener('pointermove', (e) => { if (!drag) return; const dx = e.clientX - drag.x; if (Math.abs(dx) > 4) { drag.moved = true; shelfEl.classList.add('dragging') } shelfEl.scrollLeft = drag.left - dx; hold() })
+addEventListener('pointerup', () => { drag = null; shelfEl.classList.remove('dragging') })
+requestAnimationFrame(() => { shelfEl.scrollLeft = 1; requestAnimationFrame(tick) })
 
 // Results
 document.getElementById('picks').innerHTML = picks.map((p, i) =>
