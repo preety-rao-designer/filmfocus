@@ -47,7 +47,8 @@ Images come only from TMDB (posters and backdrops), credited in the footer.
 ## Screens
 
 - **Home:** headline on the left, the mood box, chips, "Find my watch" (Amber) and "Surprise me" on the right; stacked on phones. Below, the **shelf**: tall poster strips (two Indian titles for every one from elsewhere, a new mix daily) that drift slowly, widen on hover to show the title, and scroll by trackpad, swipe, drag or the ← → buttons. Tapping a poster opens its page.
-- **Results:** the focused pick's backdrop fills the screen under a scrim. On it: "For …" with "Change my mood", the numeral and title, the facts line, the honest read, why it fits (with an Amber rule), and the actions. All three posters sit beside it on desktop and above it on phones, so the three are always in view. Tapping another poster (or the arrows, or ← →) moves the focus; tapping the focused one opens its page. Below the backdrop: how it feels, tone, the four pairs, where to watch, "Read how it ends" (folded). Then "Show me three others".
+- **Results:** the focused pick's backdrop fills the screen under a scrim. On it: "For …" with "Change my mood", the numeral and title, the facts line, the honest read, why it fits (with an Amber rule), and the actions. All three posters sit beside it on desktop and above it on phones, so the three are always in view. Tapping another poster (or ← → keys) moves the focus; tapping the focused one opens its page. Under the posters, **Regenerate** (outline pill with a circular-arrow icon) brings three different picks. Below the backdrop: how it feels, tone, the four pairs, where to watch, "Read how it ends" (folded).
+- **Loading results:** the title's place says what the engine is doing ("Reading your mood…", "Looking through our honest cards…", "Weighing tone, pace and endings…", "Picking your three…"), the poster slots shuffle heavily blurred shelf posters, placeholders shimmer, and a thin Amber line runs along the top. Under reduced motion: one still line, "Finding your three…".
 - **Title search:** a search icon (a plain stroked magnifier in Muted, the one icon in the app) in the header, and the "/" key, open a full-screen Night panel with one big bold field. Matches from our catalogue appear as you type (English names, the original-language name, or the name someone asked for), with a small poster, type and year; Up/Down and Enter, or a tap, open the title's page. When we don't have it: "Make its card".
 - **A title's page** (`/title/<id>`): its backdrop, title, facts, honest read, truth note and actions; below, the details plus "Good for", "Skip it if" and "Don't go in".
 - **Watchlist, compare, preferences:** Night pages with the bold/thin headline, posters where a title appears, and the same buttons and chips.
@@ -61,7 +62,7 @@ The product's core idea stays the most prominent content after the title: "Looks
 - **Primary:** Amber pill, bold Night text. One per view: "Find my watch", "Watch on …", "Try again", "Make its card".
 - **Secondary:** outline pill (Line border, Paper text). Pressed (on watchlist, in compare, a chosen chip) is filled Paper with Night text, plus `aria-pressed` and words that say so.
 - **Quiet link:** Muted, underlined: "Change my mood", "Surprise me", "See the full page →", "← Back".
-- **Round:** 44px outline circles for ← → arrows.
+- **Round:** 44px outline circles for the shelf's ← → arrows.
 
 ## Motion
 

@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import Backdrop from '../components/Backdrop.jsx'
+import { loadShelf } from '../components/Shelf.jsx'
 import { Actions, Aside, Details, Facts, HonestRead } from '../components/TitleParts.jsx'
 import { cardFor } from '../engine/live.js'
 import { track } from '../track.js'
 import { CHIP_GROUPS } from './MoodInput.jsx'
-import { backdropUrl, btn, chip, posterUrl, primary, quiet, round, two } from '../ui.js'
+import { backdropUrl, btn, chip, posterUrl, primary, quiet, two } from '../ui.js'
 
 // S2, Results (V2, docs/DESIGN_DIRECTION.md "The Late Show"): one pick in focus at a time over its backdrop, with
 // a big thin numeral, the title, the honest read, why it fits and the actions. All three posters sit beside it
 // (above it on phones) so the three are always in view; tapping another poster moves the focus, tapping the focused
-// one opens its page. The details sit below the backdrop. In place of the picks, depending on what really happened:
+// one opens its page; ← → keys move it too. Regenerate, under the posters, brings three different picks. The details
+// sit below the backdrop. In place of the picks, depending on what really happened:
 // the loading state, the one follow-up question with pill answers, a "nothing fits" line with a one-tap way to
 // loosen, or a plain error and retry.
 
@@ -29,9 +31,59 @@ const ERRORS = {
   failed: "Couldn't reach our film notes. Try again in a moment.",
 }
 
-// Placeholder for loading: a soft bar sitting in a real line of text, so line heights match and nothing jumps.
+// Placeholder for loading: a soft shimmering bar sitting in a real line of text, so line heights match and nothing jumps.
 function Bar({ chars = 24 }) {
-  return <span aria-hidden="true" className="inline-block h-[0.9em] max-w-full rounded-pill bg-paper/10 align-middle" style={{ width: `${chars}ch` }} />
+  return <span aria-hidden="true" className="shimmer inline-block h-[0.9em] max-w-full rounded-pill bg-paper/5 align-middle" style={{ width: `${chars}ch` }} />
+}
+
+const still = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+// While the engine works, the title's place says what it's doing, in the order the server does it (understand the
+// mood, search the cards, rerank, write why each fits). Timed, not reported: it settles on the last line until the
+// picks arrive. Under reduced motion it's one still line.
+const PHRASES = ['Reading your mood…', 'Looking through our honest cards…', 'Weighing tone, pace and endings…', 'Picking your three…']
+function LoadingLine() {
+  const [n, setN] = useState(0)
+  const [out, setOut] = useState(false)
+  useEffect(() => {
+    if (still() || n >= PHRASES.length - 1) return
+    const t = setTimeout(() => {
+      setOut(true)
+      setTimeout(() => {
+        setN((x) => x + 1)
+        setOut(false)
+      }, 300)
+    }, 1800)
+    return () => clearTimeout(t)
+  }, [n])
+  return (
+    <h2 className={`phrase text-[28px] font-bold leading-tight tracking-tight md:text-[40px] ${out ? 'out' : ''}`}>
+      {still() ? 'Finding your three…' : PHRASES[n]}
+    </h2>
+  )
+}
+
+// A loading poster slot: blurred posters from the shelf flick past, like reels being looked through. Blurred so
+// they never read as picks. Each slot runs at its own pace.
+function Reel({ i }) {
+  const [list, setList] = useState([])
+  const [n, setN] = useState(i * 5)
+  useEffect(() => {
+    let live = true
+    loadShelf().then((l) => live && setList(l))
+    return () => (live = false)
+  }, [])
+  useEffect(() => {
+    if (!list.length || still()) return
+    const t = setInterval(() => setN((x) => x + 1), 520 + i * 110)
+    return () => clearInterval(t)
+  }, [list, i])
+  const item = list.length ? list[n % list.length] : null
+  return (
+    <span aria-hidden="true" className="shimmer absolute inset-0 overflow-hidden rounded-poster">
+      {item && !still() && <span key={n} className="reel absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${posterUrl(item, 'w185')})` }} />}
+    </span>
+  )
 }
 
 // In-place messages: one line, then the actions.
@@ -114,6 +166,15 @@ function OnDemand({ title, lists, onOpen }) {
   )
 }
 
+function RefreshIcon({ spinning }) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={spinning ? 'spin' : ''}>
+      <path d="M20 12a8 8 0 1 1-2.34-5.66" />
+      <path d="M20 4v5h-5" />
+    </svg>
+  )
+}
+
 function Poster({ pick, i, current, loading, onClick }) {
   const c = pick?.card
   return (
@@ -126,11 +187,13 @@ function Poster({ pick, i, current, loading, onClick }) {
       className="group min-w-0 flex-1 text-left md:w-[168px] md:flex-none"
     >
       <span
-        className={`lift block aspect-[2/3] rounded-poster bg-cover bg-center ${c ? 'bg-night-raised' : 'bg-paper/5'} ${
-          current ? '-translate-y-[10px] ring-2 ring-amber' : 'brightness-[.55] saturate-[.7] group-hover:brightness-[.85]'
+        className={`lift relative block aspect-[2/3] rounded-poster bg-cover bg-center ${c ? 'bg-night-raised' : 'bg-paper/5'} ${
+          current ? '-translate-y-[10px] ring-2 ring-amber' : c ? 'brightness-[.55] saturate-[.7] group-hover:brightness-[.85]' : ''
         }`}
         style={c ? { backgroundImage: `url(${posterUrl(c)})` } : undefined}
-      />
+      >
+        {!c && <Reel i={i} />}
+      </span>
       <span className={`mt-[10px] flex items-baseline gap-2 text-caption ${current ? 'text-paper' : 'text-muted'}`}>
         <span className="text-[22px] font-thin leading-none text-paper tabular">{two(i + 1)}</span>
         <span className="truncate">{c ? c.title : <Bar chars={10} />}</span>
@@ -246,6 +309,11 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
       <p className="sr-only" role="status">{loading ? 'Finding your three…' : `Your three are here. Showing ${c?.title}.`}</p>
       <section aria-label={c ? `Pick ${shown + 1}: ${c.title}` : 'Your three'} className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden">
         <Backdrop url={loading ? null : backdropUrl(picks[cur]?.card)} />
+        {loading && (
+          <div aria-hidden="true" className="absolute inset-x-0 top-0 z-20 h-[2px] overflow-hidden bg-paper/5">
+            <div className="progress-run h-full w-2/5 bg-amber" />
+          </div>
+        )}
         <div className="relative mx-auto flex w-full max-w-page flex-col px-4 pt-[22vh] pb-8 md:grid md:grid-cols-[minmax(0,560px)_1fr] md:items-end md:gap-x-12 md:px-12 md:pt-[120px] md:pb-12">
           <div className="order-1 mb-5 md:col-start-1 md:row-start-1">{forLine}</div>
 
@@ -262,9 +330,12 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
                 />
               ))}
             </div>
-            <div className="mt-4 hidden justify-end gap-3 md:flex">
-              <button type="button" aria-label="Previous pick" disabled={loading} onClick={() => focusOn(cur - 1)} className={round}>←</button>
-              <button type="button" aria-label="Next pick" disabled={loading} onClick={() => focusOn(cur + 1)} className={round}>→</button>
+            {/* Regenerate: three different picks for the same mood (the engine skips ones already shown). */}
+            <div className="mt-4 flex justify-end">
+              <button type="button" onClick={onOthers} disabled={loading} aria-label="Regenerate: show me three others" className={btn}>
+                <RefreshIcon spinning={loading} />
+                {loading ? 'Finding…' : 'Regenerate'}
+              </button>
             </div>
           </div>
 
@@ -272,7 +343,7 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
             <div className="flex items-start gap-4">
               <span aria-hidden="true" className="text-num font-thin tabular md:text-num-lg">{two(shown + 1)}</span>
               <div className="min-w-0">
-                <h2 className="text-title font-bold md:text-title-lg">{c ? c.title : <Bar chars={9} />}</h2>
+                {c ? <h2 className="text-title font-bold md:text-title-lg">{c.title}</h2> : <LoadingLine />}
                 {c ? <Facts card={c} /> : <p className="mt-3 text-caption"><Bar chars={36} /></p>}
               </div>
             </div>
@@ -303,11 +374,6 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
       )}
 
       <div className="mx-auto max-w-page px-4 pb-16 md:px-12">
-        <div className="flex justify-center py-4">
-          <button type="button" onClick={onOthers} disabled={loading} className={btn}>
-            Show me three others
-          </button>
-        </div>
         {status === 'ready' && missingTitle && <OnDemand key={`${batch}-${missingTitle}`} title={missingTitle} lists={lists} onOpen={onOpen} />}
       </div>
     </main>

@@ -6,6 +6,19 @@ import { posterUrl, round } from '../ui.js'
 // loops: the list is there twice and the scroll position wraps at the halfway point. Drift stops while the pointer is
 // on it, for a few seconds after any scroll, and entirely under reduced motion.
 
+// One request per visit, shared with the results loading state (its slots shuffle these posters).
+let shelfPromise = null
+export function loadShelf() {
+  shelfPromise ||= fetch('/api/shelf')
+    .then((r) => (r.ok ? r.json() : { items: [] }))
+    .then((b) => b.items || [])
+    .catch(() => {
+      shelfPromise = null
+      return []
+    })
+  return shelfPromise
+}
+
 const HEIGHTS = ['h-[300px] md:h-[380px]', 'mt-5 h-[282px] md:mt-6 md:h-[356px]', 'mt-2 h-[292px] md:mt-3 md:h-[368px]']
 
 export default function Shelf({ onOpen }) {
@@ -14,12 +27,9 @@ export default function Shelf({ onOpen }) {
   const state = useRef({ hover: false, until: 0, carry: 0, drag: null, dragEnded: 0 })
 
   useEffect(() => {
-    const ctrl = new AbortController()
-    fetch('/api/shelf', { signal: ctrl.signal })
-      .then((r) => (r.ok ? r.json() : { items: [] }))
-      .then((b) => setItems(b.items || []))
-      .catch(() => {})
-    return () => ctrl.abort()
+    let live = true
+    loadShelf().then((list) => live && setItems(list))
+    return () => (live = false)
   }, [])
 
   useEffect(() => {

@@ -18,7 +18,7 @@ const check = (ok, name) => {
   results.push(`${ok ? 'PASS' : 'FAIL'} ${name}`)
   if (!ok) throw new Error(name)
 }
-const ready = (page) => page.getByRole('button', { name: 'Show me three others' }).and(page.locator(':enabled')).waitFor({ timeout: 90000 })
+const ready = (page) => page.getByRole('button', { name: /^Regenerate/ }).and(page.locator(':enabled')).waitFor({ timeout: 90000 })
 const focused = (page) => page.locator('main h2').first().innerText()
 const noSideScroll = (page) => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)
 
@@ -131,9 +131,9 @@ try {
     check(await page.getByRole('button', { name: /^Compare\s*2$/ }).isVisible(), `${tag} header counts compare`)
     await page.screenshot({ path: `${outDir}/v2-results-pick2-${tag}.png` })
     if (w >= 900) {
-      await page.getByRole('button', { name: 'Next pick' }).click()
+      await page.keyboard.press('ArrowRight')
       await page.waitForTimeout(600)
-      check((await focused(page)) !== t2, `${tag} Next pick arrow moves the focus`)
+      check((await focused(page)) !== t2, `${tag} arrow key moves the focus on`)
       await page.keyboard.press('ArrowLeft')
       await page.waitForTimeout(600)
       check((await focused(page)) === t2, `${tag} arrow key moves the focus back`)
@@ -161,10 +161,10 @@ try {
 
     // Three others.
     const seenBefore = await page.getByRole('button', { name: /^0[1-3] |, see its page$/ }).evaluateAll((els) => els.map((e) => e.getAttribute('aria-label')))
-    await page.getByRole('button', { name: 'Show me three others' }).click()
+    await page.getByRole('button', { name: /^Regenerate/ }).click()
     await ready(page)
     const seenAfter = await page.getByRole('button', { name: /^0[1-3] |, see its page$/ }).evaluateAll((els) => els.map((e) => e.getAttribute('aria-label')))
-    check(seenAfter.join() !== seenBefore.join(), `${tag} Show me three others brings new picks`)
+    check(seenAfter.join() !== seenBefore.join(), `${tag} Regenerate brings new picks`)
     check(await noSideScroll(page), `${tag} results have no sideways scroll`)
 
     // Watchlist.
