@@ -1,1 +1,22 @@
-{}
+{
+ "tmdb-movie-235984": {
+  "title": "Goliyon Ki Raasleela Ram-Leela",
+  "error": "rejected after rewrite: spoiler_ending copies source wording (\"and orders an immediate ceasefire but she arrives too late\"). Rewrite it in your own words.",
+  "at": "2026-10-03T15:02:58.355Z"
+ },
+ "tmdb-movie-73582": {
+  "title": "Bodyguard",
+  "error": "fetch failed",
+  "at": "2026-10-03T15:08:04.248Z"
+ },
+ "tmdb-movie-16987": {
+  "title": "Kaho Naa... Pyaar Hai",
+  "error": "fetch failed",
+  "at": "2026-10-03T15:08:05.309Z"
+ },
+ "tmdb-movie-287767": {
+  "title": "Mardaani",
+  "error": "empty answer (finishReason PROHIBITED_CONTENT)",
+  "at": "2026-10-03T15:31:31.053Z"
+ }
+}
