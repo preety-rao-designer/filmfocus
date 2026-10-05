@@ -1,7 +1,7 @@
 # FilmFocus progress
 
 **Live URL:** https://filmfocus.vercel.app (up since 2026-10-03; C3 approved 2026-10-05)
-**Current phase / step:** L9 done 2026-10-05: production redeployed with 457 cards (eval round 4: 30/30, fit 4.73). Next: visual refresh from Preety's references; L3 growth continues a day at a time.
+**Current phase / step:** V2 live since 2026-10-06 (Preety: "yes"). L3 catalogue growth continues a day at a time.
 
 ## Waiting for Preety
 **Visual refresh (asked 2026-10-05): send your references.** You'll provide the new visual direction. What bothers you today: the home screen feels empty, the look is flat and plain, the colors and type, and the cards are too long and wordy. Once the references arrive, I'll turn them into a new DESIGN_DIRECTION.md and mock the card and home screen for your sign-off (like C1), then rebuild the screens.
@@ -339,3 +339,4 @@ Verified so far: empty and first-run preferences → loading → results passed 
   - **Docs:** `docs/DESIGN_DIRECTION.md` rewritten as "The Late Show" (V2).
 - **Next:** a Vercel preview for Preety to try on her phone; production only after her OK.
 - **Title search (asked 2026-10-05):** a header search icon (and "/") opens a full-screen search. `GET /api/search?q=` matches the store in memory (title, original title such as Devanagari, and names people asked for, so "laapataa" finds Lost Ladies; accents ignored); no model call. Results open the title's page; a title we don't have offers "Make its card" (api/card.js). New event `find_title` (query length only). `scripts/v2.js` adds 5 search checks per width.
+- **V2 live (2026-10-06).** Preety said "yes" to the preview. `v2-ui` fast-forwarded into `launch` and `main` and deployed to production. Live check on an iPhone 13 viewport: shelf 24 posters, a search in 6.4s, the focus moves to pick 2, header search "piku" opens Piku's page (an on-demand Firestore card), no page errors; home, shelf, search, title API and a `/title/…` link all return 200.
