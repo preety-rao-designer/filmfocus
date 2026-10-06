@@ -19,3 +19,10 @@ export const posterUrl = (card, size = 'w342') => (card?.poster_path ? `${IMG}${
 export const backdropUrl = (card) =>
   card?.backdrop_path ? `${IMG}w1280${card.backdrop_path}` : card?.poster_path ? `${IMG}w780${card.poster_path}` : null
 export const two = (n) => String(n).padStart(2, '0')
+
+// Title size by length: short titles get the full display size; long ones ("The Lord of the Rings: The Fellowship of
+// the Ring") step down so they sit on one or two lines instead of four.
+export const titleSize = (title = '') =>
+  title.length > 40 ? 'text-[28px] leading-[1.05] tracking-tight md:text-[40px]'
+  : title.length > 24 ? 'text-[30px] leading-[1.03] tracking-tight md:text-[46px]'
+  : 'text-title md:text-title-lg'

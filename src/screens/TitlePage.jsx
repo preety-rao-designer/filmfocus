@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Backdrop from '../components/Backdrop.jsx'
 import { Actions, Aside, Details, Facts, HonestRead, Lists, TRUTH } from '../components/TitleParts.jsx'
-import { backdropUrl, btn, quiet } from '../ui.js'
+import { backdropUrl, btn, quiet, titleSize } from '../ui.js'
 
 // A title's own page (V2), at /title/<id>: opened from a shelf poster, a focused pick, the watchlist or compare. The
 // backdrop, title, facts, honest read, truth note and actions; below, the details and the three lists the results
@@ -54,8 +54,8 @@ export default function TitlePage({ id, known, lists, onBack, onFind }) {
         <Backdrop url={backdropUrl(c)} />
         <div className="relative mx-auto w-full max-w-page px-4 pt-[22vh] pb-8 md:px-12 md:pt-[120px] md:pb-12">
           <div className="mb-3">{back}</div>
+          <h1 className={`max-w-[1000px] ${titleSize(c.title)} font-bold [text-wrap:balance]`}>{c.title}</h1>
           <div className="max-w-[640px]">
-            <h1 className="text-title font-bold md:text-title-lg">{c.title}</h1>
             <Facts card={c} />
             <HonestRead card={c} />
             {c.truth.note && <Aside>{TRUTH[c.truth.status]} {c.truth.note}</Aside>}

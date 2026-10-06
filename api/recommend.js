@@ -40,6 +40,7 @@ const PARSE_SCHEMA = {
     max_episode_min: { type: 'INTEGER', nullable: true, description: 'Only if they give a time limit for an episode.' },
     attention: en(['background_ok', 'some_focus', 'full_focus'], true),
     languages: arr(en(LANGS)),
+    dubbed_in: arr(en(LANGS)),
     hard_nos: arr(en(FLAGS)),
     avoid_tones: arr(en(TONES)),
     avoid_endings: arr(en(ENDINGS)),
@@ -54,6 +55,7 @@ const PARSE_SCHEMA = {
 const PARSE_SYSTEM = `You read what someone types into a mood-to-movie app in India and turn it into search constraints. Input may be English, Hindi, or Hinglish.
 Only set a constraint when they actually asked for it. "languages" only if they name languages. "hard_nos" only for content they reject (e.g. "not gory" → gore; "no violence"). "avoid_tones"/"avoid_endings" for feelings they reject (e.g. "nothing tense" → tense, thrilling, scary; "no sad ending" → devastating, bittersweet; "no romance" → romantic; "not scary" → scary).
 format: "episode" when they want one episode of a series; "series" for a show or binge; "movie" for a film.
+languages is the original language of the title they want. A language they want to hear it dubbed in goes in dubbed_in, not languages: "a Korean show dubbed in Hindi" → languages ["ko"], dubbed_in ["hi"]; "Hindi dubbed anime" → languages ["ja"] if they name Japanese, else languages [], dubbed_in ["hi"].
 named_titles: any specific movie or show they mention by name ("something like Andhadhun", "is Laapataa Ladies good tonight?"), spelled as its usual title. Empty if none.`
 
 // When the parse model is unavailable (daily free quota, overload), read the obvious hard constraints from keywords
@@ -74,7 +76,9 @@ const LANG_WORDS = { hindi: 'hi', english: 'en', tamil: 'ta', telugu: 'te', mala
 function fallbackParse(text) {
   const p = { mood: text.trim().slice(0, 80), needs_followup: false, languages: [], hard_nos: [], avoid_tones: [], avoid_endings: [], true_story_only: false, ideal: text, fallback: true }
   for (const [re, apply] of KEYWORDS) if (re.test(text)) apply(p)
-  for (const [w, code] of Object.entries(LANG_WORDS)) if (new RegExp(`\\b${w}\\b`, 'i').test(text)) p.languages.push(code)
+  const dubbed = Object.entries(LANG_WORDS).filter(([w]) => new RegExp(`\\b(dubbed (in|into) ${w}|${w} dub(bed)?)\\b`, 'i').test(text)).map(([, code]) => code)
+  p.dubbed_in = dubbed
+  for (const [w, code] of Object.entries(LANG_WORDS)) if (new RegExp(`\\b${w}\\b`, 'i').test(text) && !dubbed.includes(code)) p.languages.push(code)
   const mins = text.match(/under (\d{2,3}) ?min/i)
   if (mins) p[p.format === 'series' ? 'max_episode_min' : 'max_runtime_min'] = Number(mins[1])
   return p
@@ -112,7 +116,11 @@ function constraints(p, chips, prefs) {
   const out = []
   const company = chips.company || p.company
   const time = chips.time
-  const format = time === 'movie' ? 'movie' : time === 'few_episodes' || time === 'binge' ? 'series' : p.format
+  const chipFormat = time === 'movie' ? 'movie' : time === 'few_episodes' || time === 'binge' ? 'series' : null
+  // What they typed wins when it disagrees with a chip (chips stay set from an earlier search): "a show" with
+  // "One movie" still tapped means a show.
+  const typed = p.format === 'episode' ? 'series' : p.format
+  const format = typed && chipFormat && typed !== chipFormat ? p.format : chipFormat || p.format
   if (format === 'movie') out.push({ key: 'format', label: 'movies only', test: (c) => c.type === 'movie' })
   if (format === 'series' || format === 'episode') out.push({ key: 'format', label: 'series only', test: (c) => c.type === 'series' })
   if (p.max_runtime_min) out.push({ key: 'runtime', label: `under ${p.max_runtime_min} minutes`, test: (c) => (c.type === 'movie' ? c.runtime_min && c.runtime_min <= p.max_runtime_min : (c.series?.episode_min || 99) <= p.max_runtime_min) })
@@ -265,7 +273,9 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
     if (chosen.length >= 3) break
     if (!chosen.some((x) => x.card.id === card.id)) chosen.push({ card, why_this_fits: `Close to what you described: ${card.tone_mix.slice(0, 2).map((t) => t.tone).join(' and ')}, ending ${card.ending}.` })
   }
-  return { followup: null, picks: chosen, understood, missing_title: missingTitle(p.named_titles, cards, aliases) }
+  // We hold no dubbing data, so a dub request can't filter; the app says so instead of pretending.
+  const dubbed = (p.dubbed_in || []).filter((l) => !p.languages?.includes(l)).map((l) => LANG_NAMES[l] || l)
+  return { followup: null, picks: chosen, understood, missing_title: missingTitle(p.named_titles, cards, aliases), dubbed_in: dubbed.length ? dubbed : null }
 }
 
 // A title they named that the store doesn't have yet: the app offers to make its card (api/card.js, Launch L4).

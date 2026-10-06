@@ -347,3 +347,8 @@ Verified so far: empty and first-run preferences → loading → results passed 
   - Unselected poster labels are lifted to Paper 70%, and Regenerate gets a Night backing.
   - The primary button says "Find it on {service}", because it opens that service's search, not the title. The details read "Streaming on …".
   - A "How it feels, tone and ending ↓" link scrolls to the details under the fold.
+- **Korean show search fixed (2026-10-06).** "a korean rom com show but dubbed in hindi" (with "One movie" still tapped from an earlier search) returned Hindi movies.
+  - **Cause 1:** the chip beat the typed "show". Now what they typed wins when the two disagree on format.
+  - **Cause 2:** "dubbed in Hindi" became a Hindi language filter. A new parse field, `dubbed_in`, keeps dub languages out of the language filter (keyword fallback too). We hold no dub data, so results say "We can't check dubs yet… look for Hindi in the audio options".
+  - **Now returns:** True Beauty, Guardian and Love Alarm. Eval round 5: 30/30, fit 4.77. Browser check: 92/92.
+- **Long titles (2026-10-06).** The numeral and title now sit on their own full-width row (up to 1000px), with the read and posters below. Titles over 24 or 40 characters step down a size, and lines are balanced. The title page does the same.

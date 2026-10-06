@@ -5,7 +5,7 @@ import { Actions, Aside, Details, Facts, HonestRead } from '../components/TitleP
 import { cardFor } from '../engine/live.js'
 import { track } from '../track.js'
 import { CHIP_GROUPS } from './MoodInput.jsx'
-import { backdropUrl, btn, chip, posterUrl, primary, quiet, two } from '../ui.js'
+import { backdropUrl, btn, chip, posterUrl, primary, quiet, titleSize, two } from '../ui.js'
 
 // S2, Results (V2, docs/DESIGN_DIRECTION.md "The Late Show"): one pick in focus at a time over its backdrop, with
 // a big thin numeral, the title, the honest read, why it fits and the actions. All three posters sit beside it
@@ -203,7 +203,7 @@ function Poster({ pick, i, current, loading, onClick }) {
 }
 
 export default function Results({ text, chips, view, batch, onOthers, onChangeMood, onRetry, onAnswer, onLoosen, lists, onOpen }) {
-  const { status, picks = [], followup, noMatch, error, missingTitle } = view
+  const { status, picks = [], followup, noMatch, error, missingTitle, dubbedIn } = view
   const loading = status === 'loading'
   const [cur, setCur] = useState(0)
   const [shown, setShown] = useState(0)
@@ -315,10 +315,18 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
             <div className="progress-run h-full w-2/5 bg-amber" />
           </div>
         )}
-        <div className="relative mx-auto flex w-full max-w-page flex-col px-4 pt-[22vh] pb-8 md:grid md:grid-cols-[minmax(0,560px)_1fr] md:items-end md:gap-x-12 md:px-12 md:pt-[120px] md:pb-12">
-          <div className="order-1 mb-6 md:col-start-1 md:row-start-1 md:mb-8">{forLine}</div>
+        <div className="relative mx-auto flex w-full max-w-page flex-col px-4 pt-[22vh] pb-8 md:grid md:grid-cols-[minmax(0,560px)_1fr] md:items-end md:gap-x-12 md:gap-y-0 md:px-12 md:pt-[120px] md:pb-12">
+          <div className="order-1 mb-6 md:col-start-1 md:row-start-1 md:mb-8">
+            {forLine}
+            {/* We hold no dubbing data, so a dub request is said out loud rather than quietly ignored. */}
+            {status === 'ready' && dubbedIn && (
+              <p className="mt-2 max-w-read text-caption text-muted">
+                We can’t check dubs yet, so these are picked on everything else. Look for {dubbedIn.join(' or ')} in the audio options on the service.
+              </p>
+            )}
+          </div>
 
-          <div className="order-2 mb-8 md:col-start-2 md:row-start-2 md:mb-0">
+          <div className="order-2 mb-8 md:col-start-2 md:row-start-3 md:mb-0">
             <div className="flex items-end gap-3 md:justify-end md:gap-4">
               {[0, 1, 2].map((i) => (
                 <Poster
@@ -340,14 +348,17 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
             </div>
           </div>
 
-          <div className={`focus-swap order-3 md:col-start-1 md:row-start-2 ${out ? 'out' : ''}`}>
+          {/* The title row runs across the whole width, so long titles stay on one or two lines. */}
+          <div className={`focus-swap order-3 md:col-span-2 md:col-start-1 md:row-start-2 ${out ? 'out' : ''}`}>
             <div className="flex items-start gap-4 md:gap-6">
               <span aria-hidden="true" className="text-num font-thin text-paper/40 tabular md:text-num-lg">{two(shown + 1)}</span>
-              <div className="min-w-0">
-                {c ? <h2 className="text-title font-bold md:text-title-lg">{c.title}</h2> : <LoadingLine />}
+              <div className="min-w-0 max-w-[1000px]">
+                {c ? <h2 className={`${titleSize(c.title)} font-bold [text-wrap:balance]`}>{c.title}</h2> : <LoadingLine />}
                 {c ? <Facts card={c} /> : <p className="mt-3 text-caption"><Bar chars={36} /></p>}
               </div>
             </div>
+          </div>
+          <div className={`focus-swap order-4 md:col-start-1 md:row-start-3 ${out ? 'out' : ''}`}>
             {c ? (
               <>
                 <HonestRead card={c} />
