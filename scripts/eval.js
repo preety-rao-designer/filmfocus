@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { recommend } from '../api/recommend.js'
 import { generateJSON, MODELS } from '../api/_lib/gemini.js'
+import { loadStore } from '../api/_lib/store.js'
 
 process.loadEnvFile('.env')
 
@@ -33,8 +34,10 @@ const RULES = {
 }
 const defaultRules = (n) => [
   ...(n === 17 ? [] : [['Hindi or English (saved prefs)', (c) => c.languages.some((l) => PREFS.languages.includes(l))]]),
-  ['on Netflix, Prime Video or JioHotstar (saved prefs)', (c) => c.watch_in.some((w) => PREFS.platforms.includes(w))],
+  ['streaming in India', (c) => c.watch_in.length > 0],
 ]
+// Saved services are a strong preference since 2026-10-07, not a filter: at least two of the three on them.
+const onTheirs = (c) => c.watch_in.some((w) => PREFS.platforms.includes(w))
 
 const JUDGE_SCHEMA = {
   type: 'OBJECT',
@@ -66,7 +69,8 @@ async function judge(m, res) {
   return { ...data, judge: model }
 }
 
-const store = new Set(JSON.parse(readFileSync('data/cards.json', 'utf8')).map((c) => c.id))
+// The engine's own store: the seed plus cards made on demand (Firestore), so an on-demand pick isn't a false fail.
+const store = new Set((await loadStore()).cards.map((c) => c.id))
 // Saved after every mood, so a run stopped part-way (quota waits, time limits) picks up where it left off.
 // EVAL_FRESH=1 starts the round over.
 const round = process.env.EVAL_ROUND || '1'
@@ -100,6 +104,7 @@ for (const m of moods) {
     const bad = res.picks.filter((p) => !test(p.card)).map((p) => p.card.title)
     if (bad.length) fails.push(`${label}: ${bad.join(', ')}`)
   }
+  if (res.picks.filter((p) => !onTheirs(p.card)).length > 1) fails.push(`fewer than two on Netflix, Prime Video or JioHotstar (saved prefs): ${res.picks.filter((p) => !onTheirs(p.card)).map((p) => p.card.title).join(', ')}`)
   let j = { fit: 0, reason: 'no picks', why_lines_refer_to_input: false }
   if (res.picks.length) j = await judge(m, res)
   if (!j.why_lines_refer_to_input) fails.push('why lines miss what they said')

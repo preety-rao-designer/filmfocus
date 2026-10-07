@@ -87,7 +87,7 @@ function fallbackParse(text) {
 async function parse(text, chips) {
   if (!text.trim()) return { mood: null, needs_followup: false, languages: [], hard_nos: [], avoid_tones: [], avoid_endings: [], true_story_only: false, ideal: '' }
   try {
-    return await parseWithModel(text, chips)
+    return await parseWithModel(text)
   } catch (e) {
     // Quota, overload, or a prompt the model refuses to read (e.g. "my 10-year-old" can trip its filters).
     if (e.status === 429 || e.status === 503 || e.name === 'TimeoutError' || e.finish) return fallbackParse(text)
@@ -95,12 +95,13 @@ async function parse(text, chips) {
   }
 }
 
-async function parseWithModel(text, chips) {
-  const chipLine = Object.entries(chips).filter(([, v]) => v).map(([k, v]) => `${k}=${v}`).join(', ')
+// Only what they typed: chips can be left over from an earlier search, so they're applied in constraints(), where
+// the typed words win when the two disagree.
+async function parseWithModel(text) {
   const { data } = await generateJSON({
     chain: MODELS.parse,
     system: PARSE_SYSTEM,
-    prompt: `They typed: "${text.slice(0, 600)}"${chipLine ? `\nThey also tapped: ${chipLine}` : ''}`,
+    prompt: `They typed: "${text.slice(0, 600)}"`,
     schema: PARSE_SCHEMA,
     temperature: 0,
     thinking: 'minimal',
@@ -111,24 +112,24 @@ async function parseWithModel(text, chips) {
   return data
 }
 
-// Hard constraints, each with the words we'd use to say "loosen this".
+// What they typed wins when it disagrees with a chip (chips stay set from an earlier search): "a show" with
+// "One movie" still tapped means a show, "with friends" with "With kids" still tapped means friends.
+function resolve(p, chips) {
+  const chipFormat = chips.time === 'movie' ? 'movie' : chips.time === 'few_episodes' || chips.time === 'binge' ? 'series' : null
+  return { company: p.company || chips.company || null, format: p.format || chipFormat || null }
+}
+
+// Hard constraints, each with the words we'd use to say "loosen this". Their services aren't one of them: see
+// onTheirServices below.
 function constraints(p, chips, prefs) {
   const out = []
-  const company = chips.company || p.company
-  const time = chips.time
-  const chipFormat = time === 'movie' ? 'movie' : time === 'few_episodes' || time === 'binge' ? 'series' : null
-  // What they typed wins when it disagrees with a chip (chips stay set from an earlier search): "a show" with
-  // "One movie" still tapped means a show.
-  const typed = p.format === 'episode' ? 'series' : p.format
-  const format = typed && chipFormat && typed !== chipFormat ? p.format : chipFormat || p.format
+  const { company, format } = resolve(p, chips)
   if (format === 'movie') out.push({ key: 'format', label: 'movies only', test: (c) => c.type === 'movie' })
   if (format === 'series' || format === 'episode') out.push({ key: 'format', label: 'series only', test: (c) => c.type === 'series' })
   if (p.max_runtime_min) out.push({ key: 'runtime', label: `under ${p.max_runtime_min} minutes`, test: (c) => (c.type === 'movie' ? c.runtime_min && c.runtime_min <= p.max_runtime_min : (c.series?.episode_min || 99) <= p.max_runtime_min) })
   if (p.max_episode_min) out.push({ key: 'runtime', label: `episodes under ${p.max_episode_min} minutes`, test: (c) => c.type === 'series' && (c.series?.episode_min || 99) <= p.max_episode_min + 5 })
   const langs = p.languages?.length ? p.languages : prefs.subtitles_ok ? [] : prefs.languages || []
   if (langs.length) out.push({ key: 'languages', label: `in ${list(langs.map((l) => LANG_NAMES[l] || l))}`, test: (c) => c.languages.some((l) => langs.includes(l)) })
-  const platforms = prefs.platforms || []
-  if (platforms.length) out.push({ key: 'platforms', label: `on ${list(platforms)}`, test: (c) => c.watch_in.some((w) => platforms.includes(w)) })
   if (p.hard_nos?.length) out.push({ key: 'hard_nos', label: `no ${list(p.hard_nos.map((f) => f.replace(/_/g, ' ')), 'and')}`, test: (c) => !c.content_flags.some((f) => p.hard_nos.includes(f)) })
   if (p.avoid_tones?.length) out.push({ key: 'avoid_tones', label: `nothing ${p.avoid_tones.join(' or ')}`, test: (c) => !c.tone_mix.some((t) => p.avoid_tones.includes(t.tone) && t.pct >= 20) })
   if (p.avoid_endings?.length) out.push({ key: 'avoid_endings', label: `no ${p.avoid_endings.join(' or ')} endings`, test: (c) => !p.avoid_endings.includes(c.ending) })
@@ -152,8 +153,9 @@ const RERANK_SCHEMA = {
   required: ['picks'],
 }
 
-const brief = (c) => ({
+const brief = (c, platforms) => ({
   id: c.id,
+  ...(platforms.length ? { on_their_services: c.watch_in.some((w) => platforms.includes(w)) } : {}),
   title: `${c.title} (${c.year})`,
   type: c.type === 'series' ? `series, ${c.series?.seasons} seasons, ${c.series?.episode_min} min episodes` : `movie, ${c.runtime_min} min`,
   language: c.languages[0],
@@ -172,12 +174,13 @@ const brief = (c) => ({
   rating: c.rating?.value ?? null,
 })
 
-async function rerank(text, chips, p, candidates) {
-  const asked = [text.trim() && `They typed: "${text.trim().slice(0, 600)}"`, Object.entries(chips).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join(', ')].filter(Boolean).join('\n')
+// `want` is what we settled on (typed words over leftover chips), so the reranker never sees a chip that was overruled.
+async function rerank(text, want, platforms, candidates) {
+  const asked = text.trim() && `They typed: "${text.trim().slice(0, 600)}"`
   const { data } = await generateJSON({
     chain: MODELS.rerank,
-    system: `You are FilmFocus, a friend at the ticket counter who has seen everything. Pick the 3 titles from the list that best fit this person right now. Fit to their mood beats acclaim: a great film that clashes with the mood is a wrong answer. Respect what they asked to avoid, including subplots (read each vibe: \"no romance\" rules out a film with a love story at its heart). Prefer variety across the three (not three near-identical picks). Ratings are only a quality floor. Choose only ids from the list. Write each "why this fits" in plain, warm words that refer to what they said; no spoilers.`,
-    prompt: `${asked || 'They asked to be surprised: pick three good, different titles.'}\nWhat we understood: ${JSON.stringify({ mood: p.mood, stay_or_shift: chips.stay_or_shift || p.stay_or_shift, company: chips.company || p.company })}\n\nCandidates:\n${candidates.map((c) => JSON.stringify(brief(c))).join('\n')}`,
+    system: `You are FilmFocus, a friend at the ticket counter who has seen everything. Pick the 3 titles from the list that best fit this person right now. Fit to their mood beats acclaim: a great film that clashes with the mood is a wrong answer. Respect what they asked to avoid, including subplots (read each vibe: \"no romance\" rules out a film with a love story at its heart). Prefer variety across the three (not three near-identical picks). Ratings are only a quality floor. When "on_their_services" is given, at least two of the three must be on their services, unless fewer than two of those fit what they asked for at all; the third can be a clearly better fit elsewhere. Choose only ids from the list. Write each "why this fits" in plain, warm words that refer to what they said; no spoilers.`,
+    prompt: `${asked || (want.mood || want.company || want.format || want.stay_or_shift ? 'They only tapped chips.' : 'They asked to be surprised: pick three good, different titles.')}\nWhat we understood: ${JSON.stringify(want)}\n\nCandidates:\n${candidates.map((c) => JSON.stringify(brief(c, platforms))).join('\n')}`,
     schema: RERANK_SCHEMA,
     temperature: 0.3,
     thinking: 'minimal',
@@ -188,6 +191,18 @@ async function rerank(text, chips, p, candidates) {
   return data.picks
 }
 
+// Their services are a preference, not a wall: a 3-service list would otherwise hide the best fits (Inception and
+// Interstellar aren't on Netflix) and leave the three least-bad. Two thirds of the shortlist comes from their
+// services, the rest is the best of everything else, each in fit order; the reranker prefers theirs when it's close
+// and the card says where each one streams.
+function blend(ranked, platforms, n) {
+  if (!platforms.length) return ranked.slice(0, n)
+  const on = (c) => c.watch_in.some((w) => platforms.includes(w))
+  const theirs = ranked.filter(on).slice(0, Math.round((n * 2) / 3))
+  const rest = ranked.filter((c) => !on(c)).slice(0, n - theirs.length)
+  return ranked.filter((c) => theirs.includes(c) || rest.includes(c))
+}
+
 const pickRandom = (xs, n) => [...xs].sort(() => Math.random() - 0.5).slice(0, n)
 
 export async function recommend({ text = '', chips = {}, exclude = [], prefs = {}, answer = null, loosen = [] }) {
@@ -195,12 +210,15 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
   if (answer?.slot === 'stay_or_shift' && FOLLOWUP_VALUES[answer.value]) chips.stay_or_shift = FOLLOWUP_VALUES[answer.value]
 
   const p = await parse(text, chips)
-  const stay = chips.stay_or_shift || p.stay_or_shift || null
+  // A follow-up answer is the newest thing they said; then their typed words; then a chip.
+  const stay = (answer && chips.stay_or_shift) || p.stay_or_shift || chips.stay_or_shift || null
+  const { company, format } = resolve(p, chips)
+  const platforms = prefs.platforms || []
   const understood = {
     mood: p.mood,
     stay_or_shift: stay,
-    company: chips.company || p.company || null,
-    time: chips.time === 'movie' ? 'movie' : chips.time ? 'series' : p.format || null,
+    company,
+    time: format === 'episode' ? 'series' : format,
     attention: p.attention || null,
     languages: p.languages?.length ? p.languages : prefs.languages || [],
     platforms: prefs.platforms || [],
@@ -231,14 +249,21 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
   let fresh = pool.filter((c) => !seen.has(c.id))
   if (fresh.length < 3) fresh = pool // cycled through everything that fits; start again
 
+  // Not streaming anywhere in India: only if nothing streaming is left (the reranker didn't reliably skip them).
+  const streaming = fresh.filter((c) => c.watch_in.length)
+  if (streaming.length >= 3) fresh = streaming
+
   // Quality floor: below 6.0 only if nothing else is left.
   const floor = fresh.filter((c) => !c.rating || c.rating.value >= 6.0)
   if (floor.length >= 3) fresh = floor
 
   let candidates
   if (!text.trim() && !Object.values(chips).some(Boolean)) {
-    candidates = pickRandom(fresh.filter((c) => !c.rating || c.rating.value >= 7), 30)
-    if (candidates.length < 3) candidates = pickRandom(fresh, 30)
+    // A surprise has no mood a better fit elsewhere could serve, so it stays on their services when it can.
+    const theirs = fresh.filter((c) => !platforms.length || c.watch_in.some((w) => platforms.includes(w)))
+    const from = theirs.length >= 3 ? theirs : fresh
+    const good = from.filter((c) => !c.rating || c.rating.value >= 7)
+    candidates = pickRandom(good.length >= 3 ? good : from, 30)
   } else {
     const query = [p.ideal, p.mood, stay && `They want: ${stay}.`, text].filter(Boolean).join(' ')
     let score
@@ -250,16 +275,13 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
       const words = query.toLowerCase()
       score = (c) => c.tone_mix.reduce((a, t) => a + (words.includes(t.tone.replace('-', ' ')) || words.includes(t.tone) ? t.pct : 0), 0) + (c.rating?.value || 0)
     }
-    candidates = fresh
-      .map((c) => ({ c, s: score(c) }))
-      .sort((a, b) => b.s - a.s)
-      .slice(0, 30)
-      .map((x) => x.c)
+    const ranked = fresh.map((c) => ({ c, s: score(c) })).sort((a, b) => b.s - a.s).map((x) => x.c)
+    candidates = blend(ranked, platforms, 30)
   }
 
   let chosen = []
   try {
-    const ranked = await rerank(text, chips, { ...p, stay_or_shift: stay }, candidates)
+    const ranked = await rerank(text, { mood: p.mood, stay_or_shift: stay, company, format }, platforms, candidates)
     const byId = new Map(candidates.map((c) => [c.id, c]))
     for (const r of ranked) {
       const card = byId.get(r.id)

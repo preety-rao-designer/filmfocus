@@ -1,0 +1,962 @@
+[
+ {
+  "n": 1,
+  "text": "Rough day at work, want something warm but not dumb.",
+  "picks": [
+   {
+    "title": "Panchayat",
+    "year": 2020,
+    "lang": "hi",
+    "why": "Since you had a rough day, this gentle, funny village life will warm you up without insulting your intelligence."
+   },
+   {
+    "title": "Queen",
+    "year": 2014,
+    "lang": "hi",
+    "why": "This smart, uplifting journey of independence gives you a wonderful mood lift after a long week."
+   },
+   {
+    "title": "Dear Zindagi",
+    "year": 2016,
+    "lang": "hi",
+    "why": "A thoughtful, grounded look at burnout and healing that speaks right to a stressful day."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are exceptional matches for the user's criteria. They are available in Hindi on the specified platforms (Netflix and Prime Video), offer a comforting yet intellectually engaging tone, and directly address the need for something warm and smart after a rough workday.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 15146
+ },
+ {
+  "n": 2,
+  "text": "Need to cry but in a good way.",
+  "picks": [
+   {
+    "title": "Inside Out",
+    "year": 2015,
+    "lang": "en",
+    "why": "You want a good cry, and this tender animated gem shows you why sadness is so essential to growing up."
+   },
+   {
+    "title": "Kal Ho Naa Ho",
+    "year": 2003,
+    "lang": "hi",
+    "why": "Since you are looking for a cathartic release, this glossy family melodrama hides a devastating secret behind its laughs."
+   },
+   {
+    "title": "Anand",
+    "year": 1971,
+    "lang": "hi",
+    "why": "This moving classic handles terminal illness with such warmth and grace that it earns every single tear you shed."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three choices are absolute masterclasses in delivering a cathartic, heartwarming cry. Inside Out captures the bittersweet nature of growing up, while Kal Ho Naa Ho and Anand are legendary tearjerkers that balance immense warmth with devastating heartbreak, perfectly matching the mood.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 8790
+ },
+ {
+  "n": 3,
+  "text": "Something my parents and I can all watch after dinner.",
+  "picks": [
+   {
+    "title": "Back to the Future",
+    "year": 1985,
+    "lang": "en",
+    "why": "Back to the Future gives you and your parents a clever, clock-ticking ride that everyone can enjoy together."
+   },
+   {
+    "title": "Inside Out",
+    "year": 2015,
+    "lang": "en",
+    "why": "Inside Out offers you and your family a deeply tender, funny journey that is wonderful to share after dinner."
+   },
+   {
+    "title": "Lost Ladies",
+    "year": 2024,
+    "lang": "hi",
+    "why": "Lost Ladies provides you and your parents with a warm, thoughtful story that makes for a great post-dinner watch."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are fantastic multi-generational crowd-pleasers that bridge ages, language preferences, and cultural touchstones. Laapataa Ladies (Lost Ladies) is a brilliant, recent Indian pick for parents, while Back to the Future and Inside Out are universally beloved classics that fit a relaxed post-dinner family watch.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 16442
+ },
+ {
+  "n": 4,
+  "text": "Mindless but not stupid.",
+  "picks": [
+   {
+    "title": "Thor: Ragnarok",
+    "year": 2017,
+    "lang": "en",
+    "why": "You want something fun and brain-off without being completely empty, and this neon-soaked ride trades heavy brooding for brilliant punchlines."
+   },
+   {
+    "title": "Pirates of the Caribbean: The Curse of the Black Pearl",
+    "year": 2003,
+    "lang": "en",
+    "why": "This delivers pure, highly entertaining escapism with plenty of wit and spectacle that never asks you to take it too seriously."
+   },
+   {
+    "title": "Andaz Apna Apna",
+    "year": 1994,
+    "lang": "hi",
+    "why": "If you want pure, zany comedy that knows exactly how ridiculous it is, this fast-paced parody hits that sweet spot."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks perfectly nail the 'mindless but not stupid' mood by offering high-octane, highly entertaining escapism that relies on genuinely clever writing and witty dialogue rather than empty noise. Thor: Ragnarok, Pirates of the Caribbean, and Andaz Apna Apna are all beloved crowd-pleasers available on the viewer's platforms in English and Hindi.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 25285
+ },
+ {
+  "n": 5,
+  "text": "dil toot gaya yaar, kuch cathartic chahiye",
+  "picks": [
+   {
+    "title": "Masaan",
+    "year": 2015,
+    "lang": "hi",
+    "why": "When your heart is broken, Masaan meets you in your grief with raw, grounded honesty and offers a quiet way toward healing."
+   },
+   {
+    "title": "Ae Dil Hai Mushkil",
+    "year": 2016,
+    "lang": "hi",
+    "why": "Ae Dil Hai Mushkil leans right into the painful mess of unrequited longing, giving you an emotional release that matches your mood."
+   },
+   {
+    "title": "Jab We Met",
+    "year": 2007,
+    "lang": "hi",
+    "why": "Jab We Met pairs a heavy heart with an unexpected journey, wrapping you in warmth and the hope of starting over."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are exceptionally well-suited for someone saying dil toot gaya yaar, kuch cathartic chahiye. Masaan offers deep, devastating grief; Ae Dil Hai Mushkil leans right into messy heartbreak and emotional release; and Jab We Met provides the ultimate comforting road to recovery for a broken heart.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 14336
+ },
+ {
+  "n": 6,
+  "text": "I'm bored and want to be on the edge of my seat.",
+  "picks": [
+   {
+    "title": "KILL",
+    "year": 2024,
+    "lang": "hi",
+    "why": "Since you are bored and want to be on the edge of your seat, this brutal train-bound ride will keep you wide awake."
+   },
+   {
+    "title": "Chor Nikal Ke Bhaga",
+    "year": 2023,
+    "lang": "hi",
+    "why": "This high-altitude heist throws unexpected twists at you every few minutes to completely cure your boredom."
+   },
+   {
+    "title": "A Wednesday!",
+    "year": 2008,
+    "lang": "hi",
+    "why": "If you want a gripping, high-tension duel that demands your full attention, this phone-call standoff delivers."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are exceptional high-octane Hindi thrillers available on the user's platforms that directly target boredom and deliver relentless tension, keeping the viewer completely hooked.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 26454
+ },
+ {
+  "n": 7,
+  "text": "Feeling lonely tonight, want something comforting.",
+  "picks": [
+   {
+    "title": "Panchayat",
+    "year": 2020,
+    "lang": "hi",
+    "why": "Since you are feeling lonely and want comfort, this gentle, warm village life will make you feel right at home with good company."
+   },
+   {
+    "title": "Queen",
+    "year": 2014,
+    "lang": "hi",
+    "why": "For your quiet night alone, this uplifting journey of independence and cozy self-discovery offers the exact warmth you need right now."
+   },
+   {
+    "title": "Rocket Singh: Salesman of the Year",
+    "year": 2009,
+    "lang": "hi",
+    "why": "This quiet, comforting workplace drama brings a steady, honest sense of companionship to keep you company tonight."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are exceptionally well-suited for someone feeling lonely and looking for comfort. Panchayat, Queen, and Rocket Singh are all deeply comforting, warm, character-driven Hindi titles available on the user's preferred platforms (Prime Video and Netflix), making them spot-on recommendations.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 6770
+ },
+ {
+  "n": 8,
+  "text": "Date night, nothing too heavy, nothing cringe.",
+  "picks": [
+   {
+    "title": "Bareilly Ki Barfi",
+    "year": 2017,
+    "lang": "hi",
+    "why": "Since you are planning a fun date night, this clever small-town comedy keeps things light and witty without any heavy drama."
+   },
+   {
+    "title": "Khoobsurat",
+    "year": 2014,
+    "lang": "hi",
+    "why": "This pastel fairy-tale romance is a wonderful, cozy choice for a date night where you want zero cringe and plenty of charm."
+   },
+   {
+    "title": "Guardians of the Galaxy",
+    "year": 2014,
+    "lang": "en",
+    "why": "For a date night with zero cringe, this hilarious cosmic ride brings tons of heart, great tunes, and pure fun."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 4,
+  "reason": "Bareilly Ki Barfi and Khoobsurat are fantastic, lighthearted Hindi rom-coms that avoid heavy drama and cringe, making them ideal for a date night. Guardians of the Galaxy is a slightly unconventional date movie pick, but it completely delivers on being fun, non-cringe, and breezy.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 17237
+ },
+ {
+  "n": 9,
+  "text": "Friends are over, we want to laugh loudly.",
+  "picks": [
+   {
+    "title": "Dhamaal",
+    "year": 2007,
+    "lang": "hi",
+    "why": "Since you have friends over and want loud laughs, this frantic race for hidden cash offers non-stop slapstick comedy with zero romance to slow you down."
+   },
+   {
+    "title": "Golmaal – Fun Unlimited",
+    "year": 2006,
+    "lang": "hi",
+    "why": "Gather your friends for this chaotic bungalow farce filled with escalating misunderstandings that will have you all laughing out loud together."
+   },
+   {
+    "title": "Phir Hera Pheri",
+    "year": 2006,
+    "lang": "hi",
+    "why": "This loud, chaotic farce throws three desperate men into a wild web of fake money and gangsters, giving you and your friends plenty of huge laughs."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "These are the absolute definitive Hindi slapstick comedies for a group hang, perfectly capturing the exact mood of wanting to laugh loudly with friends.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 15999
+ },
+ {
+  "n": 10,
+  "text": "I want something to half-watch while I eat.",
+  "picks": [
+   {
+    "title": "Panchayat",
+    "year": 2020,
+    "lang": "hi",
+    "why": "This gentle, low-stakes village life lets you easily glance away at your plate without missing a beat."
+   },
+   {
+    "title": "Lucifer",
+    "year": 2016,
+    "lang": "en",
+    "why": "A breezy, case-of-the-week crime romp that makes simple, effortless background company while you enjoy your meal."
+   },
+   {
+    "title": "Spider-Man: Homecoming",
+    "year": 2017,
+    "lang": "en",
+    "why": "Light, fun neighborhood heroics that keep things entertaining without demanding your full attention from the plate."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are exceptionally well-suited for casual viewing while eating, featuring episodic or low-stakes narratives that allow the viewer to look away without losing the plot, perfectly matching the requested languages and platform availability.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 6884
+ },
+ {
+  "n": 11,
+  "text": "Anxious already, please nothing tense.",
+  "picks": [
+   {
+    "title": "Panchayat",
+    "year": 2020,
+    "lang": "hi",
+    "why": "Since you are feeling anxious, this gentle, slow-paced village life comedy offers a wonderfully relaxed and low-stress escape."
+   },
+   {
+    "title": "Queen",
+    "year": 2014,
+    "lang": "hi",
+    "why": "This warm, steady coming-of-age journey provides a soothing mood lift without any heavy tension to worry about."
+   },
+   {
+    "title": "Rocket Singh: Salesman of the Year",
+    "year": 2009,
+    "lang": "hi",
+    "why": "A quiet, grounded workplace drama that trades high-strung corporate panic for a comforting and steady story of integrity."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are exceptionally well-suited for someone feeling anxious who wants zero tension. Panchayat, Queen, and Rocket Singh are comforting, heartwarming, and low-stakes Hindi titles that fit the exact criteria.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 18286
+ },
+ {
+  "n": 12,
+  "text": "Want a series to binge this weekend, something gripping.",
+  "picks": [
+   {
+    "title": "Breaking Bad",
+    "year": 2008,
+    "lang": "en",
+    "why": "If you want something truly gripping for your weekend binge, this intense descent into power will keep you hooked."
+   },
+   {
+    "title": "The Family Man",
+    "year": 2019,
+    "lang": "hi",
+    "why": "This hits the spot for a gripping binge, balancing high-stakes counter-terrorism with domestic chaos."
+   },
+   {
+    "title": "Stranger Things",
+    "year": 2016,
+    "lang": "en",
+    "why": "Dive into a sprawling supernatural mystery that makes for an unforgettable, pulse-pounding weekend binge."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are intensely gripping, perfectly suited for a weekend binge, match the user's language preferences for Hindi and English, and are readily available on Netflix and Prime Video in India.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 24489
+ },
+ {
+  "n": 13,
+  "text": "A short movie, under 100 minutes, I'm sleepy.",
+  "picks": [
+   {
+    "title": "Period. End of Sentence.",
+    "year": 2018,
+    "lang": "hi",
+    "why": "At just 26 minutes, this short and powerful documentary fits your sleepy energy perfectly while offering an inspiring lift."
+   },
+   {
+    "title": "Inside Out",
+    "year": 2015,
+    "lang": "en",
+    "why": "Clocking in at 95 minutes, this gentle and engaging film is easy to follow even when you are winding down for sleep."
+   },
+   {
+    "title": "Up",
+    "year": 2009,
+    "lang": "en",
+    "why": "At 96 minutes, this colorful adventure keeps things moving without demanding too much focus as you get ready for bed."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 4,
+  "reason": "All three picks successfully respect the under-100-minutes constraint and match the winding-down vibe, though Up gets a bit frantic in the middle and Period. End of Sentence deals with a heavy social topic, making them slight stretches for someone sleepy.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 25008
+ },
+ {
+  "n": 14,
+  "text": "Something like Dil Chahta Hai but newer.",
+  "picks": [
+   {
+    "title": "Yeh Jawaani Hai Deewani",
+    "year": 2013,
+    "lang": "hi",
+    "why": "Since you want a modern spin on Dil Chahta Hai, this brings back that exact youthful trip and evolving friendship dynamic."
+   },
+   {
+    "title": "Aspirants",
+    "year": 2021,
+    "lang": "hi",
+    "why": "This captures the deep camaraderie of college days and the reality of drifting apart, very much in line with what you are looking for."
+   },
+   {
+    "title": "TVF Pitchers",
+    "year": 2015,
+    "lang": "hi",
+    "why": "It trades the road trip for a startup journey, focusing heavily on how close friendships get tested by ambition."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 4,
+  "reason": "Yeh Jawaani Hai Deewani and Aspirants are phenomenal, spot-on picks that capture the essence of modern friendship, youth, and growing pains akin to Dil Chahta Hai. TVF Pitchers is also a great thematic match, though it is hosted on ZEE5 rather than the viewer's listed platforms of Netflix, Prime Video, or JioHotstar.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 26422
+ },
+ {
+  "n": 15,
+  "text": "I want to feel hopeful about people again.",
+  "picks": [
+   {
+    "title": "Queen",
+    "year": 2014,
+    "lang": "hi",
+    "why": "You want to feel hopeful about people again, and watching someone step into the world alone and find her strength is just the remedy."
+   },
+   {
+    "title": "12th Fail",
+    "year": 2023,
+    "lang": "hi",
+    "why": "This gritty, true-to-life journey reminds you of the quiet dignity of hard work and the goodness of ordinary people fighting for a better day."
+   },
+   {
+    "title": "Period. End of Sentence.",
+    "year": 2018,
+    "lang": "hi",
+    "why": "This short documentary proves that real, grassroots change is possible, offering a wonderful reminder of human resilience when we need it most."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks brilliantly capture human resilience, kindness, and personal triumph, perfectly answering the desire to feel hopeful about people again. They are culturally relevant Hindi titles accessible on the user's specified platforms.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 10942
+ },
+ {
+  "n": 16,
+  "text": "Scary but not gory.",
+  "picks": [
+   {
+    "title": "The Others",
+    "year": 2001,
+    "lang": "en",
+    "why": "Since you want something scary without gore, this atmospheric masterpiece builds pure psychological dread in the dark without relying on cheap blood."
+   },
+   {
+    "title": "The Haunting of Hill House",
+    "year": 2018,
+    "lang": "en",
+    "why": "This gives you genuine, nerve-shredding frights and deep chills, focusing entirely on intense supernatural atmosphere rather than graphic violence."
+   },
+   {
+    "title": "The Conjuring",
+    "year": 2013,
+    "lang": "en",
+    "why": "You will get plenty of classic ghost-story terror here, relying on masterclass tension and old-school scares rather than gore."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are spot on for the mood scary but not gory. The Others, The Haunting of Hill House, and The Conjuring heavily lean into psychological tension, atmosphere, and classic ghost-story frights without any graphic violence, perfectly answering the prompt.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 11483
+ },
+ {
+  "n": 17,
+  "text": "Tamil or Malayalam film, I'm fine with subtitles, something brilliant.",
+  "picks": [
+   {
+    "title": "Kumbalangi Nights",
+    "year": 2019,
+    "lang": "ml",
+    "why": "You asked for a brilliant Malayalam film, and this rich, acclaimed family drama delivers unforgettable depth and local atmosphere."
+   },
+   {
+    "title": "Super Deluxe",
+    "year": 2019,
+    "lang": "ta",
+    "why": "Since you are looking for top-tier Tamil cinema, this sprawling, bold hyperlink masterpiece offers brilliant, unpredictable storytelling."
+   },
+   {
+    "title": "Jai Bhim",
+    "year": 2021,
+    "lang": "ta",
+    "why": "For something genuinely brilliant and powerful in Tamil, this hard-hitting legal drama is an absolute must-see masterpiece."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are universally acclaimed, brilliant masterpieces that directly answer the request for top-tier Tamil and Malayalam cinema.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 4300
+ },
+ {
+  "n": 18,
+  "text": "Watching with my 10-year-old, something we'll both enjoy.",
+  "picks": [
+   {
+    "title": "Harry Potter and the Philosopher's Stone",
+    "year": 2001,
+    "lang": "en",
+    "why": "You can step into a vast magical world together that captivates a ten-year-old while still offering plenty of wonder for you."
+   },
+   {
+    "title": "Inside Out",
+    "year": 2015,
+    "lang": "en",
+    "why": "You both will enjoy a clever, tender peek inside the mind that sparks great conversations about growing up."
+   },
+   {
+    "title": "Back to the Future",
+    "year": 1985,
+    "lang": "en",
+    "why": "You get a timeless, clock-ticking adventure that keeps a ten-year-old completely hooked from start to finish."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are absolute masterclasses in family-friendly entertainment that genuinely appeal to both adults and a ten-year-old. They strike the exact balance of nostalgia, wonder, and engaging storytelling required for this mood.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 2709
+ },
+ {
+  "n": 19,
+  "text": "I want a true story that's actually true.",
+  "picks": [
+   {
+    "title": "Airlift",
+    "year": 2016,
+    "lang": "hi",
+    "why": "Since you want a real story, this grounded survival drama gives you a riveting look at a massive rescue mission."
+   },
+   {
+    "title": "12th Fail",
+    "year": 2023,
+    "lang": "hi",
+    "why": "This gritty and sincere film delivers a genuine, hard-fought journey that hits close to home."
+   },
+   {
+    "title": "Dangal",
+    "year": 2016,
+    "lang": "hi",
+    "why": "Experience a rigorous and emotionally intense true story about family dedication and athletic struggle."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are acclaimed Hindi biographical dramas firmly rooted in actual historical events and real-life figures, perfectly matching the viewer's explicit request for a true story that is genuinely authentic.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 12586
+ },
+ {
+  "n": 20,
+  "text": "Nostalgic 90s vibe.",
+  "picks": [
+   {
+    "title": "Guns & Gulaabs",
+    "year": 2023,
+    "lang": "hi",
+    "why": "Immerse yourself in a stylish crime drama completely drenched in the authentic texture of nineties nostalgia you asked for."
+   },
+   {
+    "title": "Dil To Pagal Hai",
+    "year": 1997,
+    "lang": "hi",
+    "why": "Experience a classic Yash Chopra romance driven by grand musical numbers that deliver peak nineties emotional nostalgia."
+   },
+   {
+    "title": "Forrest Gump",
+    "year": 1994,
+    "lang": "en",
+    "why": "Journey across decades of American history with this warm, sweeping fable that hits all the right nostalgic notes."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 4,
+  "reason": "Guns & Gulaabs and Dil To Pagal Hai brilliantly capture the 90s aesthetic for an Indian audience, while Forrest Gump is a beloved 90s classic, making it a slight stretch compared to the strongly localized Indian picks but still aligned with the nostalgic theme.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 6526
+ },
+ {
+  "n": 21,
+  "text": "Something that makes me think for days.",
+  "picks": [
+   {
+    "title": "Inception",
+    "year": 2010,
+    "lang": "en",
+    "why": "Since you want something that makes you think for days, this mind-bending puzzle box will keep your brain turning long after the credits roll."
+   },
+   {
+    "title": "Interstellar",
+    "year": 2014,
+    "lang": "en",
+    "why": "This sprawling cosmic epic offers the heavy, thought-provoking themes and vast questions you are looking for tonight."
+   },
+   {
+    "title": "Talvar",
+    "year": 2015,
+    "lang": "hi",
+    "why": "This methodical and unsentimental procedural dives into complex moral ambiguity that will stay with you for days."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are exceptional matches for a mood demanding deep, lingering thought. Inception and Interstellar are iconic cerebral puzzle boxes, while Talvar delivers a chilling, morally ambiguous Indian procedural that stays with you long after watching. They span the requested English and Hindi languages and fit the regional streaming ecosystem.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 8370
+ },
+ {
+  "n": 22,
+  "text": "I want to feel the sadness, not escape it.",
+  "picks": [
+   {
+    "title": "Masaan",
+    "year": 2015,
+    "lang": "hi",
+    "why": "Since you want to sit with grief rather than escape it, this grounded story of loss and survival offers the raw sadness you asked for."
+   },
+   {
+    "title": "Inside Out",
+    "year": 2015,
+    "lang": "en",
+    "why": "You asked to feel the sadness, and this gentle animated journey shows you why embracing sorrow is essential for healing."
+   },
+   {
+    "title": "Baghban",
+    "year": 2003,
+    "lang": "hi",
+    "why": "If you are looking for an intense cry, this heavy family drama delivers a steady, unbroken stream of heartbreak and loneliness."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "These three picks brilliantly capture the exact sentiment of wanting to lean into sorrow rather than distracting from it, ranging from the raw, grounded grief of Masaan to the insightful emotional validation of Inside Out and the unrestrained tear-jerking melodrama of Baghban.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 11021
+ },
+ {
+  "n": 23,
+  "text": "Heist or con movie, clever, fun.",
+  "picks": [
+   {
+    "title": "Chor Nikal Ke Bhaga",
+    "year": 2023,
+    "lang": "hi",
+    "why": "You want a clever heist, and this tight mid-air thriller delivers high-stakes cons and shifting loyalties right on your services."
+   },
+   {
+    "title": "Don 2",
+    "year": 2011,
+    "lang": "hi",
+    "why": "If you are craving a stylish crime caper, you will love following this master criminal's elaborate bank robbery plots available to stream now."
+   },
+   {
+    "title": "Dhoom 2",
+    "year": 2006,
+    "lang": "hi",
+    "why": "This high-energy popcorn caper brings you globetrotting cat-and-mouse chases and flashy heists to satisfy your fun thrill craving."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are spot-on Hindi heist and con movies that precisely match the clever and fun mood. Chor Nikal Ke Bhaga, Don 2, and Dhoom 2 all feature elaborate criminal capers, double-crosses, and high-energy thrills available on the user's streaming platforms.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 5532
+ },
+ {
+  "n": 24,
+  "text": "Just had a breakup, absolutely no romance.",
+  "picks": [
+   {
+    "title": "Queen",
+    "year": 2014,
+    "lang": "hi",
+    "why": "Since you are going through a breakup and want zero romance, you will love watching her reclaim her independence alone on an unplanned European trip."
+   },
+   {
+    "title": "Zindagi Na Milegi Dobara",
+    "year": 2011,
+    "lang": "hi",
+    "why": "This road trip focuses entirely on friendship and personal growth, offering a great distraction without any romantic entanglements to worry about."
+   },
+   {
+    "title": "Wake Up Sid",
+    "year": 2009,
+    "lang": "hi",
+    "why": "A quiet, patient story about figuring out your own path and finding your footing again, perfectly matching your need for a fresh start."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 3,
+  "reason": "Queen is an exceptional pick for a breakup and features no romance, but both Zindagi Na Milegi Dobara and Wake Up Sid feature prominent romantic subplots, making them a mixed match for a strict 'absolutely no romance' constraint.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 19258
+ },
+ {
+  "n": 25,
+  "text": "Something beautiful to look at, slow is fine.",
+  "picks": [
+   {
+    "title": "Veer-Zaara",
+    "year": 2004,
+    "lang": "hi",
+    "why": "You wanted something slow and stunning, and this sweeping epic delivers a gorgeous, unhurried journey filled with deep longing."
+   },
+   {
+    "title": "Highway",
+    "year": 2014,
+    "lang": "hi",
+    "why": "An unhurried road movie that takes its time across remote landscapes, giving you a visually striking and thoughtful escape."
+   },
+   {
+    "title": "The Lord of the Rings: The Fellowship of the Ring",
+    "year": 2001,
+    "lang": "en",
+    "why": "Lose yourself in a patient, beautifully crafted trek across Middle-earth where every slow step builds an immersive world."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks perfectly capture the essence of a slow, visually stunning watch. Veer-Zaara provides lush, sweeping cinematic romance; Highway offers meditative cinematography across breathtaking remote landscapes; and The Lord of the Rings delivers legendary visual vistas with an unhurried, immersive trek.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 22857
+ },
+ {
+  "n": 26,
+  "text": "I have 30 minutes, give me an episode of something.",
+  "picks": [
+   {
+    "title": "Rick and Morty",
+    "year": 2013,
+    "lang": "en",
+    "why": "You have thirty minutes and want a sharp, fast episode that packs plenty of chaotic sci-fi punch."
+   },
+   {
+    "title": "Panchayat",
+    "year": 2020,
+    "lang": "hi",
+    "why": "This gives you a grounded, thirty-minute slice of village life that fits your quick timeframe."
+   },
+   {
+    "title": "Little Things",
+    "year": 2016,
+    "lang": "hi",
+    "why": "At around twenty minutes, this quick, quiet relationship snapshot is ideal for your short break."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 4,
+  "reason": "Rick and Morty and Little Things fit the under-30-minute episode constraint nicely, but Panchayat episodes actually tend to run closer to 40 to 50 minutes, making it a stretch for a strict 30-minute limit. Otherwise, the choices match the requested languages and platforms.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 11122
+ },
+ {
+  "n": 27,
+  "text": "Motivated, want to feel like I can do anything.",
+  "picks": [
+   {
+    "title": "Dangal",
+    "year": 2016,
+    "lang": "hi",
+    "why": "Since you want to feel unstoppable, this gritty sports drama channels sheer willpower into breaking through every barrier in your way."
+   },
+   {
+    "title": "12th Fail",
+    "year": 2023,
+    "lang": "hi",
+    "why": "This raw, ground-level journey mirrors your drive, offering a massive push for anyone facing tough odds and big goals."
+   },
+   {
+    "title": "Iron Man",
+    "year": 2008,
+    "lang": "en",
+    "why": "This witty, high-energy ride matches your motivated headspace by watching someone completely reinvent their life through pure genius."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are phenomenal choices for a motivation-seeking mood. Dangal and 12th Fail are powerhouse Indian films about overcoming steep barriers through sheer grit and perseverance, while Iron Man delivers high-energy, confident inspiration. A thoughtful friend would nail it with this exact lineup.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 10550
+ },
+ {
+  "n": 28,
+  "text": "Rainy evening, chai, something cosy.",
+  "picks": [
+   {
+    "title": "Wake Up Sid",
+    "year": 2009,
+    "lang": "hi",
+    "why": "Grab your chai and settle into this quiet, steady coming-of-age story that matches your cozy evening perfectly."
+   },
+   {
+    "title": "Panchayat",
+    "year": 2020,
+    "lang": "hi",
+    "why": "Pour another cup of tea and let this gentle, small-town comedy wash away your worries with its warm embrace."
+   },
+   {
+    "title": "Queen",
+    "year": 2014,
+    "lang": "hi",
+    "why": "This uplifting, feel-good journey makes for wonderful company when you are curled up on a rainy night."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are absolute perfection for a rainy evening with chai. Wake Up Sid literally features iconic Mumbai monsoon scenes, while Panchayat and Queen provide the ultimate warm, comforting, feel-good vibes. They effortlessly match the cozy mood, Hindi language preference, and are available on Netflix and Prime Video.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 24793
+ },
+ {
+  "n": 29,
+  "text": "Surprise me (no other input).",
+  "picks": [
+   {
+    "title": "PK",
+    "year": 2014,
+    "lang": "hi",
+    "why": "Since you are open to a surprise, let this sharp, clever satire of faith and society delight you with its heart and humor."
+   },
+   {
+    "title": "Tamasha",
+    "year": 2015,
+    "lang": "hi",
+    "why": "Let this visually striking, deeply reflective journey into career burnout and self-discovery catch you completely off guard in the best way."
+   },
+   {
+    "title": "Iron Man",
+    "year": 2008,
+    "lang": "en",
+    "why": "Jump into this witty, fast-moving blend of action and charm for a wildly entertaining surprise."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "The recommendations offer an excellent variety across the user's preferred Hindi and English languages, spanning a clever satire, a deep emotional drama, and a blockbuster action film. They align perfectly with the 'surprise me' prompt and are easily accessible on the user's specified platforms.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 2095
+ },
+ {
+  "n": 30,
+  "text": "kuch bhi light, bas sad ending mat dena",
+  "picks": [
+   {
+    "title": "Queen",
+    "year": 2014,
+    "lang": "hi",
+    "why": "Since you want something light with a happy ending, you will love watching her travel through Europe and find herself."
+   },
+   {
+    "title": "Panchayat",
+    "year": 2020,
+    "lang": "hi",
+    "why": "This gives you that easy, comforting village charm with plenty of laughs and zero sad endings to worry about."
+   },
+   {
+    "title": "Dhamaal",
+    "year": 2007,
+    "lang": "hi",
+    "why": "If you just want pure, mindless laughs without any heavy romance or sadness, this wild chase is your best bet."
+   }
+  ],
+  "fails": [],
+  "pass": true,
+  "fit": 5,
+  "reason": "All three picks are delightfully light, incredibly popular in India, available on the mentioned platforms, and strictly guarantee happy or uplifting endings, perfectly matching the user's request.",
+  "judge": "gemini-3.5-flash-lite",
+  "followup": false,
+  "no_match": null,
+  "ms": 17199
+ }
+]
