@@ -44,10 +44,16 @@ async function post(path, body, timeoutMs) {
 // it backs off and moves on. `attempts` rounds through the whole chain.
 const exhausted = new Set()
 // `wait: false` (a live search) moves straight to the next model instead of sleeping between tries.
-export async function generateJSON({ chain, system, prompt, schema, temperature = 0.4, thinking = 'low', timeoutMs = 90000, attempts = 3, wait = true }) {
+// `deadlineMs` (a live search): keep going round the chain until this much time has passed, each try capped by what's
+// left. Flash-Lite often answers "503 high demand" and then answers the very next try, so a quick retry beats giving up.
+export async function generateJSON({ chain, system, prompt, schema, temperature = 0.4, thinking = 'low', timeoutMs = 90000, attempts = 3, wait = true, deadlineMs = 0 }) {
   let last
-  for (let round = 0; round < attempts; round++) {
+  const start = Date.now()
+  const left = () => deadlineMs - (Date.now() - start)
+  for (let round = 0; deadlineMs ? left() > 1500 : round < attempts; round++) {
     for (const model of chain.filter((m) => !exhausted.has(m))) {
+      if (deadlineMs && left() < 1500) break
+      const callMs = deadlineMs ? Math.min(timeoutMs, left()) : timeoutMs
       try {
         const json = await post(
           `${model}:generateContent`,
@@ -61,7 +67,7 @@ export async function generateJSON({ chain, system, prompt, schema, temperature 
               thinkingConfig: { thinkingLevel: thinking },
             },
           },
-          timeoutMs,
+          callMs,
         )
         const cand = json.candidates?.[0]
         const text = cand?.content?.parts?.filter((p) => !p.thought).map((p) => p.text).join('') || ''
@@ -76,6 +82,7 @@ export async function generateJSON({ chain, system, prompt, schema, temperature 
         const retryable = e.status === 429 || e.status === 503 || e.status === 500 || e.name === 'TimeoutError' || e instanceof SyntaxError
         if (!retryable) throw e
         if (wait) await sleep(e.status === 429 ? 4000 * (round + 1) : 800 * (round + 1))
+        else if (deadlineMs) await sleep(300)
       }
     }
   }

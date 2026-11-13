@@ -46,6 +46,8 @@ const PARSE_SCHEMA = {
     avoid_endings: arr(en(ENDINGS)),
     true_story_only: { type: 'BOOLEAN' },
     max_weight: { type: 'INTEGER', nullable: true, description: 'Only if they explicitly ask for something light, easy or not heavy: 2 (or 3 for "not too heavy"). Wanting to laugh or be cheered up is not a weight limit. Else null.' },
+    from_year: { type: 'INTEGER', nullable: true, description: 'Only if they name a decade or years for when it came out: "90s" → 1990, "from the 2000s" → 2000, "after 2015" → 2015. Feeling nostalgic or wanting a classic is not a year. Else null.' },
+    to_year: { type: 'INTEGER', nullable: true, description: 'Only with a decade or an upper year: "90s" → 1999, "before 2000" → 1999. Else null.' },
     ideal: { type: 'STRING', description: 'Describe the ideal title for them as a short film-card vibe: tone, feel, arc, setting cues. Do not name titles.' },
     named_titles: arr({ type: 'STRING' }),
   },
@@ -79,6 +81,11 @@ function fallbackParse(text) {
   const dubbed = Object.entries(LANG_WORDS).filter(([w]) => new RegExp(`\\b(dubbed (in|into) ${w}|${w} dub(bed)?)\\b`, 'i').test(text)).map(([, code]) => code)
   p.dubbed_in = dubbed
   for (const [w, code] of Object.entries(LANG_WORDS)) if (new RegExp(`\\b${w}\\b`, 'i').test(text) && !dubbed.includes(code)) p.languages.push(code)
+  const decade = text.match(/\b(?:19)?([5-9]0)['’]?s\b|\b(20[0-2]0)['’]?s\b/i)
+  if (decade) {
+    p.from_year = decade[1] ? 1900 + Number(decade[1]) : Number(decade[2])
+    p.to_year = p.from_year + 9
+  }
   const mins = text.match(/under (\d{2,3}) ?min/i)
   if (mins) p[p.format === 'series' ? 'max_episode_min' : 'max_runtime_min'] = Number(mins[1])
   return p
@@ -105,8 +112,10 @@ async function parseWithModel(text) {
     schema: PARSE_SCHEMA,
     temperature: 0,
     thinking: 'minimal',
-    timeoutMs: 20000,
-    attempts: 1,
+    // Flash-Lite answers in 1–5s or throws "503 high demand" and answers the next try. One try of 20s used to send
+    // about a third of searches to the keyword fallback, which ignores what they want to avoid and stay or shift.
+    timeoutMs: 9000,
+    deadlineMs: 18000,
     wait: false,
   })
   return data
@@ -133,6 +142,12 @@ function constraints(p, chips, prefs) {
   if (p.hard_nos?.length) out.push({ key: 'hard_nos', label: `no ${list(p.hard_nos.map((f) => f.replace(/_/g, ' ')), 'and')}`, test: (c) => !c.content_flags.some((f) => p.hard_nos.includes(f)) })
   if (p.avoid_tones?.length) out.push({ key: 'avoid_tones', label: `nothing ${p.avoid_tones.join(' or ')}`, test: (c) => !c.tone_mix.some((t) => p.avoid_tones.includes(t.tone) && t.pct >= 20) })
   if (p.avoid_endings?.length) out.push({ key: 'avoid_endings', label: `no ${p.avoid_endings.join(' or ')} endings`, test: (c) => !p.avoid_endings.includes(c.ending) })
+  if (p.from_year || p.to_year) {
+    const from = p.from_year || 1900
+    const to = p.to_year || 2100
+    const label = p.from_year && p.to_year && to - from === 9 && from % 10 === 0 ? `from the ${from}s` : p.from_year && p.to_year ? `from ${from} to ${to}` : p.from_year ? `from ${from} on` : `from before ${to + 1}`
+    out.push({ key: 'era', label, test: (c) => c.year >= from && c.year <= to })
+  }
   if (p.true_story_only) out.push({ key: 'true_story', label: 'true stories only', test: (c) => c.truth.status === 'true_story' })
   // Soft: dropped below if it alone would leave fewer than three picks.
   if (p.max_weight) out.push({ key: 'weight', label: 'something light', soft: true, test: (c) => c.bandwidth.emotional_weight <= Math.max(2, p.max_weight) })
@@ -184,8 +199,8 @@ async function rerank(text, want, platforms, candidates) {
     schema: RERANK_SCHEMA,
     temperature: 0.3,
     thinking: 'minimal',
-    timeoutMs: 30000,
-    attempts: 1,
+    timeoutMs: 12000,
+    deadlineMs: 24000,
     wait: false,
   })
   return data.picks
@@ -230,7 +245,9 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
 
   const { cards, vectors, aliases } = await loadStore()
   const rules = constraints(p, chips, prefs).filter((r) => !loosen.includes(r.key))
-  const seen = new Set(exclude)
+  // "Something like Zindagi Na Milegi Dobara" wants others like it, not the film itself.
+  const named = new Set((p.named_titles || []).map(norm).filter(Boolean))
+  const seen = new Set([...exclude, ...cards.filter((c) => named.has(norm(c.title)) || named.has(norm(c.original_title || ''))).map((c) => c.id)])
   let pool = cards.filter((c) => rules.every((r) => r.test(c)))
   if (pool.length < 3 && rules.some((r) => r.soft)) {
     const hard = rules.filter((r) => !r.soft)
@@ -280,6 +297,7 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
   }
 
   let chosen = []
+  let reranked = true
   try {
     const ranked = await rerank(text, { mood: p.mood, stay_or_shift: stay, company, format }, platforms, candidates)
     const byId = new Map(candidates.map((c) => [c.id, c]))
@@ -290,6 +308,7 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
     }
   } catch {
     // Reranker unavailable: fall back to retrieval order with a plain line. Still only store cards.
+    reranked = false
   }
   for (const card of candidates) {
     if (chosen.length >= 3) break
@@ -297,11 +316,15 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
   }
   // We hold no dubbing data, so a dub request can't filter; the app says so instead of pretending.
   const dubbed = (p.dubbed_in || []).filter((l) => !p.languages?.includes(l)).map((l) => LANG_NAMES[l] || l)
-  return { followup: null, picks: chosen, understood, missing_title: missingTitle(p.named_titles, cards, aliases), dubbed_in: dubbed.length ? dubbed : null }
+  // degraded: which model steps fell back (Gemini busy), so the eval and logs can see it; the app ignores it.
+  const degraded = [p.fallback && 'parse', reranked === false && 'rerank'].filter(Boolean)
+  if (degraded.length) console.warn(`[recommend] degraded: ${degraded.join(', ')}`)
+  return { followup: null, picks: chosen, understood, missing_title: missingTitle(p.named_titles, cards, aliases), dubbed_in: dubbed.length ? dubbed : null, ...(degraded.length && { degraded }) }
 }
 
 // A title they named that the store doesn't have yet: the app offers to make its card (api/card.js, Launch L4).
-const norm = (t) => t.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, ' ').trim()
+// Any script, as in api/search.js: Latin-only made every Hindi-script name "", which counted as "we have it".
+const norm = (t = '') => t.toLowerCase().normalize('NFKD').replace(/\p{M}/gu, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
 function missingTitle(named = [], cards, aliases = []) {
   const have = new Set([...cards.flatMap((c) => [norm(c.title), norm(c.original_title || '')]), ...aliases.map((a) => norm(a.name))])
   return named.map((t) => t.trim()).find((t) => t.length > 1 && !have.has(norm(t))) || null
