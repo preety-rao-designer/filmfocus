@@ -28,7 +28,9 @@ function visitorLimited(req) {
 // TMDB search is fuzzy ("Piku" also returns "Twin Peaks"), so only names that match count: an exact title (or
 // original title) first, most-voted among those ("Queen" → the 2014 film people mean); else a title that contains
 // what they typed. Anything else is "not found" rather than a card for the wrong film.
-const norm = (t = '') => t.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, ' ').trim()
+// Letters and digits in any script, as in api/search.js. Latin-only once turned "शोले" into "", which matched the
+// first card with a Hindi-script original title (Sholay came back as Panchayat).
+const norm = (t = '') => t.toLowerCase().normalize('NFKD').replace(/\p{M}/gu, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
 async function findOnTmdb(asked) {
   // "Queen 2014" or "Queen (2014)": search with the year, since short titles have hundreds of loose matches.
   const m = asked.match(/^(.*?)[\s(]+((?:19|20)\d{2})\)?$/)
@@ -70,6 +72,7 @@ export async function cardFor(title) {
   // Ours first: a title already in the store (or asked for by this name before) needs no search at all.
   const have = await loadStore()
   const q = norm(title)
+  if (!q) return { status: 404, body: { error: 'not_found' } }
   const aliasId = have.aliases.find((a) => norm(a.name) === q)?.id
   const known = have.cards.find((c) => c.id === aliasId || norm(c.title) === q || norm(c.original_title) === q)
   if (known) return { status: 200, body: { card: known, made: false } }

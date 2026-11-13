@@ -21,6 +21,7 @@ export function SearchIcon() {
 export default function TitleSearch({ onOpen, onClose }) {
   const [q, setQ] = useState('')
   const [items, setItems] = useState([])
+  const [exact, setExact] = useState(false)
   const [searched, setSearched] = useState('')
   const [active, setActive] = useState(0)
   const [made, setMade] = useState({ status: 'idle' })
@@ -52,6 +53,7 @@ export default function TitleSearch({ onOpen, onClose }) {
         .then((r) => (r.ok ? r.json() : { items: [] }))
         .then((b) => {
           setItems(b.items || [])
+          setExact(!!b.exact)
           setSearched(term)
           setActive(0)
         })
@@ -78,6 +80,8 @@ export default function TitleSearch({ onOpen, onClose }) {
   }
 
   const none = searched && searched === q.trim() && items.length === 0
+  // Close matches but not the name they typed ("Lagaan" finds Dum Laga Ke Haisha): still let them make its card.
+  const notIt = searched && searched === q.trim() && searched.length >= 4 && items.length > 0 && !exact
   return (
     <div role="dialog" aria-modal="true" aria-label="Search for a title" className="fixed inset-0 z-20 overflow-y-auto bg-night">
       <div className="mx-auto max-w-page px-4 pt-4 pb-16 md:px-12 md:pt-8">
@@ -90,6 +94,7 @@ export default function TitleSearch({ onOpen, onClose }) {
           onSubmit={(e) => {
             e.preventDefault()
             if (items[active]) open(items[active])
+            else if (none && made.status === 'idle') make()
           }}
           className="mt-4 flex items-center gap-4 border-b border-line pb-4"
         >
@@ -145,6 +150,17 @@ export default function TitleSearch({ onOpen, onClose }) {
           ))}
         </ul>
 
+        {notIt && (
+          <div className="mt-6 max-w-read">
+            {made.status === 'error' ? (
+              <p className="text-muted">{MADE_ERRORS[made.error] || MADE_ERRORS.failed}</p>
+            ) : (
+              <button type="button" onClick={make} disabled={made.status === 'making'} className={`${quiet} text-left`}>
+                {made.status === 'making' ? 'Making its card…' : `Not the one you meant? Make a card for “${searched}”`}
+              </button>
+            )}
+          </div>
+        )}
         {none && (
           <div className="mt-8 max-w-read">
             <p className="text-read">
