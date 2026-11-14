@@ -246,14 +246,21 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
   })
 
   const forLine = (
-    // One line: a long request is cut short (it's in full on the home screen), the link always stays in view.
-    <div className="flex max-w-[640px] items-baseline gap-4 text-caption text-muted">
-      <p className="min-w-0 truncate" title={askedFor(text, chips)}>
+    // Desktop: one line, a long request cut short, the link always in view. Phones: up to two lines, then the links
+    // on their own row, with Regenerate beside "Change my mood" so it isn't left floating under the posters.
+    <div className="flex max-w-[640px] flex-wrap items-baseline gap-x-6 text-caption text-muted md:flex-nowrap md:gap-x-4">
+      <p className="line-clamp-2 w-full md:w-auto md:min-w-0 md:truncate" title={askedFor(text, chips)}>
         For <span className="text-paper/80">{askedFor(text, chips)}</span>
       </p>
       <button type="button" onClick={onChangeMood} className={`${quiet} shrink-0 text-caption`}>
         Change my mood
       </button>
+      {(loading || status === 'ready') && (
+        <button type="button" onClick={onOthers} disabled={loading} aria-label="Regenerate: show me three others" className={`${quiet} inline-flex shrink-0 items-center gap-1 text-caption md:hidden`}>
+          <RefreshIcon spinning={loading} />
+          {loading ? 'Finding…' : 'Regenerate'}
+        </button>
+      )}
     </div>
   )
 
@@ -340,7 +347,7 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
               ))}
             </div>
             {/* Regenerate: three different picks for the same mood (the engine skips ones already shown). */}
-            <div className="mt-4 flex justify-end">
+            <div className="mt-4 hidden justify-end md:flex">
               <button type="button" onClick={onOthers} disabled={loading} aria-label="Regenerate: show me three others" className={`${btn} bg-night/60`}>
                 <RefreshIcon spinning={loading} />
                 {loading ? 'Finding…' : 'Regenerate'}

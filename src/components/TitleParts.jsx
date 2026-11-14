@@ -44,11 +44,6 @@ export function runtime(min) {
   return h ? `${h} h${m ? ` ${m} min` : ''}` : `${m} min`
 }
 
-function compactVotes(n) {
-  if (n >= 1000) return `${Math.round(n / 1000)}k`
-  return String(n)
-}
-
 function factsParts(card) {
   const parts = [card.type === 'series' ? 'Series' : 'Movie', card.year]
   if (card.type === 'series' && card.series) {
@@ -64,8 +59,7 @@ function factsParts(card) {
     const src = card.rating.source === 'imdb' ? 'IMDb' : 'TMDB'
     parts.push(
       <>
-        {card.rating.value} on {src}
-        {card.rating.votes ? ` (${compactVotes(card.rating.votes)} votes)` : ''}
+        {Number(card.rating.value).toFixed(1)} on {src}
       </>,
     )
   }

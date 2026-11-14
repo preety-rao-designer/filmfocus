@@ -23,7 +23,7 @@ const ROWS = [
 export default function Compare({ list, onRemove, onClear, onFind, onOpen }) {
   const heading = (
     <h1 className="text-headline font-bold md:text-headline-lg">
-      Com<span className="font-thin">pare</span>
+      Com<span className="font-normal">pare</span>
     </h1>
   )
   if (list.length < 2) {

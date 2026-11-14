@@ -22,6 +22,18 @@
 .focus-swap { transition: opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1); }
 .focus-swap.out { opacity: 0; transform: translateY(12px); }
 .strip { transition: width .45s cubic-bezier(.2,.7,.2,1), filter .3s; }
+
+/* The home strip (V2.1): a band leaning like "/". The band is skewed; each poster is skewed back so faces aren't
+   sheared, and scaled a little so the slanted edges stay filled. Tiles are dimmed until they reach the middle. */
+.strip-band-y { transform: skewX(-7deg); -webkit-mask-image: linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent); mask-image: linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent); }
+.strip-band-y .tile-img { transform: skewX(7deg) scale(1.12); }
+.strip-band-y .tile-label { transform: skewX(7deg); }
+.strip-band-x { transform: skewY(-5deg); margin-top: 72px; margin-bottom: 8px; }
+.strip-band-x .tile-img { transform: skewY(5deg) scale(1.12); }
+.strip-band-x .tile-label { transform: skewY(5deg); }
+.strip-band-x > div { touch-action: pan-y; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.tile .tile-img { filter: brightness(.5) saturate(.7); transition: filter .4s ease; }
+.tile.lit .tile-img, .tile:hover .tile-img { filter: none; }
 .lift { transition: filter .3s, transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .3s; }
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -32,8 +44,21 @@
 .scrim { background: linear-gradient(180deg, rgba(13,11,12,.8) 0%, rgba(13,11,12,.4) 9%, rgba(13,11,12,.75) 19%, rgba(13,11,12,.94) 32%, #0D0B0C 55%); }
 @media (min-width: 900px) {
   .scrim { background:
-    linear-gradient(90deg, rgba(13,11,12,.96) 0%, rgba(13,11,12,.9) 38%, rgba(13,11,12,.5) 60%, rgba(13,11,12,.25) 100%),
-    linear-gradient(180deg, rgba(13,11,12,.8) 0%, rgba(13,11,12,.3) 14%, transparent 30%, rgba(13,11,12,.5) 62%, #0D0B0C 100%); }
+    linear-gradient(90deg, rgba(13,11,12,.96) 0%, rgba(13,11,12,.9) 38%, rgba(13,11,12,.6) 60%, rgba(13,11,12,.45) 100%),
+    linear-gradient(180deg, rgba(13,11,12,.8) 0%, rgba(13,11,12,.3) 14%, transparent 30%, rgba(13,11,12,.7) 60%, #0D0B0C 100%); }
+}
+
+/* Home (V2.1): the lit film's still, darker on the right where the question sits, with a warm Amber light falling
+   on the strip from the top left, and fading to Night at the bottom. Phone: the still sits behind the band and the
+   headline and fades out below them. */
+.scrim-home { background:
+  radial-gradient(ellipse 60% 70% at 12% 0%, rgba(245,184,65,.16), transparent 70%),
+  linear-gradient(180deg, rgba(13,11,12,.55) 0%, rgba(13,11,12,.35) 30%, rgba(13,11,12,.85) 62%, #0D0B0C 92%); }
+@media (min-width: 900px) {
+  .scrim-home { background:
+    radial-gradient(ellipse 45% 75% at 10% 0%, rgba(245,184,65,.18), transparent 70%),
+    linear-gradient(90deg, rgba(13,11,12,.45) 0%, rgba(13,11,12,.55) 28%, rgba(13,11,12,.9) 48%, rgba(13,11,12,.95) 100%),
+    linear-gradient(180deg, rgba(13,11,12,.6) 0%, transparent 16%, transparent 78%, #0D0B0C 100%); }
 }
 
 /* Loading results: placeholders shimmer, a thin amber line runs along the top, and the poster slots shuffle blurred

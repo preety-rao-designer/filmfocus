@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
-import { posterUrl, round } from '../ui.js'
+import { posterUrl } from '../ui.js'
 
-// The home shelf (V2): tall poster strips from the store that drift slowly on their own. Hover (or focus) widens one
-// and shows its title; tapping opens its page. People can scroll it by trackpad, swipe, mouse drag or the arrows. It
-// loops: the list is there twice and the scroll position wraps at the halfway point. Drift stops while the pointer is
-// on it, for a few seconds after any scroll, and entirely under reduced motion.
+// The home strip (V2.1, docs/DESIGN_DIRECTION.md): poster tiles in a slanted band that drifts slowly, like a reel
+// running past. The tile at the middle of the band is "on": full colour, an Amber ring, its title, and its still
+// fills the home background (onFocus). Desktop: a vertical band down the left side, leaning like "/". Phones: a band
+// across the top, tilted the same way. Hover or focus puts a tile on and stops the drift; wheel, swipe or drag move it;
+// a tap opens the title's page. It loops: the list is there twice and the offset wraps. Under reduced motion it
+// doesn't drift.
 
 // One request per visit, shared with the results loading state (its slots shuffle these posters).
 let shelfPromise = null
@@ -19,119 +21,148 @@ export function loadShelf() {
   return shelfPromise
 }
 
-const HEIGHTS = ['h-[300px] md:h-[380px]', 'mt-5 h-[282px] md:mt-6 md:h-[356px]', 'mt-2 h-[292px] md:mt-3 md:h-[368px]']
+const GAP = 10
+const SIZES = { y: { tile: 176, speed: 18 }, x: { tile: 104, speed: 16 } } // px along the band, px a second
 
-export default function Shelf({ onOpen }) {
+export default function Strip({ onOpen, onFocus }) {
   const [items, setItems] = useState([])
-  const ref = useRef(null)
-  const state = useRef({ hover: false, until: 0, carry: 0, drag: null, dragEnded: 0 })
+  const [axis, setAxis] = useState(() => (window.matchMedia('(min-width: 900px)').matches ? 'y' : 'x'))
+  const [on, setOn] = useState(0)
+  const band = useRef(null)
+  const track = useRef(null)
+  const s = useRef({ offset: 0, hover: null, until: 0, drag: null, dragEnded: 0 })
 
   useEffect(() => {
     let live = true
     loadShelf().then((list) => live && setItems(list))
-    return () => (live = false)
+    const mq = window.matchMedia('(min-width: 900px)')
+    const change = () => setAxis(mq.matches ? 'y' : 'x')
+    mq.addEventListener('change', change)
+    return () => {
+      live = false
+      mq.removeEventListener('change', change)
+    }
   }, [])
 
   useEffect(() => {
-    const el = ref.current
-    if (!el || !items.length) return
-    const s = state.current
+    if (items[on]) onFocus?.(items[on])
+  }, [on, items])
+
+  useEffect(() => {
+    const el = band.current
+    const tr = track.current
+    if (!el || !tr || !items.length) return
+    const st = s.current
+    const { tile, speed } = SIZES[axis]
+    const step = tile + GAP
+    const loop = items.length * step
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const half = () => el.scrollWidth / 2
-    const wrap = () => {
-      if (el.scrollLeft >= half()) el.scrollLeft -= half()
-      else if (el.scrollLeft <= 0) el.scrollLeft += half()
+    const length = () => (axis === 'y' ? el.clientHeight : el.clientWidth)
+    // The tile nearest the middle of the band is on (unless one is hovered or focused).
+    const middle = () => (((Math.round((length() / 2 + st.offset - tile / 2) / step) % items.length) + items.length) % items.length)
+    const place = () => {
+      st.offset = ((st.offset % loop) + loop) % loop
+      tr.style.transform = axis === 'y' ? `translate3d(0, ${-st.offset}px, 0)` : `translate3d(${-st.offset}px, 0, 0)`
+      if (st.hover === null) setOn(middle())
     }
-    el.scrollLeft = 1
+    // Start with a tile centred.
+    st.offset = Math.max(0, tile / 2 - length() / 2 + step * 2)
+    place()
     let raf
+    let last = performance.now()
     const tick = (t) => {
-      if (!still && !s.hover && !s.drag && t > s.until) {
-        s.carry += 0.35
-        const step = Math.floor(s.carry)
-        s.carry -= step
-        if (step) {
-          el.scrollLeft += step
-          wrap()
-        }
+      const dt = Math.min(64, t - last)
+      last = t
+      if (!still && st.hover === null && !st.drag && t > st.until) {
+        st.offset += (speed * dt) / 1000
+        place()
       }
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
-    const hold = () => (s.until = performance.now() + 4000)
-    const enter = () => (s.hover = true)
-    const leave = () => (s.hover = false)
-    // Mouse drag to scroll; a drag that ends over a poster doesn't count as a tap on it.
-    const down = (e) => {
-      if (e.pointerType === 'mouse') s.drag = { x: e.clientX, left: el.scrollLeft, moved: false }
-    }
-    const move = (e) => {
-      if (!s.drag) return
-      const dx = e.clientX - s.drag.x
-      if (Math.abs(dx) > 4) s.drag.moved = true
-      el.scrollLeft = s.drag.left - dx
+    const hold = () => (st.until = performance.now() + 4000)
+    const wheel = (e) => {
+      e.preventDefault()
+      st.offset += axis === 'y' ? e.deltaY : e.deltaX || e.deltaY
       hold()
+      place()
+    }
+    const down = (e) => (st.drag = { p: axis === 'y' ? e.clientY : e.clientX, offset: st.offset, moved: false })
+    const move = (e) => {
+      if (!st.drag) return
+      const d = (axis === 'y' ? e.clientY : e.clientX) - st.drag.p
+      if (Math.abs(d) > 4) st.drag.moved = true
+      st.offset = st.drag.offset - d
+      hold()
+      place()
     }
     const up = () => {
-      if (s.drag?.moved) s.dragEnded = performance.now()
-      s.drag = null
+      if (st.drag?.moved) st.dragEnded = performance.now()
+      st.drag = null
     }
-    el.addEventListener('scroll', wrap, { passive: true })
-    el.addEventListener('wheel', hold, { passive: true })
-    el.addEventListener('touchstart', hold, { passive: true })
-    el.addEventListener('mouseenter', enter)
-    el.addEventListener('mouseleave', leave)
+    el.addEventListener('wheel', wheel, { passive: false })
     el.addEventListener('pointerdown', down)
     window.addEventListener('pointermove', move)
     window.addEventListener('pointerup', up)
+    window.addEventListener('pointercancel', up)
     return () => {
       cancelAnimationFrame(raf)
-      el.removeEventListener('scroll', wrap)
-      el.removeEventListener('wheel', hold)
-      el.removeEventListener('touchstart', hold)
-      el.removeEventListener('mouseenter', enter)
-      el.removeEventListener('mouseleave', leave)
+      el.removeEventListener('wheel', wheel)
       el.removeEventListener('pointerdown', down)
       window.removeEventListener('pointermove', move)
       window.removeEventListener('pointerup', up)
+      window.removeEventListener('pointercancel', up)
     }
-  }, [items])
+  }, [items, axis])
 
-  const nudge = (dir) => {
-    const el = ref.current
-    state.current.until = performance.now() + 4000
-    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    el.scrollBy({ left: dir * el.clientWidth * 0.6, behavior: still ? 'auto' : 'smooth' })
+  const hoverOn = (i) => {
+    s.current.hover = i
+    setOn(i)
+  }
+  const hoverOff = () => {
+    s.current.hover = null
+    s.current.until = performance.now() + 1500
   }
 
-  if (!items.length) return <div className="h-[348px] md:h-[444px]" aria-hidden="true" />
+  const y = axis === 'y'
+  const { tile } = SIZES[axis]
   return (
-    <section aria-label="Some of the titles we have honest cards for" className="pt-4 pb-12">
-      <div ref={ref} className="no-scrollbar edge-fade cursor-grab overflow-x-auto overflow-y-hidden active:cursor-grabbing">
-        <ul className="flex w-max px-4" style={{ gap: '10px' }}>
-          {[...items, ...items].map((item, i) => (
-            <li key={`${item.id}-${i}`} className={HEIGHTS[i % 3]} aria-hidden={i >= items.length || undefined}>
-              <button
-                type="button"
-                tabIndex={i >= items.length ? -1 : 0}
-                draggable={false}
-                onClick={() => performance.now() - state.current.dragEnded > 250 && onOpen(item)}
-                aria-label={`${item.title}, see its page`}
-                className="strip group relative block h-full w-[72px] overflow-hidden rounded-poster bg-night-raised bg-cover bg-center brightness-[.8] saturate-[.85] hover:w-[200px] hover:brightness-100 hover:saturate-100 focus-visible:w-[200px] focus-visible:brightness-100 md:w-[96px] md:hover:w-[254px] md:focus-visible:w-[254px]"
-                style={{ backgroundImage: `url(${posterUrl(item)})` }}
-              >
-                <span className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-night/90 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100" />
-                <span className="absolute inset-x-3 bottom-3 text-left text-caption font-medium leading-tight opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
-                  {item.title}
-                  <span className="block text-label font-normal text-muted">{item.year}</span>
-                </span>
-              </button>
-            </li>
-          ))}
+    <section
+      aria-label="Some of the titles we have honest cards for"
+      className={y ? 'strip-band-y absolute top-[72px] bottom-0 left-[calc(4vw+40px)] z-[1] w-[240px] lg:w-[280px]' : 'strip-band-x relative -mx-4 h-[176px]'}
+    >
+      <div ref={band} className={`touch-none select-none overflow-hidden ${y ? 'h-full' : 'h-full w-[calc(100%+64px)] -translate-x-8'}`}>
+        <ul ref={track} className={`flex ${y ? 'flex-col' : 'h-full items-center'}`} style={{ gap: `${GAP}px` }}>
+          {[...items, ...items].map((item, i) => {
+            const n = i % items.length
+            const lit = n === on
+            const copy = i >= items.length
+            return (
+              <li key={`${item.id}-${i}`} className="shrink-0" style={y ? { height: tile } : { width: tile, height: 156 }} aria-hidden={copy || undefined}>
+                <button
+                  type="button"
+                  tabIndex={copy ? -1 : 0}
+                  draggable={false}
+                  onMouseEnter={() => hoverOn(n)}
+                  onMouseLeave={hoverOff}
+                  onFocus={() => hoverOn(n)}
+                  onBlur={hoverOff}
+                  onClick={() => performance.now() - s.current.dragEnded > 250 && onOpen(item)}
+                  aria-label={`${item.title}, see its page`}
+                  className={`tile relative block h-full w-full overflow-hidden rounded-poster bg-night-raised ${lit ? 'lit' : ''}`}
+                >
+                  <span className="tile-img absolute inset-0 bg-cover bg-[center_22%]" style={{ backgroundImage: `url(${posterUrl(item)})` }} />
+                  <span className={`absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-night/90 transition-opacity ${lit ? 'opacity-100' : 'opacity-0'}`} />
+                  {lit && <span aria-hidden="true" className="absolute inset-0 rounded-poster ring-2 ring-inset ring-amber" />}
+                  <span className={`tile-label absolute inset-x-3 bottom-3 text-left text-caption font-medium leading-tight transition-opacity ${lit ? 'opacity-100' : 'opacity-0'}`}>
+                    <span className="line-clamp-2">{item.title}</span>
+                    <span className="block text-label font-normal text-muted tabular">{item.year}</span>
+                  </span>
+                </button>
+              </li>
+            )
+          })}
         </ul>
-      </div>
-      <div className="mx-auto mt-4 flex max-w-page justify-end px-4 md:px-12" style={{ gap: '10px' }}>
-        <button type="button" aria-label="Scroll the shelf left" onClick={() => nudge(-1)} className={round}>←</button>
-        <button type="button" aria-label="Scroll the shelf right" onClick={() => nudge(1)} className={round}>→</button>
       </div>
     </section>
   )

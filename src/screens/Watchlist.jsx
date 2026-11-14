@@ -9,7 +9,7 @@ export default function Watchlist({ list, lists, onOpen, onFind }) {
   return (
     <main className="mx-auto max-w-page px-4 pt-12 pb-16 md:px-12 md:pt-16">
       <h1 className="text-headline font-bold md:text-headline-lg">
-        Your <span className="font-thin">watchlist</span>
+        Your <span className="font-normal">watchlist</span>
       </h1>
       {list.length === 0 ? (
         <div role="status">

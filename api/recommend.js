@@ -161,7 +161,7 @@ const RERANK_SCHEMA = {
   properties: {
     picks: arr({
       type: 'OBJECT',
-      properties: { id: { type: 'STRING' }, why_this_fits: { type: 'STRING', description: 'One line, at most 25 words, addressed to them ("you"), tied to what they actually said. No spoilers.' } },
+      properties: { id: { type: 'STRING' }, why_this_fits: { type: 'STRING', description: 'One short line, at most 16 words, addressed to them ("you"), tied to what they actually said. No spoilers.' } },
       required: ['id', 'why_this_fits'],
     }),
   },

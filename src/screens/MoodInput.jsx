@@ -1,10 +1,12 @@
-import { useState } from 'react'
-import Shelf from '../components/Shelf.jsx'
-import { chip, primary, quiet } from '../ui.js'
+import { useRef, useState } from 'react'
+import Backdrop from '../components/Backdrop.jsx'
+import Strip from '../components/Shelf.jsx'
+import { backdropUrl, chip, primary, quiet } from '../ui.js'
 
-// S1, Home (V2, docs/DESIGN_DIRECTION.md): the headline on the left, the mood box, chips and "Find my watch" on the
-// right (stacked on phones), and the drifting shelf of posters below. The row holds one chip per question; tapping a
-// chip opens its answers under the row, and a chosen chip shows the answer.
+// S1, Home (V2.1, docs/DESIGN_DIRECTION.md): one dramatic screen. The slanted strip of posters drifts down the left
+// (across the top on phones); the film at its middle lights up and its still fills the background. The question sits
+// on the right: headline, mood box, chips, "Find my watch" and "Surprise me". The row holds one chip per question;
+// tapping a chip opens its answers under the row, and a chosen chip shows the answer.
 
 export const CHIP_GROUPS = [
   {
@@ -42,36 +44,53 @@ export const CHIP_GROUPS = [
 
 export default function MoodInput({ text, chips, onText, onChip, onFind, onSurprise, onOpen, children }) {
   const [open, setOpen] = useState(null)
+  const [lit, setLit] = useState(null)
+  const [nudge, setNudge] = useState(false)
+  const box = useRef(null)
   const canFind = text.trim().length > 0 || Object.values(chips).some(Boolean)
+  // "Find my watch" always looks ready; with nothing to go on it says what it needs instead of doing nothing.
+  const tryFind = () => {
+    if (canFind) return onFind()
+    setNudge(true)
+    box.current?.focus()
+  }
 
   return (
     <main>
+      <section className="relative overflow-hidden md:min-h-[100svh]">
+        <Backdrop url={backdropUrl(lit)} scrim="scrim-home" />
+        <Strip onOpen={onOpen} onFocus={setLit} />
       <form
-        className="mx-auto max-w-page px-4 pt-12 pb-8 md:grid md:grid-cols-[1.1fr_1fr] md:items-start md:gap-16 md:px-12 md:pt-16 md:pb-12"
+        className="relative mx-auto max-w-page px-4 pt-6 pb-12 md:flex md:min-h-[100svh] md:items-center md:py-[112px] md:pr-12 md:pl-[calc(4vw+330px)] lg:pl-[calc(4vw+390px)]"
         onSubmit={(e) => {
           e.preventDefault()
-          if (canFind) onFind()
+          tryFind()
         }}
       >
-        <h1 id="mood-heading" className="mb-6 text-headline font-bold md:-mt-2 md:mb-0 md:text-headline-lg">
-          What are you <span className="block font-thin">in the mood for?</span>
+        <div className="w-full max-w-[600px]">
+        <h1 id="mood-heading" className="mb-6 text-headline font-bold md:mb-8 md:text-headline-lg">
+          What are you <span className="block font-normal">in the mood for?</span>
         </h1>
 
         <div>
           <textarea
+            ref={box}
             aria-labelledby="mood-heading"
             value={text}
-            onChange={(e) => onText(e.target.value)}
+            onChange={(e) => {
+              onText(e.target.value)
+              setNudge(false)
+            }}
             onKeyDown={(e) => {
               // Enter finds; Shift+Enter makes a new line.
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault()
-                if (canFind) onFind()
+                tryFind()
               }
             }}
             rows={4}
             placeholder="Rough day. Want something warm but not dumb."
-            className="block min-h-[128px] w-full resize-y rounded-box border border-line bg-night-raised px-5 py-4 text-lead text-paper"
+            className="block min-h-[128px] w-full resize-y rounded-box border border-line bg-night-raised/90 px-5 py-4 text-lead text-paper"
           />
 
           <div className="mt-4">
@@ -105,6 +124,7 @@ export default function MoodInput({ text, chips, onText, onChip, onFind, onSurpr
                       onClick={() => {
                         onChip(g.key, chips[g.key] === value ? null : value)
                         setOpen(null)
+                        setNudge(false)
                       }}
                       className={chip}
                     >
@@ -117,17 +137,21 @@ export default function MoodInput({ text, chips, onText, onChip, onFind, onSurpr
           </div>
 
           <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
-            <button type="submit" disabled={!canFind} className={primary}>
+            <button type="submit" className={primary}>
               Find my watch
             </button>
             <button type="button" onClick={onSurprise} className={`${quiet} text-body`}>
               Surprise me
             </button>
           </div>
+          <p role="status" className="mt-3 min-h-[1.5em] text-caption text-muted">
+            {nudge ? 'Type how you feel, or pick a chip, then find your watch.' : ''}
+          </p>
+        </div>
         </div>
       </form>
+      </section>
       {children}
-      <Shelf onOpen={onOpen} />
     </main>
   )
 }

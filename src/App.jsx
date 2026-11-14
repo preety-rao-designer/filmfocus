@@ -220,8 +220,8 @@ export default function App() {
     else window.history.back()
   }
 
-  // Over a backdrop (results with picks or loading, a title's page) the header floats on the image.
-  const overlay = screen === 'title' || (screen === 'results' && ['loading', 'ready'].includes(view.status))
+  // Over a backdrop (home, results with picks or loading, a title's page) the header floats on the image.
+  const overlay = screen === 'input' || screen === 'title' || (screen === 'results' && ['loading', 'ready'].includes(view.status))
 
   return (
     <>

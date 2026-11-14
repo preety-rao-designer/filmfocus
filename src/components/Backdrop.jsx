@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 
 // The full-bleed still behind a title (results and its own page). Two layers crossfade when the image changes, so a
 // new pick fades in over the old one. Phone: the top 70% of the screen; desktop: all of it. The scrim keeps text legible.
-export default function Backdrop({ url }) {
+// `scrim` picks the wash: results and title pages darken the left for the text; home darkens the right for the question.
+export default function Backdrop({ url, scrim = 'scrim' }) {
   const [layers, setLayers] = useState([url, null])
   const [top, setTop] = useState(0)
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function Backdrop({ url }) {
           style={u ? { backgroundImage: `url(${u})` } : undefined}
         />
       ))}
-      <div className="scrim absolute inset-0" />
+      <div className={`${scrim} absolute inset-0`} />
     </div>
   )
 }

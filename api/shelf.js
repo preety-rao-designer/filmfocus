@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     const from = i % 3 === 2 ? rest : indian
     picked.push((from.length ? from : from === rest ? indian : rest).shift())
   }
-  const items = picked.map((c) => ({ id: c.id, title: c.title, year: c.year, poster_path: c.poster_path }))
+  const items = picked.map((c) => ({ id: c.id, title: c.title, year: c.year, poster_path: c.poster_path, backdrop_path: c.backdrop_path || null }))
   res.setHeader('Cache-Control', 'public, max-age=600')
   return res.status(200).json({ items })
 }

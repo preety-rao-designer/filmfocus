@@ -35,28 +35,31 @@ try {
     const errors = []
     page.on('pageerror', (e) => errors.push(e.message))
 
-    // Home and the shelf.
+    // Home and the strip (V2.1).
     await page.goto(base)
     await page.getByRole('button', { name: /, see its page$/ }).first().waitFor({ timeout: 20000 })
     const posters = await page.getByRole('button', { name: /, see its page$/ }).count()
-    check(posters >= 20, `${tag} shelf shows posters (${posters})`)
-    check(await page.getByRole('button', { name: 'Find my watch' }).isDisabled(), `${tag} Find my watch waits for a mood`)
-    const shelf = page.locator('section[aria-label^="Some of the titles"] > div').first()
-    const before = await shelf.evaluate((el) => el.scrollLeft)
-    await page.getByRole('button', { name: 'Scroll the shelf right' }).click()
-    await page.waitForTimeout(700)
-    check((await shelf.evaluate((el) => el.scrollLeft)) > before + 100, `${tag} shelf arrow scrolls`)
+    check(posters >= 20, `${tag} strip shows posters (${posters})`)
+    const litName = () => page.locator('.tile.lit').first().getAttribute('aria-label')
+    check(Boolean(await litName()), `${tag} strip lights the tile at its middle`)
+    await page.getByRole('button', { name: 'Find my watch' }).click()
+    check(await page.getByText('Type how you feel, or pick a chip').isVisible(), `${tag} Find my watch with no mood says what it needs`)
+    check(await page.locator('textarea').evaluate((el) => el === document.activeElement), `${tag} …and puts the cursor in the box`)
+    const litBefore = await litName()
+    const band = page.locator('section[aria-label^="Some of the titles"] > div').first()
+    await band.evaluate((el) => el.dispatchEvent(new WheelEvent('wheel', { deltaX: 600, deltaY: 600, bubbles: true, cancelable: true })))
+    await page.waitForTimeout(300)
+    check((await litName()) !== litBefore, `${tag} wheel moves the strip`)
     check(await noSideScroll(page), `${tag} home has no sideways scroll`)
-    await page.mouse.move(1, 1)
     await page.screenshot({ path: `${outDir}/v2-home-${tag}.png`, fullPage: true })
 
-    // A shelf poster opens its page; Back returns home.
-    const first = page.getByRole('button', { name: /, see its page$/ }).first()
+    // The lit tile opens its page; Back returns home.
+    const first = page.locator('.tile.lit').first()
     const name = (await first.getAttribute('aria-label')).replace(', see its page', '')
     await first.click()
     await page.waitForURL(/\/title\/tmdb-/)
     await page.locator('main h1').waitFor()
-    check((await page.locator('main h1').innerText()) === name, `${tag} shelf poster opens ${name}'s page`)
+    check((await page.locator('main h1').innerText()) === name, `${tag} strip tile opens ${name}'s page`)
     check(await page.getByText('Actually is').isVisible(), `${tag} title page shows the honest read`)
     check(await page.getByRole('heading', { name: 'Good for' }).isVisible(), `${tag} title page shows Good for`)
     await page.screenshot({ path: `${outDir}/v2-title-${tag}.png`, fullPage: true })

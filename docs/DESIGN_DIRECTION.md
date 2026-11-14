@@ -1,6 +1,6 @@
 # FilmFocus design direction: "The Late Show" (V2)
 
-Status: approved by Preety on 2026-10-05 from the mock in `docs/design/v2/mock.html`. It replaces V1, "The Single Screen" (paper tickets), which is in git history. The approved mock and the V2 snaps in `docs/design/snaps/v2-*` are the bar every screen is measured against.
+Status: approved by Preety on 2026-10-05 from the mock in `docs/design/v2/mock.html`. **V2.1 (2026-11-14, Preety's ask):** a dramatic home with a slanted poster strip on the left and the question on the right, from a game character-select screen she shared; plus fixes to the headline weight, the home button, results legibility and wordiness. Changes are marked V2.1 below. It replaces V1, "The Single Screen" (paper tickets), which is in git history. The approved mock and the V2 snaps in `docs/design/snaps/v2-*` are the bar every screen is measured against.
 
 ## The idea in one sentence
 
@@ -12,6 +12,7 @@ FilmFocus feels like the late show: the room goes dark, one film fills the scree
 |---|---|---|
 | A Kurosawa VHS shelf site (spines on a shelf, the chosen tape pulled forward, title and year under it) | The shelf: a row of titles you can browse, one pulled forward when chosen | VHS skeuomorphism, distressed textures, decade filters |
 | The "Modern Netflix website" concept by Sandhill Studio (tall poster strips that widen on hover, a strip opening into a full-width still) | The home shelf of tall strips that widen and show the title; a title opening into its backdrop | Genre labels on strips, the side menu, the brand |
+| A game character-select screen (V2.1: a slanted column of portraits on the left, the chosen one framed, a bold full-bleed scene behind, details on the right) | The home: a slanted strip of posters down the left, the one in the middle lit with an Amber ring, its still filling the background, the question on the right | The game UI, stats bars, the flat red |
 | A cinema booking page ("01 Kong: Skull Island") | The results layout: a full-bleed backdrop, a big thin numeral next to a bold title, the other picks as posters beside it, arrows to move between them | Star ratings, showtimes, "Book now" |
 
 ## Palette
@@ -31,7 +32,7 @@ Images come only from TMDB (posters and backdrops), credited in the footer.
 
 ## Type
 
-- **One family: Inter Tight** (Google Fonts) at 200 / 400 / 500 / 700. Bold for titles and the first line of headlines; thin (200) for the numerals 01–03 and the second line of headlines ("What are you / *in the mood for?*").
+- **One family: Inter Tight** (Google Fonts) at 200 / 400 / 500 / 700. Bold for titles and the first line of headlines; regular (400) for the second line of headlines ("What are you / *in the mood for?*"); thin (200) only for the numerals 01–03. (V2.1: the second line was thin, and read faint on Night.)
 - **Indian scripts:** Noto Sans Devanagari is loaded; Tamil, Telugu, Malayalam, Kannada, Bengali and Gujarati fall back to their Noto Sans families.
 - Tabular figures for runtimes, ratings, percentages and counts.
 
@@ -45,11 +46,13 @@ Images come only from TMDB (posters and backdrops), credited in the footer.
 - Page content up to 1240px wide; 16px gutters on phones, 48px on desktop. Reading text is held to about 560–640px.
 - Radius: posters 10px, the mood box 20px, buttons and chips pill. Nothing else is rounded.
 - No drop shadows. Depth comes from the images and the scrims.
+- V2.1: the home strip leans like "/" (skewed 7° on desktop, 5° on phones); the posters inside are skewed back so faces aren't sheared. Nothing else is slanted.
+- V2.1: the one gradient light: a soft Amber glow at about 16% from the top left of the home screen, falling on the strip. Amber stays the one accent; the glow is that accent as light, not a second color.
 
 ## Screens
 
-- **Home:** headline on the left, the mood box, chips, "Find my watch" (Amber) and "Surprise me" on the right; stacked on phones. Below, the **shelf**: tall poster strips (two Indian titles for every one from elsewhere, a new mix daily) that drift slowly, widen on hover to show the title, and scroll by trackpad, swipe, drag or the ← → buttons. Tapping a poster opens its page.
-- **Results:** the focused pick's backdrop fills the screen under a scrim. On it: "For …" with "Change my mood", the numeral and title, the facts line, the honest read, why it fits (with an Amber rule), and the actions. All three posters sit beside it on desktop and above it on phones, so the three are always in view. Tapping another poster (or ← → keys) moves the focus; tapping the focused one opens its page. Under the posters, **Regenerate** (outline pill with a circular-arrow icon) brings three different picks. Below the backdrop: how it feels, tone, the four pairs, where to watch, "Read how it ends" (folded).
+- **Home (V2.1):** one screen-high scene. Desktop: a slanted strip of poster tiles down the left that drifts slowly upward; the tile at its middle is lit (full colour, Amber ring, title and year) and its still fills the background under a scrim that is darkest on the right. The question sits on the right, vertically centred: headline, mood box, chips, "Find my watch" (Amber) and "Surprise me". Phones: the strip becomes a band across the top, tilted the same way, drifting sideways; the question follows below. Hover or focus lights a tile and stops the drift; wheel, swipe or drag move the strip; a tap opens the title's page. Same daily mix of titles (two Indian for every one from elsewhere). "Find my watch" always looks ready: with nothing typed or chosen, it puts the cursor in the box and says "Type how you feel, or pick a chip, then find your watch."
+- **Results:** the focused pick's backdrop fills the screen under a scrim. On it: "For …" with "Change my mood", the numeral and title, the facts line, the honest read, why it fits (with an Amber rule), and the actions. All three posters sit beside it on desktop and above it on phones, so the three are always in view. V2.1: the scrim is darker under the posters on desktop; on phones the "For …" line wraps to two lines, and Regenerate is a quiet link beside "Change my mood" instead of a button under the posters. The facts line gives the rating without the vote count, and why it fits is one short line (16 words at most). Tapping another poster (or ← → keys) moves the focus; tapping the focused one opens its page. Under the posters, **Regenerate** (outline pill with a circular-arrow icon) brings three different picks. Below the backdrop: how it feels, tone, the four pairs, where to watch, "Read how it ends" (folded).
 - **Loading results:** the title's place says what the engine is doing ("Reading your mood…", "Looking through our honest cards…", "Weighing tone, pace and endings…", "Picking your three…"), the poster slots shuffle heavily blurred shelf posters, placeholders shimmer, and a thin Amber line runs along the top. Under reduced motion: one still line, "Finding your three…".
 - **Title search:** a search icon (a plain stroked magnifier in Muted, the one icon in the app) in the header, and the "/" key, open a full-screen Night panel with one big bold field. Matches from our catalogue appear as you type (English names, the original-language name, or the name someone asked for), with a small poster, type and year; Up/Down and Enter, or a tap, open the title's page. When we don't have it: "Make its card".
 - **A title's page** (`/title/<id>`): its backdrop, title, facts, honest read, truth note and actions; below, the details plus "Good for", "Skip it if" and "Don't go in".
@@ -70,7 +73,7 @@ The product's core idea stays the most prominent content after the title: "Looks
 
 - The backdrop crossfades (600ms) when the focus moves; the text fades and rises 12px (350ms).
 - The focused poster lifts 10px with an Amber ring.
-- Shelf strips widen on hover (450ms); the shelf drifts about 20px a second when nobody is touching it.
+- V2.1: the home strip drifts about 18px a second (16 on phones) when nobody is touching it; the lit tile's still crossfades in behind (the same 600ms backdrop crossfade); tiles brighten when lit (400ms).
 - Under `prefers-reduced-motion`, nothing drifts or fades; things simply change.
 
 ## Voice
@@ -84,4 +87,4 @@ Plain, warm, a little dry, unchanged from V1. "This one looks like a comedy. It 
 - Text over a bright part of an image without a scrim.
 - More than one Amber primary action in a view, or a second accent color.
 - The arc line looking like a chart (axes, gridlines, dots on the line).
-- Motion that doesn't answer something the person did, other than the shelf drift.
+- Motion that doesn't answer something the person did, other than the strip drift.
