@@ -8,7 +8,7 @@ import { posterUrl, primary } from '../ui.js'
 export default function Watchlist({ list, lists, onOpen, onFind }) {
   return (
     <main className="mx-auto max-w-page px-4 pt-12 pb-16 md:px-12 md:pt-16">
-      <h1 className="text-headline font-bold md:text-headline-lg">
+      <h1 className="text-headline font-medium md:text-headline-lg">
         Your <span className="font-normal">watchlist</span>
       </h1>
       {list.length === 0 ? (
@@ -31,7 +31,7 @@ export default function Watchlist({ list, lists, onOpen, onFind }) {
                     <span className="block aspect-[2/3] rounded-poster bg-night-raised bg-cover bg-center" style={{ backgroundImage: `url(${posterUrl(c)})` }} />
                   </button>
                   <div className="min-w-0 flex-1">
-                    <h2 className="text-lead font-bold md:text-[28px] md:leading-tight">
+                    <h2 className="text-lead font-medium md:text-[28px] md:leading-tight">
                       <button type="button" onClick={() => onOpen(c)} className="text-left hover:underline">{c.title}</button>
                     </h2>
                     <Facts card={c} />

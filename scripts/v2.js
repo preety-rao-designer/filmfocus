@@ -40,21 +40,29 @@ try {
     await page.getByRole('button', { name: /, see its page$/ }).first().waitFor({ timeout: 20000 })
     const posters = await page.getByRole('button', { name: /, see its page$/ }).count()
     check(posters >= 20, `${tag} strip shows posters (${posters})`)
-    const litName = () => page.locator('.tile.lit').first().getAttribute('aria-label')
-    check(Boolean(await litName()), `${tag} strip lights the tile at its middle`)
+    check((await page.locator('.tile.lit').count()) === 0, `${tag} strip singles out no film`)
     await page.getByRole('button', { name: 'Find my watch' }).click()
     check(await page.getByText('Type how you feel, or pick a chip').isVisible(), `${tag} Find my watch with no mood says what it needs`)
     check(await page.locator('textarea').evaluate((el) => el === document.activeElement), `${tag} …and puts the cursor in the box`)
-    const litBefore = await litName()
     const band = page.locator('section[aria-label^="Some of the titles"] > div').first()
+    const at = () => band.evaluate((el) => el.firstElementChild.style.transform)
+    const atBefore = await at()
     await band.evaluate((el) => el.dispatchEvent(new WheelEvent('wheel', { deltaX: 600, deltaY: 600, bubbles: true, cancelable: true })))
-    await page.waitForTimeout(300)
-    check((await litName()) !== litBefore, `${tag} wheel moves the strip`)
+    await page.waitForTimeout(100)
+    check((await at()) !== atBefore, `${tag} wheel moves the strip`)
     check(await noSideScroll(page), `${tag} home has no sideways scroll`)
     await page.screenshot({ path: `${outDir}/v2-home-${tag}.png`, fullPage: true })
 
-    // The lit tile opens its page; Back returns home.
-    const first = page.locator('.tile.lit').first()
+    // A tile in view opens its page; Back returns home.
+    const inView = await page.locator('.tile').evaluateAll((els) =>
+      els.findIndex((e) => {
+        const b = e.getBoundingClientRect()
+        const x = b.left + b.width / 2
+        const y = b.top + b.height / 2
+        return x > 40 && x < innerWidth - 40 && y > 120 && y < innerHeight - 60 && document.elementFromPoint(x, y)?.closest('.tile') === e
+      }),
+    )
+    const first = page.locator('.tile').nth(inView)
     const name = (await first.getAttribute('aria-label')).replace(', see its page', '')
     await first.click()
     await page.waitForURL(/\/title\/tmdb-/)

@@ -57,7 +57,7 @@ function LoadingLine() {
     return () => clearTimeout(t)
   }, [n])
   return (
-    <h2 className={`phrase text-[28px] font-bold leading-tight tracking-tight md:text-[40px] ${out ? 'out' : ''}`}>
+    <h2 className={`phrase text-[24px] font-medium leading-tight tracking-tight md:text-[32px] ${out ? 'out' : ''}`}>
       {still() ? 'Finding your three…' : PHRASES[n]}
     </h2>
   )
@@ -126,7 +126,7 @@ function OnDemand({ title, lists, onOpen }) {
         </button>
         <div className="min-w-0">
           <p className="text-caption text-muted">The card for “{title}” is ready</p>
-          <p className="mt-1 text-lead font-bold">{c.title}</p>
+          <p className="mt-1 text-lead font-medium">{c.title}</p>
           <p className="mt-1 text-muted">{c.honest_read.actually_is}</p>
           <div className="mt-4 flex flex-wrap gap-3">
             <button type="button" onClick={() => onOpen(c)} className={btn}>See its page</button>
@@ -360,7 +360,7 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
             <div className="flex items-start gap-4 md:gap-6">
               <span aria-hidden="true" className="text-num font-thin text-paper/40 tabular md:text-num-lg">{two(shown + 1)}</span>
               <div className="min-w-0 max-w-[1000px]">
-                {c ? <h2 className={`${titleSize(c.title)} font-bold [text-wrap:balance]`}>{c.title}</h2> : <LoadingLine />}
+                {c ? <h2 className={`${titleSize(c.title)} font-medium [text-wrap:balance]`}>{c.title}</h2> : <LoadingLine />}
                 {c ? <Facts card={c} /> : <p className="mt-3 text-caption"><Bar chars={36} /></p>}
               </div>
             </div>

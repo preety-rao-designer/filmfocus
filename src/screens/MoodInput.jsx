@@ -1,11 +1,9 @@
 import { useRef, useState } from 'react'
-import Backdrop from '../components/Backdrop.jsx'
 import Strip from '../components/Shelf.jsx'
-import { backdropUrl, chip, primary, quiet } from '../ui.js'
+import { chip, primary, quiet } from '../ui.js'
 
-// S1, Home (V2.1, docs/DESIGN_DIRECTION.md): one dramatic screen. The slanted strip of posters drifts down the left
-// (across the top on phones); the film at its middle lights up and its still fills the background. The question sits
-// on the right: headline, mood box, chips, "Find my watch" and "Surprise me". The row holds one chip per question;
+// S1, Home (V2.1, docs/DESIGN_DIRECTION.md): one screen in front of a maroon velvet curtain with a spotlight from the
+// top. The slanted strip of posters drifts down the left (across the top on phones). The question sits on the right: headline, mood box, chips, "Find my watch" and "Surprise me". The row holds one chip per question;
 // tapping a chip opens its answers under the row, and a chosen chip shows the answer.
 
 export const CHIP_GROUPS = [
@@ -44,7 +42,6 @@ export const CHIP_GROUPS = [
 
 export default function MoodInput({ text, chips, onText, onChip, onFind, onSurprise, onOpen, children }) {
   const [open, setOpen] = useState(null)
-  const [lit, setLit] = useState(null)
   const [nudge, setNudge] = useState(false)
   const box = useRef(null)
   const canFind = text.trim().length > 0 || Object.values(chips).some(Boolean)
@@ -58,8 +55,8 @@ export default function MoodInput({ text, chips, onText, onChip, onFind, onSurpr
   return (
     <main>
       <section className="relative overflow-hidden md:min-h-[100svh]">
-        <Backdrop url={backdropUrl(lit)} scrim="scrim-home" />
-        <Strip onOpen={onOpen} onFocus={setLit} />
+        <div aria-hidden="true" className="velvet absolute inset-0" />
+        <Strip onOpen={onOpen} />
       <form
         className="relative mx-auto max-w-page px-4 pt-6 pb-12 md:flex md:min-h-[100svh] md:items-center md:py-[112px] md:pr-12 md:pl-[calc(4vw+330px)] lg:pl-[calc(4vw+390px)]"
         onSubmit={(e) => {
@@ -68,7 +65,7 @@ export default function MoodInput({ text, chips, onText, onChip, onFind, onSurpr
         }}
       >
         <div className="w-full max-w-[600px]">
-        <h1 id="mood-heading" className="mb-6 text-headline font-bold md:mb-8 md:text-headline-lg">
+        <h1 id="mood-heading" className="mb-6 text-headline font-medium md:mb-8 md:text-headline-lg">
           What are you <span className="block font-normal">in the mood for?</span>
         </h1>
 

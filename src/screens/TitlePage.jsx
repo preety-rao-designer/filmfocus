@@ -54,7 +54,7 @@ export default function TitlePage({ id, known, lists, onBack, onFind }) {
         <Backdrop url={backdropUrl(c)} />
         <div className="relative mx-auto w-full max-w-page px-4 pt-[22vh] pb-8 md:px-12 md:pt-[120px] md:pb-12">
           <div className="mb-3">{back}</div>
-          <h1 className={`max-w-[1000px] ${titleSize(c.title)} font-bold [text-wrap:balance]`}>{c.title}</h1>
+          <h1 className={`max-w-[1000px] ${titleSize(c.title)} font-medium [text-wrap:balance]`}>{c.title}</h1>
           <div className="max-w-[640px]">
             <Facts card={c} />
             <HonestRead card={c} />

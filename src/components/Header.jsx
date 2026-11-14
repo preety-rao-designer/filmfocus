@@ -15,7 +15,7 @@ export default function Header({ onHome, onPrefs, onWatchlist, onCompare, onSear
             e.preventDefault()
             onHome()
           }}
-          className="text-body font-bold tracking-tight text-paper"
+          className="text-body font-medium tracking-tight text-paper"
         >
           Film<span className="text-amber">Focus</span>
         </a>

@@ -2,11 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import { posterUrl } from '../ui.js'
 
 // The home strip (V2.1, docs/DESIGN_DIRECTION.md): poster tiles in a slanted band that drifts slowly, like a reel
-// running past. The tile at the middle of the band is "on": full colour, an Amber ring, its title, and its still
-// fills the home background (onFocus). Desktop: a vertical band down the left side, leaning like "/". Phones: a band
-// across the top, tilted the same way. Hover or focus puts a tile on and stops the drift; wheel, swipe or drag move it;
-// a tap opens the title's page. It loops: the list is there twice and the offset wraps. Under reduced motion it
-// doesn't drift.
+// running past, in front of the velvet curtain. No tile is singled out. Desktop: a vertical band down the left side,
+// leaning like "/". Phones: a band across the top, tilted the same way. Hover or focus shows a tile's title and stops
+// the drift; wheel, swipe or drag move it; a tap opens the title's page. It loops: the list is there twice and the
+// offset wraps. Under reduced motion it doesn't drift.
 
 // One request per visit, shared with the results loading state (its slots shuffle these posters).
 let shelfPromise = null
@@ -24,10 +23,9 @@ export function loadShelf() {
 const GAP = 10
 const SIZES = { y: { tile: 176, speed: 18 }, x: { tile: 104, speed: 16 } } // px along the band, px a second
 
-export default function Strip({ onOpen, onFocus }) {
+export default function Strip({ onOpen }) {
   const [items, setItems] = useState([])
   const [axis, setAxis] = useState(() => (window.matchMedia('(min-width: 900px)').matches ? 'y' : 'x'))
-  const [on, setOn] = useState(0)
   const band = useRef(null)
   const track = useRef(null)
   const s = useRef({ offset: 0, hover: null, until: 0, drag: null, dragEnded: 0 })
@@ -45,10 +43,6 @@ export default function Strip({ onOpen, onFocus }) {
   }, [])
 
   useEffect(() => {
-    if (items[on]) onFocus?.(items[on])
-  }, [on, items])
-
-  useEffect(() => {
     const el = band.current
     const tr = track.current
     if (!el || !tr || !items.length) return
@@ -58,14 +52,10 @@ export default function Strip({ onOpen, onFocus }) {
     const loop = items.length * step
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const length = () => (axis === 'y' ? el.clientHeight : el.clientWidth)
-    // The tile nearest the middle of the band is on (unless one is hovered or focused).
-    const middle = () => (((Math.round((length() / 2 + st.offset - tile / 2) / step) % items.length) + items.length) % items.length)
     const place = () => {
       st.offset = ((st.offset % loop) + loop) % loop
       tr.style.transform = axis === 'y' ? `translate3d(0, ${-st.offset}px, 0)` : `translate3d(${-st.offset}px, 0, 0)`
-      if (st.hover === null) setOn(middle())
     }
-    // Start with a tile centred.
     st.offset = Math.max(0, tile / 2 - length() / 2 + step * 2)
     place()
     let raf
@@ -117,7 +107,6 @@ export default function Strip({ onOpen, onFocus }) {
 
   const hoverOn = (i) => {
     s.current.hover = i
-    setOn(i)
   }
   const hoverOff = () => {
     s.current.hover = null
@@ -135,7 +124,6 @@ export default function Strip({ onOpen, onFocus }) {
         <ul ref={track} className={`flex ${y ? 'flex-col' : 'h-full items-center'}`} style={{ gap: `${GAP}px` }}>
           {[...items, ...items].map((item, i) => {
             const n = i % items.length
-            const lit = n === on
             const copy = i >= items.length
             return (
               <li key={`${item.id}-${i}`} className="shrink-0" style={y ? { height: tile } : { width: tile, height: 156 }} aria-hidden={copy || undefined}>
@@ -149,12 +137,11 @@ export default function Strip({ onOpen, onFocus }) {
                   onBlur={hoverOff}
                   onClick={() => performance.now() - s.current.dragEnded > 250 && onOpen(item)}
                   aria-label={`${item.title}, see its page`}
-                  className={`tile relative block h-full w-full overflow-hidden rounded-poster bg-night-raised ${lit ? 'lit' : ''}`}
+                  className="tile group relative block h-full w-full overflow-hidden rounded-poster bg-night-raised"
                 >
                   <span className="tile-img absolute inset-0 bg-cover bg-[center_22%]" style={{ backgroundImage: `url(${posterUrl(item)})` }} />
-                  <span className={`absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-night/90 transition-opacity ${lit ? 'opacity-100' : 'opacity-0'}`} />
-                  {lit && <span aria-hidden="true" className="absolute inset-0 rounded-poster ring-2 ring-inset ring-amber" />}
-                  <span className={`tile-label absolute inset-x-3 bottom-3 text-left text-caption font-medium leading-tight transition-opacity ${lit ? 'opacity-100' : 'opacity-0'}`}>
+                  <span className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-night/90 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100" />
+                  <span className="tile-label absolute inset-x-3 bottom-3 text-left text-caption font-medium leading-tight opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
                     <span className="line-clamp-2">{item.title}</span>
                     <span className="block text-label font-normal text-muted tabular">{item.year}</span>
                   </span>

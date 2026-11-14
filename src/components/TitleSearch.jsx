@@ -119,7 +119,7 @@ export default function TitleSearch({ onOpen, onClose }) {
             aria-controls="search-results"
             aria-activedescendant={items[active] ? `found-${items[active].id}` : undefined}
             autoComplete="off"
-            className="min-w-0 flex-1 bg-transparent text-title font-bold text-paper outline-none placeholder:font-thin placeholder:text-muted md:text-title-lg"
+            className="min-w-0 flex-1 bg-transparent text-title font-medium text-paper outline-none placeholder:font-thin placeholder:text-muted md:text-title-lg"
           />
         </form>
 
@@ -139,7 +139,7 @@ export default function TitleSearch({ onOpen, onClose }) {
                   <span className="block aspect-[2/3] rounded-poster bg-night-raised bg-cover bg-center" style={posterUrl(it, 'w92') ? { backgroundImage: `url(${posterUrl(it, 'w92')})` } : undefined} />
                 </span>
                 <span className="min-w-0">
-                  <span className="block truncate text-lead font-bold">{it.title}</span>
+                  <span className="block truncate text-lead font-medium">{it.title}</span>
                   <span className="block truncate text-caption text-muted tabular">
                     {it.type === 'series' ? 'Series' : 'Movie'} · {it.year}
                     {it.original_title && it.original_title !== it.title ? ` · ${it.original_title}` : ''}

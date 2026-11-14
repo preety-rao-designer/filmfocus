@@ -22,7 +22,7 @@ const ROWS = [
 
 export default function Compare({ list, onRemove, onClear, onFind, onOpen }) {
   const heading = (
-    <h1 className="text-headline font-bold md:text-headline-lg">
+    <h1 className="text-headline font-medium md:text-headline-lg">
       Com<span className="font-normal">pare</span>
     </h1>
   )
@@ -62,7 +62,7 @@ export default function Compare({ list, onRemove, onClear, onFind, onOpen }) {
                   <button type="button" onClick={() => onOpen(c)} aria-label={`${c.title}, see its page`} className="block w-[96px] md:w-[140px]">
                     <span className="block aspect-[2/3] rounded-poster bg-night-raised bg-cover bg-center" style={{ backgroundImage: `url(${posterUrl(c)})` }} />
                   </button>
-                  <span className="mt-3 block text-lead font-bold">{c.title}</span>
+                  <span className="mt-3 block text-lead font-medium">{c.title}</span>
                   <span className="block text-caption text-muted tabular">{c.year}</span>
                   <button type="button" onClick={() => onRemove(c)} className={`${quiet} text-caption`}>
                     Remove<span className="sr-only"> {c.title}</span>

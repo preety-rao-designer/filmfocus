@@ -4,7 +4,7 @@ export const btn =
   'hover:border-paper disabled:opacity-50 disabled:hover:border-line ' +
   'aria-pressed:border-paper aria-pressed:bg-paper aria-pressed:text-night'
 export const primary =
-  'inline-flex min-h-[48px] items-center justify-center gap-2 rounded-pill bg-amber px-6 text-body font-bold text-night ' +
+  'inline-flex min-h-[48px] items-center justify-center gap-2 rounded-pill bg-amber px-6 text-body font-medium text-night ' +
   'hover:bg-amber-hover disabled:opacity-50 disabled:hover:bg-amber'
 export const chip =
   'inline-flex min-h-[44px] items-center rounded-pill border border-line bg-paper/5 px-4 text-caption text-paper hover:border-paper ' +
@@ -23,6 +23,6 @@ export const two = (n) => String(n).padStart(2, '0')
 // Title size by length: short titles get the full display size; long ones ("The Lord of the Rings: The Fellowship of
 // the Ring") step down so they sit on one or two lines instead of four.
 export const titleSize = (title = '') =>
-  title.length > 40 ? 'text-[28px] leading-[1.05] tracking-tight md:text-[40px]'
-  : title.length > 24 ? 'text-[30px] leading-[1.03] tracking-tight md:text-[46px]'
+  title.length > 40 ? 'text-[24px] leading-[1.1] tracking-tight md:text-[32px]'
+  : title.length > 24 ? 'text-[26px] leading-[1.08] tracking-tight md:text-[38px]'
   : 'text-title md:text-title-lg'

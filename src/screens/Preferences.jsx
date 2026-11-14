@@ -19,7 +19,7 @@ export default function Preferences({ initial, firstRun, onSave, onSkip }) {
         onSave({ platforms, languages, subtitles_ok: subtitlesOk })
       }}
     >
-      <h1 className="max-w-[900px] text-headline font-bold [text-wrap:balance] md:text-headline-lg">
+      <h1 className="max-w-[900px] text-headline font-medium [text-wrap:balance] md:text-headline-lg">
         {firstRun ? <>First, <span className="font-normal">what do you watch on?</span></> : <>What you <span className="font-normal">watch on</span></>}
       </h1>
       <p className="mt-4 max-w-read text-lead text-muted">So your three are things you can press play on tonight. Saved in this browser only.</p>

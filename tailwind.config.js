@@ -11,6 +11,8 @@ export default {
       muted: '#A9A19A',
       amber: { DEFAULT: '#F5B841', hover: '#FFC85C' },
       line: 'rgba(244,239,233,.14)',
+      // V2.1: the home curtain. Velvet maroon from deep shadow to the lit fold.
+      velvet: { deep: '#1C0508', DEFAULT: '#4A0D15', lit: '#8E2430' },
     },
     fontFamily: {
       sans: ['"Inter Tight"', '"Noto Sans Devanagari"', '"Noto Sans Tamil"', '"Noto Sans Telugu"', '"Noto Sans Malayalam"', '"Noto Sans Kannada"', '"Noto Sans Bengali"', '"Noto Sans Gujarati"', 'system-ui', 'sans-serif'],
@@ -23,12 +25,12 @@ export default {
       body: ['16px', { lineHeight: '1.5' }],
       read: ['20px', { lineHeight: '1.4' }],
       'read-lg': ['24px', { lineHeight: '1.35', letterSpacing: '-.01em' }],
-      title: ['34px', { lineHeight: '1.02', letterSpacing: '-.03em' }],
-      'title-lg': ['54px', { lineHeight: '1.02', letterSpacing: '-.03em' }],
-      headline: ['44px', { lineHeight: '1.02', letterSpacing: '-.035em' }],
-      'headline-lg': ['80px', { lineHeight: '1.02', letterSpacing: '-.035em' }],
-      num: ['56px', { lineHeight: '.85', letterSpacing: '-.05em' }],
-      'num-lg': ['88px', { lineHeight: '.85', letterSpacing: '-.05em' }],
+      title: ['30px', { lineHeight: '1.08', letterSpacing: '-.02em' }],
+      'title-lg': ['44px', { lineHeight: '1.06', letterSpacing: '-.02em' }],
+      headline: ['32px', { lineHeight: '1.1', letterSpacing: '-.02em' }],
+      'headline-lg': ['52px', { lineHeight: '1.06', letterSpacing: '-.025em' }],
+      num: ['44px', { lineHeight: '.9', letterSpacing: '-.04em' }],
+      'num-lg': ['64px', { lineHeight: '.9', letterSpacing: '-.04em' }],
     },
     spacing: {
       0: '0', px: '1px', 0.5: '2px', 1: '4px', 2: '8px', 3: '12px', 4: '16px', 5: '20px', 6: '24px', 8: '32px', 12: '48px', 16: '64px',
