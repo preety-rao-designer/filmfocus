@@ -203,7 +203,7 @@ function Poster({ pick, i, current, loading, onClick }) {
 }
 
 export default function Results({ text, chips, view, batch, onOthers, onChangeMood, onRetry, onAnswer, onLoosen, lists, onOpen }) {
-  const { status, picks = [], followup, noMatch, error, missingTitle, dubbedIn } = view
+  const { status, picks = [], followup, noMatch, error, missingTitle, dubbedIn, unmet } = view
   const loading = status === 'loading'
   const [cur, setCur] = useState(0)
   const [shown, setShown] = useState(0)
@@ -325,6 +325,12 @@ export default function Results({ text, chips, view, batch, onOthers, onChangeMo
         <div className="relative mx-auto flex w-full max-w-page flex-col px-4 pt-[22vh] pb-8 md:grid md:grid-cols-[minmax(0,560px)_1fr] md:items-end md:gap-x-12 md:gap-y-0 md:px-12 md:pt-[120px] md:pb-12">
           <div className="order-1 mb-6 md:col-start-1 md:row-start-1 md:mb-8">
             {forLine}
+            {/* Honest about gaps: when nothing we hold has what they asked for, say so before the picks do. */}
+            {status === 'ready' && unmet && (
+              <p className="mt-3 max-w-read text-body text-paper">
+                Nothing we have is {unmet} yet, so these are the closest.
+              </p>
+            )}
             {/* We hold no dubbing data, so a dub request is said out loud rather than quietly ignored. */}
             {status === 'ready' && dubbedIn && (
               <p className="mt-2 max-w-read text-caption text-muted">

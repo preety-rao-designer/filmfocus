@@ -38558,5 +38558,3547 @@
    "generated_at": "2026-10-03",
    "refresh_after": null
   }
+ },
+ {
+  "id": "tmdb-movie-1581",
+  "tmdb_id": 1581,
+  "type": "movie",
+  "title": "The Holiday",
+  "original_title": "The Holiday",
+  "year": 2006,
+  "runtime_min": 136,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/h1ITOpvJN3Tw4Sy60w2QTfYMvdd.jpg",
+  "backdrop_path": "/9Ebn8atCcGk5OZrx4xmoTobAxoh.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.1,
+   "votes": 5840
+  },
+  "watch_in": [
+   "Prime Video"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A glossy, star-studded holiday romance about two women finding love in picturesque winter settings.",
+   "actually_is": "A very long, comforting festive romance that leans hard into predictable plot beats while relying heavily on the undeniable charm and chemistry of its lead actors."
+  },
+  "expectation_traps": [
+   "You might expect a brisk, breezy ninety-minute comedy instead of a sprawling over-two-hour runtime.",
+   "You could think it is a clever subversion of rom-com tropes rather than a very traditional one."
+  ],
+  "tone_mix": [
+   {
+    "tone": "romantic",
+    "pct": 40
+   },
+   {
+    "tone": "warm",
+    "pct": 35
+   },
+   {
+    "tone": "hopeful",
+    "pct": 25
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "heartbroken",
+   "middle": "cozy",
+   "end": "hopeful"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Iris rejects her cheating ex and accepts an invitation to spend New Year's Eve with Miles. Amanda returns to Graham after crying on her way to the airport, realizing she loves him. All four adults and Graham's two young daughters gather together at his English home to celebrate the New Year.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "sexual_content",
+   "strong_language"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "holiday viewing",
+   "a cozy night in"
+  ],
+  "skip_if": [
+   "you want a brisk runtime",
+   "you hate predictable plots"
+  ],
+  "vibe": "Two heartbroken women swap homes across the Atlantic for the holidays, stumbling into unexpected romances in snowy English cottages and sunny California estates. It is a long, comforting festive watch that prioritizes cozy atmosphere and charismatic performances over narrative surprises.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-508",
+  "tmdb_id": 508,
+  "type": "movie",
+  "title": "Love Actually",
+  "original_title": "Love Actually",
+  "year": 2003,
+  "runtime_min": 135,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/7QPeVsr9rcFU9Gl90yg0gTOTpVv.jpg",
+  "backdrop_path": "/xUWf5xX0AnZgAnYXAMk03zTbsef.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.1,
+   "votes": 7680
+  },
+  "watch_in": [],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A cozy, star-studded British holiday romance about a dozen people finding love in London.",
+   "actually_is": "A sprawling mosaic of interconnected holiday tales where dizzying romantic highs sit right alongside profound marital heartbreak and awkward, boundary-crossing pursuits."
+  },
+  "expectation_traps": [
+   "People expect a light, continuous holiday comedy throughout, but several storylines deliver sharp emotional stings about infidelity and grief.",
+   "It looks like a simple ensemble romance, but some of the grand romantic gestures actually border on uncomfortable boundary-crossing."
+  ],
+  "tone_mix": [
+   {
+    "tone": "warm",
+    "pct": 35
+   },
+   {
+    "tone": "romantic",
+    "pct": 30
+   },
+   {
+    "tone": "funny",
+    "pct": 20
+   },
+   {
+    "tone": "melancholy",
+    "pct": 15
+   }
+  ],
+  "arc": {
+   "shape": "rise_fall_rise",
+   "start": "hopeful",
+   "middle": "uneven",
+   "end": "joyful"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Characters eventually converge at Heathrow Airport where relationships are repaired or cemented after months of separation. A grieving stepson successfully confesses his feelings, the Prime Minister proudly goes public with his partner, and an aging rock star chooses his loyal manager over a celebrity party.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [
+   "strong_language",
+   "sexual_content",
+   "disturbing_themes"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "holiday movie nights",
+   "fans of sprawling ensemble casts"
+  ],
+  "skip_if": [
+   "you want a single, tightly focused narrative",
+   "stories about marital infidelity are a sore subject"
+  ],
+  "vibe": "A frantic festive countdown in London tracking multiple separate stories about the many complicated faces of romantic, platonic, and unrequited love.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-508965",
+  "tmdb_id": 508965,
+  "type": "movie",
+  "title": "Klaus",
+  "original_title": "Klaus",
+  "year": 2019,
+  "runtime_min": 97,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/q125RHUDgR4gjwh1QkfYuJLYkL.jpg",
+  "backdrop_path": "/cYQvXNPZLow73lhspVQ7CYlT3Mi.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 8.2,
+   "votes": 4923
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "An original fictional narrative exploring an invented origin story for Santa Claus."
+  },
+  "honest_read": {
+   "looks_like": "A generic, sugary Christmas cartoon about how Santa Claus got his start.",
+   "actually_is": "A surprisingly sharp, beautifully hand-drawn animated feature that blends dry comedy with genuine emotional depth."
+  },
+  "expectation_traps": [
+   "You might think it is just another disposable holiday cash-grab.",
+   "You might expect a mindless comedy without any real dramatic weight."
+  ],
+  "tone_mix": [
+   {
+    "tone": "warm",
+    "pct": 40
+   },
+   {
+    "tone": "funny",
+    "pct": 30
+   },
+   {
+    "tone": "uplifting",
+    "pct": 30
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "cynical",
+   "middle": "hopeful",
+   "end": "uplifting"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Jesper and Klaus manage to save the holiday toys from a rival clan's destructive plot. The town's feuding families finally reconcile, and Jesper settles down with the local teacher. He and Klaus spend years delivering presents together before Klaus quietly vanishes, returning every Christmas Eve to keep the magic alive.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "full_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [],
+  "family": "family_ok",
+  "good_for": [
+   "family movie night",
+   "holiday viewing"
+  ],
+  "skip_if": [
+   "you are strictly looking for live-action cinema"
+  ],
+  "vibe": "A spoiled postman is exiled to a perpetually gloomy northern outpost where an accidental partnership with a grumpy woodcutter melts a bitterly divided town. Their secret toy deliveries spark an unexpected chain reaction of kindness and community healing.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-549053",
+  "tmdb_id": 549053,
+  "type": "movie",
+  "title": "Last Christmas",
+  "original_title": "Last Christmas",
+  "year": 2019,
+  "runtime_min": 103,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/kDEjffiKgjuGo2DRzsqfjvW0CQh.jpg",
+  "backdrop_path": "/qIjyBgsMDbpeEO3CJx7vxVn4KO8.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.2,
+   "votes": 2715
+  },
+  "watch_in": [
+   "Prime Video"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Based on the 1984 Wham! song and a story concept by Emma Thompson and Greg Wise."
+  },
+  "honest_read": {
+   "looks_like": "A bubbly, festive London romcom starring charming leads wrapped in holiday cheer.",
+   "actually_is": "A clunky holiday drama masquerading as a cute romance, pairing quirky London charm with heavy medical baggage and a major twist."
+  },
+  "expectation_traps": [
+   "You think you are getting a breezy, lighthearted holiday romance.",
+   "You might expect the mysterious love interest to just be playing hard to get."
+  ],
+  "tone_mix": [
+   {
+    "tone": "romantic",
+    "pct": 35
+   },
+   {
+    "tone": "whimsical",
+    "pct": 25
+   },
+   {
+    "tone": "melancholy",
+    "pct": 25
+   },
+   {
+    "tone": "hopeful",
+    "pct": 15
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "messy",
+   "middle": "heavy",
+   "end": "hopeful"
+  },
+  "ending": "bittersweet",
+  "spoiler_ending": "Kate discovers that Tom actually died in an accident a year prior and is now a spirit. She realizes that she received his heart in a transplant, making him the donor keeping her alive. On Christmas Eve, she puts on a show with the people from the homeless shelter and honours Tom's memory by looking up and smiling.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [
+   "substance_use"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "a cozy weekend night",
+   "holiday viewing with friends"
+  ],
+  "skip_if": [
+   "you hate predictable holiday movie twists",
+   "you want a realistic, grounded romance"
+  ],
+  "vibe": "A disillusioned London worker bounces between dead-end jobs and family friction until a strange courier changes her perspective. Backed by George Michael tunes, it mixes holiday cheer with medical tragedy.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-771",
+  "tmdb_id": 771,
+  "type": "movie",
+  "title": "Home Alone",
+  "original_title": "Home Alone",
+  "year": 1990,
+  "runtime_min": 103,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/onTSipZ8R3bliBdKfPtsDuHTdlL.jpg",
+  "backdrop_path": "/ih2xVgeMS8R5WUetYE8Mr9hVTlB.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.5,
+   "votes": 13065
+  },
+  "watch_in": [
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A heartwarming holiday comedy about a clever boy defending his grand house from clumsy thieves.",
+   "actually_is": "A slapstick-heavy Christmas caper that pairs gleeful wish fulfillment with a surprisingly tender story about family and loneliness."
+  },
+  "expectation_traps": [
+   "You might expect a cozy family watch, but it features plenty of cartoonish violence and adult-bashing.",
+   "It feels like a light romp, but it spends a lot of time on genuine childhood isolation."
+  ],
+  "tone_mix": [
+   {
+    "tone": "funny",
+    "pct": 40
+   },
+   {
+    "tone": "warm",
+    "pct": 30
+   },
+   {
+    "tone": "nostalgic",
+    "pct": 30
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "abandoned",
+   "middle": "defiant",
+   "end": "reunited"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Kevin spends Christmas Eve setting elaborate booby traps that injure two bumbling burglars. After the thieves are caught by the police and an elderly neighbor, Kevin wakes up on Christmas morning to a joyful reunion with his returned family.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "violence"
+  ],
+  "family": "family_ok",
+  "good_for": [
+   "holiday movie nights",
+   "watching with kids"
+  ],
+  "skip_if": [
+   "you dislike slapstick comedy"
+  ],
+  "vibe": "An accidental solo vacation for an eight-year-old turns into a suburban battleground when two robbers target his house. Amidst the traps, he learns to appreciate the family he wished away.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-10719",
+  "tmdb_id": 10719,
+  "type": "movie",
+  "title": "Elf",
+  "original_title": "Elf",
+  "year": 2003,
+  "runtime_min": 97,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/oOleziEempUPu96jkGs0Pj6tKxj.jpg",
+  "backdrop_path": "/5nhp41gx49vXjwXuDXJwQrRFsng.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.7,
+   "votes": 4773
+  },
+  "watch_in": [],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A goofy, high-concept holiday comedy about a grown man living as an elf.",
+   "actually_is": "A surprisingly warm, witty festive treat powered by an unhinged yet totally sincere lead performance that avoids cheap holiday sentimentality."
+  },
+  "expectation_traps": [
+   "You might expect a clunky, obnoxious kids movie with low-effort gags.",
+   "You could think it relies entirely on a single one-note costume joke."
+  ],
+  "tone_mix": [
+   {
+    "tone": "warm",
+    "pct": 40
+   },
+   {
+    "tone": "funny",
+    "pct": 35
+   },
+   {
+    "tone": "whimsical",
+    "pct": 25
+   }
+  ],
+  "arc": {
+   "shape": "rise",
+   "start": "skeptical",
+   "middle": "charmed",
+   "end": "joyful"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Buddy travels to New York to find his birth father, facing several personal setbacks and getting disowned along the way. He ends up helping Santa in Central Park, where a crowd joins in singing to power the sleigh. By the following year, his father has changed his life, and Buddy is happily married with a child, visiting the North Pole.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [],
+  "family": "family_ok",
+  "good_for": [
+   "holiday movie nights",
+   "cheering yourself up"
+  ],
+  "skip_if": [
+   "you are allergic to unbridled festive cheer"
+  ],
+  "vibe": "A human raised in the North Pole travels to New York City to find his cynical biological father, bringing absolute chaos and genuine heart along the way.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-tv-2316",
+  "tmdb_id": 2316,
+  "type": "series",
+  "title": "The Office",
+  "original_title": "The Office",
+  "year": 2005,
+  "runtime_min": null,
+  "series": {
+   "seasons": 9,
+   "episode_min": 23,
+   "status": "ended",
+   "style": "episodic",
+   "gets_good_after": null,
+   "later_seasons_note": null
+  },
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/7DJKHzAi83BmQrWLrYYOqcoKfhR.jpg",
+  "backdrop_path": "/9vMzIrMIncPmtalcxh1MOrgcE6C.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 8.6,
+   "votes": 5705
+  },
+  "watch_in": [
+   "Netflix",
+   "Prime Video",
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Adapted from the British television series of the same name created by Ricky Gervais and Stephen Merchant."
+  },
+  "honest_read": {
+   "looks_like": "A breezy workplace comedy about a goofy boss and his stressed employees.",
+   "actually_is": "A mockumentary that shifts from an awkward, deadpan British copy into a sharp, absurd look at American corporate life and surprisingly tender coworker relationships."
+  },
+  "expectation_traps": [
+   "Thinking the painful awkwardness of the first season represents the whole run",
+   "Expecting every season to match the sharp high point of the middle years"
+  ],
+  "tone_mix": [
+   {
+    "tone": "funny",
+    "pct": 45
+   },
+   {
+    "tone": "warm",
+    "pct": 30
+   },
+   {
+    "tone": "melancholy",
+    "pct": 25
+   }
+  ],
+  "arc": {
+   "shape": "rise",
+   "start": "uneasy",
+   "middle": "sharp",
+   "end": "fond"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "The long-running documentary project finally reaches its conclusion in a two-part series finale that brings the paper company employees back together.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [],
+  "family": "teens_up",
+  "good_for": [
+   "unwinding after a long workday",
+   "long-term viewing"
+  ],
+  "skip_if": [
+   "you dislike early-season cringe humor"
+  ],
+  "vibe": "Follows the daily routines and absurd interpersonal dynamics of paper company employees in Scranton through a mockumentary lens. It grows from a rocky start into a beloved, long-running portrait of workplace affection and incompetence.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 9,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-360920",
+  "tmdb_id": 360920,
+  "type": "movie",
+  "title": "The Grinch",
+  "original_title": "The Grinch",
+  "year": 2018,
+  "runtime_min": 85,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/Al7DMUp8bqUN4JwXVNxfJYyv5cH.jpg",
+  "backdrop_path": "/5lWIYxYEqWi8j3ZloxXntw3ImBo.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.9,
+   "votes": 4575
+  },
+  "watch_in": [
+   "Prime Video",
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Adapted from the Dr. Seuss children's book How the Grinch Stole Christmas!"
+  },
+  "honest_read": {
+   "looks_like": "Bright, colorful animated adaptation of the holiday classic.",
+   "actually_is": "A smooth, highly polished retelling of the classic festive fable that leans heavily on bright visual gags and sweet, simple redemption."
+  },
+  "expectation_traps": [
+   "You might expect it to have the biting sarcasm of the original book.",
+   "You might think it breaks entirely new ground beyond earlier adaptations."
+  ],
+  "tone_mix": [
+   {
+    "tone": "warm",
+    "pct": 40
+   },
+   {
+    "tone": "whimsical",
+    "pct": 30
+   },
+   {
+    "tone": "funny",
+    "pct": 20
+   },
+   {
+    "tone": "hopeful",
+    "pct": 10
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "grumpy",
+   "middle": "lonely",
+   "end": "joyful"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "After stealing all the gifts and decorations from Whoville, the Grinch watches the townspeople sing happily without them. Moved by the music and a young girl's kindness, his shrunken heart triples in size. He saves the stolen sleigh from falling off the mountain, returns everything to the town, and is invited to celebrate Christmas dinner with them.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [],
+  "family": "family_ok",
+  "good_for": [
+   "watching with younger kids",
+   "holiday movie nights"
+  ],
+  "skip_if": [
+   "you want the sharper edge of older adaptations"
+  ],
+  "vibe": "A grumpy green recluse plots to ruin the festive season for a cheerful mountain town. Along the way, a little girl's kindness slowly thaws his isolated heart.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-5255",
+  "tmdb_id": 5255,
+  "type": "movie",
+  "title": "The Polar Express",
+  "original_title": "The Polar Express",
+  "year": 2004,
+  "runtime_min": 100,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/eOoCzH0MqeGr2taUZO4SwG416PF.jpg",
+  "backdrop_path": "/jtOvTVlkF8TlaOq94oNXRc9u2yp.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.7,
+   "votes": 7139
+  },
+  "watch_in": [
+   "Netflix",
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Adapted from a popular holiday picture book written and illustrated by Chris Van Allsburg."
+  },
+  "honest_read": {
+   "looks_like": "A cosy, heartwarming animated holiday adventure about a magical train ride to see Santa.",
+   "actually_is": "A visually striking and occasionally eerie holiday journey that pairs childlike wonder with high-stress mechanical perils and unsettling character animation."
+  },
+  "expectation_traps": [
+   "expecting a mindless and purely cozy cartoon for young kids",
+   "assuming the human animation will feel warm and natural"
+  ],
+  "tone_mix": [
+   {
+    "tone": "nostalgic",
+    "pct": 40
+   },
+   {
+    "tone": "thrilling",
+    "pct": 30
+   },
+   {
+    "tone": "dark",
+    "pct": 30
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "skeptical",
+   "middle": "perilous",
+   "end": "faithful"
+  },
+  "ending": "bittersweet",
+  "spoiler_ending": "A young boy takes a magical train to the North Pole and receives a special bell from Santa as the first gift of Christmas. He accidentally loses it on the way home, but finds it under his tree the next morning. Years later, while others have lost their ability to hear it, he can still hear the bell ring because of his enduring belief.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [],
+  "family": "family_ok",
+  "good_for": [
+   "holiday movie nights",
+   "reliving childhood wonder"
+  ],
+  "skip_if": [
+   "uncanny valley animation creeps you out"
+  ],
+  "vibe": "On Christmas Eve, a skeptical boy boards a mysterious steam train bound forice and snow towards the North Pole, embarking on an eventful journey that tests his belief in holiday magic.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-483104",
+  "tmdb_id": 483104,
+  "type": "movie",
+  "title": "A Christmas Prince",
+  "original_title": "A Christmas Prince",
+  "year": 2017,
+  "runtime_min": 92,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/x0IGQsMzVbsF7noj5cCfEk1GU7s.jpg",
+  "backdrop_path": "/mNjoA9jDNbxPJqeYmeETLStpYZF.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.6,
+   "votes": 1495
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A glossy holiday romance about an undercover journalist and a reluctant prince.",
+   "actually_is": "A delightfully cheesy, completely predictable holiday confection that leans hard into every made-for-TV cliché without a hint of irony."
+  },
+  "expectation_traps": [
+   "You might expect a sharp satire of royal romance tropes, but it plays them completely straight.",
+   "You might think the undercover journalism plot involves real investigation, but it relies almost entirely on snooping around empty rooms."
+  ],
+  "tone_mix": [
+   {
+    "tone": "romantic",
+    "pct": 45
+   },
+   {
+    "tone": "warm",
+    "pct": 35
+   },
+   {
+    "tone": "hopeful",
+    "pct": 20
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "hopeful",
+   "middle": "tense",
+   "end": "uplifting"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Amber discovers the prince was secretly adopted and faces heartbreak when her undercover identity is exposed at the coronation ball. She eventually tracks down a hidden document proving he is the true heir, saving his crown from a rival. Back in New York, the newly minted king surprises her at her father's diner to propose.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "background_ok",
+   "emotional_weight": 2
+  },
+  "content_flags": [],
+  "family": "family_ok",
+  "good_for": [
+   "holiday movie marathons",
+   "mindless comfort viewing"
+  ],
+  "skip_if": [
+   "you want grounded storytelling"
+  ],
+  "vibe": "An American magazine writer sneaks into a snowy European palace disguised as a tutor to scope out a playboy prince. She ends up tangled in royal politics, hidden documents, and an unexpected romance.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-556803",
+  "tmdb_id": 556803,
+  "type": "movie",
+  "title": "The Princess Switch",
+  "original_title": "The Princess Switch",
+  "year": 2018,
+  "runtime_min": 101,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/A8XgZE8CsHiYN243MEd07GLCep.jpg",
+  "backdrop_path": "/iHbHTn6awwTTu9kcfBe2hkTuWXS.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7,
+   "votes": 2310
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A cheerful holiday romance about lookalikes trading places for Christmas.",
+   "actually_is": "A frothy, low-budget holiday confection built entirely on twin-swap tropes, charming lead performances, and predictable festive cheer."
+  },
+  "expectation_traps": [
+   "You might expect a polished studio rom-com, but it leans heavily into cheap television territory."
+  ],
+  "tone_mix": [
+   {
+    "tone": "warm",
+    "pct": 40
+   },
+   {
+    "tone": "romantic",
+    "pct": 30
+   },
+   {
+    "tone": "funny",
+    "pct": 30
+   }
+  ],
+  "arc": {
+   "shape": "rise",
+   "start": "curious",
+   "middle": "tangled",
+   "end": "joyful"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Stacy and Margaret trade places for two days and inadvertently fall for each other's respective partners. After a rival baker's sabotage attempt fails, they reveal the swap at a baking competition. One year later, Stacy marries the prince and becomes a princess.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "background_ok",
+   "emotional_weight": 1
+  },
+  "content_flags": [],
+  "family": "family_ok",
+  "good_for": [
+   "decorating the tree",
+   "a cozy night in"
+  ],
+  "skip_if": [
+   "you want high production values"
+  ],
+  "vibe": "A Chicago baker and a soon-to-be royal discover they are identical and trade places for the holidays. They navigate court life, baking contests, and unexpected romance.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-810873",
+  "tmdb_id": 810873,
+  "type": "movie",
+  "title": "Single All the Way",
+  "original_title": "Single All the Way",
+  "year": 2021,
+  "runtime_min": 99,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/bfZPNzAwUQZ6FZQi1d136KLr3wl.jpg",
+  "backdrop_path": "/2r0O6rOOSfsZ3bIpWTOt0Xabxkf.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.4,
+   "votes": 446
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A standard, festive holiday rom-com about pretending to date a best friend for Christmas.",
+   "actually_is": "A warm, predictable seasonal comedy that leans heavily into familiar tropes while keeping things light and entirely free of heavy drama."
+  },
+  "expectation_traps": [
+   "You might expect a gritty take on modern dating, but it strictly follows the comfort-food playbook.",
+   "Despite featuring Jennifer Coolidge, she plays a supporting role rather than leading the story."
+  ],
+  "tone_mix": [
+   {
+    "tone": "warm",
+    "pct": 45
+   },
+   {
+    "tone": "funny",
+    "pct": 35
+   },
+   {
+    "tone": "hopeful",
+    "pct": 20
+   }
+  ],
+  "arc": {
+   "shape": "rise",
+   "start": "anxious",
+   "middle": "conflicted",
+   "end": "relieved"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "After nearly moving back home, Peter learns that his best friend shares his feelings. He rushes to stop him from leaving and they share a kiss. By Christmas Day, they happily announce they are dating.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "background_ok",
+   "emotional_weight": 2
+  },
+  "content_flags": [],
+  "family": "family_ok",
+  "good_for": [
+   "a cozy holiday night",
+   "fans of festive rom-coms"
+  ],
+  "skip_if": [
+   "you want high-stakes drama"
+  ],
+  "vibe": "A single man visits his family for the holidays and ropes his best friend into a fake relationship to dodge pressure. Complications arise when a blind date enters the picture and long-hidden feelings surface.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-520172",
+  "tmdb_id": 520172,
+  "type": "movie",
+  "title": "Happiest Season",
+  "original_title": "Happiest Season",
+  "year": 2020,
+  "runtime_min": 102,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/vzec9kkOSE93tygyfOktedkeOQ.jpg",
+  "backdrop_path": "/jOWgFmD1H5t6nL7ChbmX8oDFUZl.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.1,
+   "votes": 1366
+  },
+  "watch_in": [],
+  "truth": {
+   "status": "fiction",
+   "note": "While fictional, the director drew on her own personal experiences coming out to her family."
+  },
+  "honest_read": {
+   "looks_like": "A bright, cozy holiday rom-com about a festive family Christmas visit.",
+   "actually_is": "A surprisingly tense holiday dramedy where playing the straight roommate for conservative parents turns a festive trip into an endurance test."
+  },
+  "expectation_traps": [
+   "You expect a light, breezy holiday romance from start to finish.",
+   "You might think the secret gets cleared up in the first twenty minutes."
+  ],
+  "tone_mix": [
+   {
+    "tone": "tense",
+    "pct": 45
+   },
+   {
+    "tone": "warm",
+    "pct": 30
+   },
+   {
+    "tone": "funny",
+    "pct": 25
+   }
+  ],
+  "arc": {
+   "shape": "rise_fall_rise",
+   "start": "hopeful",
+   "middle": "anxious",
+   "end": "relieved"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "After a public confrontation blows the secret wide open, Harper finally comes out to her conservative parents. Her honesty prompts her siblings to air their own grievances, leading her father to choose his family over his campaign donors. A year later, Abby and Harper are happily engaged and celebrating the holidays together.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [],
+  "family": "teens_up",
+  "good_for": [
+   "holiday movie nights",
+   "fans of festive rom-coms"
+  ],
+  "skip_if": [
+   "you get easily stressed by excruciating family dynamics"
+  ],
+  "vibe": "A young woman looks forward to a cozy Christmas with her partner, only to discover her girlfriend hasn't told her conservative parents they are together. She must spend the holiday pretending to be a plain old roommate while managing intense family pressures.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-833097",
+  "tmdb_id": 833097,
+  "type": "movie",
+  "title": "Falling for Christmas",
+  "original_title": "Falling for Christmas",
+  "year": 2022,
+  "runtime_min": 95,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/zgtkXLJagDMlW4iXTCojL5guDeu.jpg",
+  "backdrop_path": "/iVtpnbPE91vmi3LmcOXycEblwPA.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.2,
+   "votes": 909
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A shiny, high-production festive rom-com about a pampered heiress finding rural love.",
+   "actually_is": "A deeply formulaic, cheesy holiday comfort watch that coasts entirely on its lead's familiar charm and predictable snowy cozy tropes."
+  },
+  "expectation_traps": [
+   "You might think it will reinvent the cheesy holiday movie mold.",
+   "Expect a gritty or realistic take on a memory loss premise."
+  ],
+  "tone_mix": [
+   {
+    "tone": "romantic",
+    "pct": 40
+   },
+   {
+    "tone": "uplifting",
+    "pct": 30
+   },
+   {
+    "tone": "warm",
+    "pct": 30
+   }
+  ],
+  "arc": {
+   "shape": "rise",
+   "start": "clueless",
+   "middle": "cozy",
+   "end": "content"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Sierra gets her memory back when her father and influencer fiance arrive at the lodge. She breaks off her engagement, decides to live more independently, and returns to help run the lodge with Jake. Her father invests in the business, and Jake and Sierra declare their love for each other on Christmas.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "background_ok",
+   "emotional_weight": 1
+  },
+  "content_flags": [],
+  "family": "family_ok",
+  "good_for": [
+   "wrapping presents",
+   "unwinding on a lazy evening"
+  ],
+  "skip_if": [
+   "you want sharp writing",
+   "predictable plots bore you"
+  ],
+  "vibe": "A wealthy hotel heiress loses her memory after a skiing mishap and lands in a rustic lodge. It is a predictable, tinsel-covered holiday romance built entirely around a comforting, nostalgic festive atmosphere.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-12193",
+  "tmdb_id": 12193,
+  "type": "movie",
+  "title": "Four Christmases",
+  "original_title": "Four Christmases",
+  "year": 2008,
+  "runtime_min": 88,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/zixj44TC7rwzpxtJAG5OzFJnEqe.jpg",
+  "backdrop_path": "/6ZuYKN5wJKcuCw7o1WsbjYo68vz.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 5.8,
+   "votes": 1300
+  },
+  "watch_in": [],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A cheerful, chaotic holiday romantic comedy about a fun couple surviving family madness.",
+   "actually_is": "A grating, frantic farce where an unmarried couple endures one relentless disaster after another across four deeply dysfunctional family holiday gatherings."
+  },
+  "expectation_traps": [
+   "You expect a breezy, heartwarming holiday romcom with easy laughs.",
+   "You think a star-studded supporting cast will elevate a repetitive, abrasive script."
+  ],
+  "tone_mix": [
+   {
+    "tone": "tense",
+    "pct": 50
+   },
+   {
+    "tone": "chaotic",
+    "pct": 30
+   },
+   {
+    "tone": "funny",
+    "pct": 20
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "uneasy",
+   "middle": "exhausted",
+   "end": "reassessed"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "After surviving four grueling family visits and clashing over their future, Kate walks away from Brad. Both separately realize they want real commitment and a family, leading them to reunite. A year later, they welcome their first child, though a news crew accidentally broadcasts the news to their relatives just like before.",
+  "bandwidth": {
+   "pace": "fast",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "strong_language"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "surviving your own family gatherings",
+   "fans of broad slapstick comedy"
+  ],
+  "skip_if": [
+   "you want a genuinely cozy holiday film",
+   "slapstick family bickering stresses you out"
+  ],
+  "vibe": "An unmarried couple trying to dodge their divorced parents for the holidays gets trapped at the airport, forcing them to endure four wildly dysfunctional family gatherings in a single day.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-9043",
+  "tmdb_id": 9043,
+  "type": "movie",
+  "title": "The Family Stone",
+  "original_title": "The Family Stone",
+  "year": 2005,
+  "runtime_min": 103,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/nlqw53HmTP7o3b2NDttYNOtsK4V.jpg",
+  "backdrop_path": "/yJav7yjKcYnP7C9QbFLECThWv4a.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.3,
+   "votes": 1202
+  },
+  "watch_in": [],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A cozy holiday comedy about an eccentric family welcoming a high-strung corporate bride.",
+   "actually_is": "A chaotic and sharp-edged holiday dramedy where an intensely unwelcoming clan clashes hard with their visitor, blending cringeworthy comedy with sudden, heavy grief."
+  },
+  "expectation_traps": [
+   "You expect a sweet holiday romantic comedy where everyone eventually gets along without friction.",
+   "You might think the visiting girlfriend is the only difficult person in the house."
+  ],
+  "tone_mix": [
+   {
+    "tone": "tense",
+    "pct": 35
+   },
+   {
+    "tone": "funny",
+    "pct": 25
+   },
+   {
+    "tone": "melancholy",
+    "pct": 25
+   },
+   {
+    "tone": "warm",
+    "pct": 15
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "unsettled",
+   "middle": "strained",
+   "end": "reconciled"
+  },
+  "ending": "bittersweet",
+  "spoiler_ending": "After a chaotic holiday filled with romantic confusion and bitter arguments, the visitor breaks down and calls off the engagement. One year later, the family gathers for Christmas again while mourning the mother, who has since died of cancer. Meanwhile, surviving family members form new couples and welcome a newly adopted baby.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [
+   "substance_use",
+   "disturbing_themes"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "fans of messy family dynamics",
+   "winter holiday viewing"
+  ],
+  "skip_if": [
+   "you want a purely feel-good rom-com",
+   "you are sensitive to stories about terminal illness"
+  ],
+  "vibe": "An uptight corporate woman travels to New England for Christmas with her boyfriend's wildly eccentric and openly hostile family. What starts as an excruciating holiday disaster gradually reveals deeper layers of grief, love, and unexpected personal shifts.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-890116",
+  "tmdb_id": 890116,
+  "type": "movie",
+  "title": "Merry Christmas",
+  "original_title": "मेरी क्रिसमस",
+  "year": 2024,
+  "runtime_min": 143,
+  "series": null,
+  "languages": [
+   "hi"
+  ],
+  "poster_path": "/xzzny20uTtIit2VnxSdAFKcOFmU.jpg",
+  "backdrop_path": "/2NoZ64w4bxzzbu2uGqI9aMpy0z6.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.8,
+   "votes": 62
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Adapted from a French suspense novel written by Frédéric Dard."
+  },
+  "honest_read": {
+   "looks_like": "A cozy holiday romance unfolding against festive city lights between two lonely strangers.",
+   "actually_is": "A deliberate, atmospheric 1980s noir where a chance Christmas Eve meeting spirals into an intricate and tense puzzle of hidden rooms and dark pasts."
+  },
+  "expectation_traps": [
+   "You might expect a sweet seasonal romance based on the festive title and setting.",
+   "You might look for quick, adrenaline-fueled action rather than a patient, dialogue-heavy puzzle."
+  ],
+  "tone_mix": [
+   {
+    "tone": "tense",
+    "pct": 40
+   },
+   {
+    "tone": "dark",
+    "pct": 30
+   },
+   {
+    "tone": "romantic",
+    "pct": 20
+   },
+   {
+    "tone": "melancholy",
+    "pct": 10
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise_fall",
+   "start": "uneasy",
+   "middle": "bewildered",
+   "end": "calm"
+  },
+  "ending": "bittersweet",
+  "spoiler_ending": "Albert and Maria discover the truth about her setup: she maintains two identical apartments on separate floors, using the clean one below to build a bulletproof alibi while the husband's body rests in the unit above. Rather than walking away, Albert stays to help her dismantle the evidence using heavy tools. They successfully clear the rooms and quietly dispose of loose ends before the night concludes.",
+  "bandwidth": {
+   "pace": "slow",
+   "attention": "full_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [
+   "violence",
+   "disturbing_themes"
+  ],
+  "family": "adults_only",
+  "good_for": [
+   "patient mystery fans",
+   "late-night viewing"
+  ],
+  "skip_if": [
+   "you want fast-paced action",
+   "you prefer cheerful holiday movies"
+  ],
+  "vibe": "In 1980s Bombay, an ex-con and a mysterious mother meet on Christmas Eve, unknowingly stepping into a labyrinthine web of duplicate rooms and mounting dread.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-2064",
+  "tmdb_id": 2064,
+  "type": "movie",
+  "title": "While You Were Sleeping",
+  "original_title": "While You Were Sleeping",
+  "year": 1995,
+  "runtime_min": 103,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/qNGO3ETcNwlWqK2kNRpbJSJRlos.jpg",
+  "backdrop_path": "/r4ZkyhfwcpnHNGdn2QULEBTClZG.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7,
+   "votes": 2096
+  },
+  "watch_in": [],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A cozy holiday romantic comedy about a woman trapped in a funny fib.",
+   "actually_is": "A remarkably tender and comforting romance that focuses as much on finding a warm family as it does on falling in love, carried by great chemistry."
+  },
+  "expectation_traps": [
+   "You might think the fake fiancée premise will feel creepy or mean-spirited, but it plays out with surprising gentleness.",
+   "It is not just about the central couple, but rather how a lonely stranger is embraced by a wonderfully quirky family."
+  ],
+  "tone_mix": [
+   {
+    "tone": "warm",
+    "pct": 40
+   },
+   {
+    "tone": "romantic",
+    "pct": 30
+   },
+   {
+    "tone": "funny",
+    "pct": 20
+   },
+   {
+    "tone": "nostalgic",
+    "pct": 10
+   }
+  ],
+  "arc": {
+   "shape": "rise_fall_rise",
+   "start": "hopeful",
+   "middle": "tangled",
+   "end": "joyful"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "After a series of misunderstandings, comatose Peter wakes up and the truth about the fake engagement starts to unravel. At the wedding ceremony the next day, Lucy objects and confesses her love for Jack, while various other exes show up to halt the proceedings. Sometime later, Jack tracks Lucy down to her transit booth to propose properly, and they finally take a honeymoon trip to Italy.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [],
+  "family": "family_ok",
+  "good_for": [
+   "a cozy night in",
+   "holiday viewing"
+  ],
+  "skip_if": [
+   "you hate classic romantic comedy tropes"
+  ],
+  "vibe": "A lonely transit worker saves a commuter's life on Christmas Day and accidentally gets swept into his family's chaotic, loving world. It trades sharp cynicism for old-fashioned charm and genuine heart.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-295151",
+  "tmdb_id": 295151,
+  "type": "movie",
+  "title": "Let It Snow",
+  "original_title": "Let It Snow",
+  "year": 2019,
+  "runtime_min": 93,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/rEVu3E1OhMPJeCAn9a6QLyVhZDj.jpg",
+  "backdrop_path": "/zAWXavwU4pdTkOU3DSrgM3xGjBn.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.1,
+   "votes": 1240
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Adapted from the young adult novel by Maureen Johnson, John Green, and Lauren Myracle."
+  },
+  "honest_read": {
+   "looks_like": "A glossy, standard holiday teen romance packed with cute couples and falling snow.",
+   "actually_is": "A bustling ensemble comedy that mashes together several teenage love stories during a blizzard, mixing sweet romantic confessions with the typical messiness of youth."
+  },
+  "expectation_traps": [
+   "expecting a single deep romance rather than a fragmented multi-couple story",
+   "thinking it will be entirely devoid of emotional weight due to the cheerful holiday setting"
+  ],
+  "tone_mix": [
+   {
+    "tone": "romantic",
+    "pct": 40
+   },
+   {
+    "tone": "warm",
+    "pct": 35
+   },
+   {
+    "tone": "funny",
+    "pct": 25
+   }
+  ],
+  "arc": {
+   "shape": "rise",
+   "start": "restless",
+   "middle": "tangled",
+   "end": "reassuring"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Julie and pop star Stuart decide to pursue a long-distance connection after she commits to college. Dorrie and Kerry publicly embrace their romance after overcoming personal hurdles. Meanwhile, Tobin confesses his true feelings to Duke, ending the night with mutual affection at a lively party.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "substance_use"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "cozy winter evenings",
+   "teen hangouts"
+  ],
+  "skip_if": [
+   "you want a tightly paced single narrative"
+  ],
+  "vibe": "A heavy snowstorm strands various teenagers on Christmas Eve in a small town, causing their friendships and secret crushes to collide in unexpected ways. By morning, old dynamics shift and new romances bloom.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-51052",
+  "tmdb_id": 51052,
+  "type": "movie",
+  "title": "Arthur Christmas",
+  "original_title": "Arthur Christmas",
+  "year": 2011,
+  "runtime_min": 97,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/brELZkSbkLrcCXJ0xt5hQUMXhut.jpg",
+  "backdrop_path": "/hwtYE4Gs0IsBnrJ0nTZItOXlz19.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.8,
+   "votes": 1703
+  },
+  "watch_in": [],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A high-tech, fast-paced animated comedy about Santa's massive military-style Christmas delivery operation.",
+   "actually_is": "A surprisingly warm and clever family adventure about a clumsy misfit trying to save one child's Christmas."
+  },
+  "expectation_traps": [
+   "You might think it is just standard noisy slapstick animation.",
+   "You could expect a cynical spoof of holiday traditions."
+  ],
+  "tone_mix": [
+   {
+    "tone": "funny",
+    "pct": 40
+   },
+   {
+    "tone": "warm",
+    "pct": 30
+   },
+   {
+    "tone": "hopeful",
+    "pct": 30
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "tense",
+   "middle": "uneasy",
+   "end": "relieved"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Arthur, Grandsanta, and Bryony face several mishaps and a military strike while trying to deliver the forgotten present. Ultimately, they reach the girl's house just in time, and Arthur's family realizes his genuine care makes him the true worthy successor to the Santa title. One year later, Steve steps aside, Malcolm retires, and Arthur takes charge of operations.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [],
+  "family": "family_ok",
+  "good_for": [
+   "watching with kids",
+   "holiday movie night"
+  ],
+  "skip_if": [
+   "you hate animated comedies"
+  ],
+  "vibe": "Santa's high-tech operation misses a single child's gift, prompting his clumsy son Arthur to embark on a chaotic mission to deliver it before dawn. It is a sweet, clever holiday film with genuine heart.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-840430",
+  "tmdb_id": 840430,
+  "type": "movie",
+  "title": "The Holdovers",
+  "original_title": "The Holdovers",
+  "year": 2023,
+  "runtime_min": 133,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/VHSzNBTwxV8vh7wylo7O9CLdac.jpg",
+  "backdrop_path": "/57fhbxl9is7W7ur5v6UuvlNsoSg.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.7,
+   "votes": 2780
+  },
+  "watch_in": [],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A cozy 1970s holiday comedy about a grumpy teacher stuck with boarding school kids.",
+   "actually_is": "A bittersweet, character-driven dramedy about loneliness, grief, and unexpected connection during a freezing winter break."
+  },
+  "expectation_traps": [
+   "You might expect a breezy, laugh-out-loud holiday comedy.",
+   "It looks like a predictable tale of a teacher easily winning over bad kids."
+  ],
+  "tone_mix": [
+   {
+    "tone": "melancholy",
+    "pct": 40
+   },
+   {
+    "tone": "funny",
+    "pct": 35
+   },
+   {
+    "tone": "warm",
+    "pct": 25
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "cold",
+   "middle": "messy",
+   "end": "human"
+  },
+  "ending": "bittersweet",
+  "spoiler_ending": "Hunham is fired after taking the blame for Angus visiting his institutionalized father, but he and the boy share a warm, respectful farewell. Mary continues coping with her son's death, and Hunham drives away after spitting out a stolen sip of cognac.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "full_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [
+   "substance_use",
+   "disturbing_themes"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "a quiet winter evening",
+   "fans of character-driven stories"
+  ],
+  "skip_if": [
+   "you want fast-paced action",
+   "you are looking for pure laugh-out-loud comedy"
+  ],
+  "vibe": "A grumpy classics teacher, a grieving cafeteria manager, and a troubled teen form an unlikely family while stranded at a New England prep school over Christmas. It captures the heavy hangover of the 1970s with dry humor and raw heart.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-8871",
+  "tmdb_id": 8871,
+  "type": "movie",
+  "title": "How the Grinch Stole Christmas",
+  "original_title": "How the Grinch Stole Christmas",
+  "year": 2000,
+  "runtime_min": 105,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/1WZbbPApEivA421gCOluuzMMKCk.jpg",
+  "backdrop_path": "/sy0vo1cmpKqwPRiMUiJ45jyLsX7.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.8,
+   "votes": 8573
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Adapted from the 1957 children's book by Dr. Seuss."
+  },
+  "honest_read": {
+   "looks_like": "A colorful, magical holiday comedy about a green creature learning Christmas cheer.",
+   "actually_is": "A loud, grotesque, and surprisingly eerie live-action fable where Jim Carrey's manic, sweat-soaked performance dominates a dank and unsettling world of consumerist townspeople."
+  },
+  "expectation_traps": [
+   "Expecting a cozy, sweet animated adaptation instead of a bizarre, high-energy live-action freakout.",
+   "Assuming it is purely for young children despite plenty of crude humor and unsettling visuals."
+  ],
+  "tone_mix": [
+   {
+    "tone": "chaotic",
+    "pct": 40
+   },
+   {
+    "tone": "funny",
+    "pct": 30
+   },
+   {
+    "tone": "dark",
+    "pct": 18
+   },
+   {
+    "tone": "whimsical",
+    "pct": 12
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "sour",
+   "middle": "crude",
+   "end": "tender"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "The Grinch successfully steals every last gift and decoration from Whoville in the dead of night. However, when he hears the townspeople singing on Christmas morning regardless, his heart expands and he rescues a sliding sleigh from a cliff. He returns all the stolen goods, apologizes to the town, and joins them for the holiday feast.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "disturbing_themes"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "watching with older kids",
+   "fans of unhinged physical comedy"
+  ],
+  "skip_if": [
+   "you are looking for a gentle, traditional holiday bedtime story"
+  ],
+  "vibe": "A bitter, hairy hermit living on a garbage mountain plots to ruin the hyper-materialistic holiday of a quirky mountain village. It is a loud, bizarre mix of physical comedy and unsettling atmosphere.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-622855",
+  "tmdb_id": 622855,
+  "type": "movie",
+  "title": "Jingle Jangle: A Christmas Journey",
+  "original_title": "Jingle Jangle: A Christmas Journey",
+  "year": 2020,
+  "runtime_min": 122,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/5RbyHIVydD3Krmec1LlUV7rRjet.jpg",
+  "backdrop_path": "/6C7ZGYeR8QpT3X6C2RFEu6yiSKK.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.5,
+   "votes": 585
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A flashy, sugar-coated holiday musical about magical toys and festive wonder.",
+   "actually_is": "A surprisingly heavy tale of grief and betrayal wrapped in vibrant song, where a broken inventor slowly finds his way back to family."
+  },
+  "expectation_traps": [
+   "You might think it is a breezy, mindless holiday distraction for young kids.",
+   "You may expect pure festive cheer without any real emotional stakes."
+  ],
+  "tone_mix": [
+   {
+    "tone": "uplifting",
+    "pct": 40
+   },
+   {
+    "tone": "whimsical",
+    "pct": 30
+   },
+   {
+    "tone": "melancholy",
+    "pct": 30
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "joyful",
+   "middle": "bitter",
+   "end": "restored"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Jeronicus and his granddaughter prove his innocence, leading to the villain's arrest and the recovery of his stolen creations. He repairs his relationship with his daughter and restores his workshop with a new magical invention. Years later, an older version of the granddaughter recounts the magical tale to her own family.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [],
+  "family": "family_ok",
+  "good_for": [
+   "family movie night",
+   "holiday viewing"
+  ],
+  "skip_if": [
+   "you want a simple background cartoon",
+   "you dislike musicals"
+  ],
+  "vibe": "An eccentric toymaker loses his spark after his prized creation and invention book are stolen by an envious apprentice. Decades later, his clever granddaughter arrives on his doorstep and helps him rediscover his magic.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-634",
+  "tmdb_id": 634,
+  "type": "movie",
+  "title": "Bridget Jones's Diary",
+  "original_title": "Bridget Jones's Diary",
+  "year": 2001,
+  "runtime_min": 97,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/olMTi7uCaec9Yr3Ar07D2SIja1G.jpg",
+  "backdrop_path": "/9rSpxsMhG1FnFtUDdvSAXdtLtb3.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.7,
+   "votes": 5706
+  },
+  "watch_in": [
+   "Prime Video",
+   "Movie Sphere+"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Adapted from Helen Fielding's 1996 novel, which was loosely based on Jane Austen's Pride and Prejudice."
+  },
+  "honest_read": {
+   "looks_like": "A bubbly romantic comedy about a clumsy London woman finding love between two dashing men.",
+   "actually_is": "A bittersweet look at personal insecurity and professional chaos, where the laughs come wrapped in the very real panic of feeling left behind."
+  },
+  "expectation_traps": [
+   "You might think it is a smooth, breezy romance without any genuine emotional stumbles.",
+   "Expect a glamorous London lifestyle, but find a remarkably sweaty, awkward portrait of everyday anxiety."
+  ],
+  "tone_mix": [
+   {
+    "tone": "funny",
+    "pct": 40
+   },
+   {
+    "tone": "romantic",
+    "pct": 35
+   },
+   {
+    "tone": "warm",
+    "pct": 25
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "insecure",
+   "middle": "heartbroken",
+   "end": "vindicated"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Bridget quits her job after finding her boss with another woman and builds a new career in television. She eventually clears up misunderstandings with Mark Darcy, who accepts her exactly as she is despite reading her harsh diary entries. They reconcile in the snow when Mark brings her a fresh journal to start over.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [
+   "strong_language",
+   "substance_use",
+   "sexual_content"
+  ],
+  "family": "adults_only",
+  "good_for": [
+   "watching with close friends",
+   "a comforting evening in"
+  ],
+  "skip_if": [
+   "you hate awkward social embarrassment",
+   "you are tired of romance tropes"
+  ],
+  "vibe": "A thirty-something Londoner resolves to track her chaotic life, weight, and romantic misadventures in a personal journal. Between a caddish boss and a rigidly proper barrister, she navigates a minefield of disastrous dinners and public blunders.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-tv-111625",
+  "tmdb_id": 111625,
+  "type": "series",
+  "title": "Dash & Lily",
+  "original_title": "Dash & Lily",
+  "year": 2020,
+  "runtime_min": null,
+  "series": {
+   "seasons": 1,
+   "episode_min": 26,
+   "status": "ended",
+   "style": "episodic",
+   "gets_good_after": null,
+   "later_seasons_note": null
+  },
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/eqBW1sqUxtOf1arBUAWNPJP5msD.jpg",
+  "backdrop_path": "/vCQpZH516gnrWE8R4lPS7fp5Dkr.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.8,
+   "votes": 374
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Adapted from the young adult novel series by Rachel Cohn and David Levithan."
+  },
+  "honest_read": {
+   "looks_like": "A sugary teen holiday romance wrapped in festive New York City cheer.",
+   "actually_is": "A surprisingly charming and grounded teen story that balances cynical angst with holiday optimism through clever citywide scavenger hunts, anchored by strong lead performances."
+  },
+  "expectation_traps": [
+   "It looks like mindless holiday fluff, but the character work has genuine depth.",
+   "You might expect a typical fast-paced rom-com, but it takes its time building the connection."
+  ],
+  "tone_mix": [
+   {
+    "tone": "romantic",
+    "pct": 45
+   },
+   {
+    "tone": "whimsical",
+    "pct": 30
+   },
+   {
+    "tone": "warm",
+    "pct": 25
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "skeptical",
+   "middle": "curious",
+   "end": "hopeful"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Dash scours New York City to track down Lily on Christmas Day. After a photo of her wearing a red boot circulates online, he finally manages to locate her. They meet in person and begin their romance.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "sexual_content",
+   "substance_use",
+   "strong_language"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "cozy weekend watching",
+   "romance fans"
+  ],
+  "skip_if": [
+   "you hate holiday cheer"
+  ],
+  "vibe": "Two contrasting New York teenagers pass a red notebook back and forth across the city, trading dares and growing closer amidst holiday decorations.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-509",
+  "tmdb_id": 509,
+  "type": "movie",
+  "title": "Notting Hill",
+  "original_title": "Notting Hill",
+  "year": 1999,
+  "runtime_min": 124,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/hHRIf2XHeQMbyRb3HUx19SF5Ujw.jpg",
+  "backdrop_path": "/gznkDTmyJflVCImfC36dr0EDy5W.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.3,
+   "votes": 6989
+  },
+  "watch_in": [
+   "Prime Video"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A charming, breezy romance between a humble bookseller and a glamorous global movie star.",
+   "actually_is": "A witty, gently bittersweet fairy tale about the friction of unmatched worlds, featuring a notoriously hesitant man and a guarded celebrity."
+  },
+  "expectation_traps": [
+   "You might expect a cynical take on fame, but it leans hard into comforting fairy-tale logic.",
+   "It is not a fast-paced romp; the middle stretch gets quite melancholic and heavy."
+  ],
+  "tone_mix": [
+   {
+    "tone": "warm",
+    "pct": 40
+   },
+   {
+    "tone": "funny",
+    "pct": 30
+   },
+   {
+    "tone": "melancholy",
+    "pct": 20
+   },
+   {
+    "tone": "hopeful",
+    "pct": 10
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "beguiling",
+   "middle": "heartsick",
+   "end": "joyful"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "William initially refuses to take Anna back out of fear of getting hurt again. After his friends talk some sense into him, he and his eccentric crew race across London to intercept her at a press conference. He asks if they can try again, she agrees to stay in Britain indefinitely, and the two eventually marry and start a family.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "strong_language"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "comfort viewing",
+   "a rainy evening"
+  ],
+  "skip_if": [
+   "you dislike slow-paced romance",
+   "you want gritty realism"
+  ],
+  "vibe": "A quiet London bookseller's ordinary life gets upended when a famous American actress walks into his shop. What follows is a witty, bittersweet look at whether a normal person and a mega-celebrity can bridge their vast worlds.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-455207",
+  "tmdb_id": 455207,
+  "type": "movie",
+  "title": "Crazy Rich Asians",
+  "original_title": "Crazy Rich Asians",
+  "year": 2018,
+  "runtime_min": 121,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/1XxL4LJ5WHdrcYcihEZUCgNCpAW.jpg",
+  "backdrop_path": "/zeHB7aP46Xs3u4aFLuAq2GFeUGb.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7,
+   "votes": 4107
+  },
+  "watch_in": [
+   "Netflix",
+   "Prime Video",
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Adapted from the 2013 novel by Kevin Kwan."
+  },
+  "honest_read": {
+   "looks_like": "A flashy, high-spending romantic romp through elite Singaporean high society.",
+   "actually_is": "A crowd-pleasing romantic comedy that pairs glittering opulence with a genuinely touching look at family expectations and cultural divides."
+  },
+  "expectation_traps": [
+   "You might expect a shallow fashion parade, but it actually digs deep into heavy family duty.",
+   "You might think it is a smooth fairy tale, but the romance faces harsh, painful hurdles."
+  ],
+  "tone_mix": [
+   {
+    "tone": "romantic",
+    "pct": 40
+   },
+   {
+    "tone": "funny",
+    "pct": 30
+   },
+   {
+    "tone": "warm",
+    "pct": 20
+   },
+   {
+    "tone": "melancholy",
+    "pct": 10
+   }
+  ],
+  "arc": {
+   "shape": "rise",
+   "start": "curious",
+   "middle": "tense",
+   "end": "joyful"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Rachel faces Nick's mother in a tense game of mahjong and shows her that forcing Nick to choose will only tear the family apart. She prepares to leave, but Nick refuses to abandon her and proposes with his mother's ring. The mother eventually gives her blessing, leading to a happy engagement celebration.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [],
+  "family": "family_ok",
+  "good_for": [
+   "date night",
+   "weekend unwinding"
+  ],
+  "skip_if": [
+   "you hate romantic comedies"
+  ],
+  "vibe": "An American professor flies to Singapore with her boyfriend for a wedding, only to discover his family is fabulously wealthy and deeply unwelcoming. It is a glittering, emotional cultural clash.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-114",
+  "tmdb_id": 114,
+  "type": "movie",
+  "title": "Pretty Woman",
+  "original_title": "Pretty Woman",
+  "year": 1990,
+  "runtime_min": 120,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/oVKX1Pt1q7jXTkTk51mu2S0sAB0.jpg",
+  "backdrop_path": "/rleTwPqymtOpeD2bR7asJGEmldV.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.4,
+   "votes": 9308
+  },
+  "watch_in": [
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Inspired by Pygmalion myths and earlier dramatic drafts."
+  },
+  "honest_read": {
+   "looks_like": "A breezy, charming fairy tale about an unlikely romance in Beverly Hills.",
+   "actually_is": "A slick, glossy yuppie fantasy pairing a corporate raider with a streetwise escort, leaning heavily on charm and status symbols over gritty reality."
+  },
+  "expectation_traps": [
+   "You might expect a gritty, grounded look at prostitution, but it is actually a shiny, glossed-over fairy tale.",
+   "It looks like a sharp critique of capitalism, but it is deeply in love with luxury and wealth."
+  ],
+  "tone_mix": [
+   {
+    "tone": "romantic",
+    "pct": 40
+   },
+   {
+    "tone": "uplifting",
+    "pct": 30
+   },
+   {
+    "tone": "nostalgic",
+    "pct": 15
+   },
+   {
+    "tone": "funny",
+    "pct": 15
+   }
+  ],
+  "arc": {
+   "shape": "rise",
+   "start": "cynical",
+   "middle": "charmed",
+   "end": "devoted"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Edward abandons his ruthless corporate ways and rushes to rescue Vivian in a fairy-tale climax. They embrace on a fire escape, leaving their separate worlds behind to start a new life together.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "background_ok",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "sexual_content",
+   "substance_use"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "a cozy movie night",
+   "light weekend viewing"
+  ],
+  "skip_if": [
+   "you want a realistic look at sex work"
+  ],
+  "vibe": "A wealthy businessman hires a sharp-witted Hollywood escort for a week of high-society events, only to find themselves genuinely falling in love amidst luxury hotels and designer boutiques.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 3,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-639",
+  "tmdb_id": 639,
+  "type": "movie",
+  "title": "When Harry Met Sally...",
+  "original_title": "When Harry Met Sally...",
+  "year": 1989,
+  "runtime_min": 96,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/rFOiFUhTMtDetqCGClC9PIgnC1P.jpg",
+  "backdrop_path": "/dbdegCWeD4iK5LXxSBjGdIRsVXS.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.4,
+   "votes": 4823
+  },
+  "watch_in": [
+   "Prime Video"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A breezy romantic comedy about two witty New Yorkers falling in love.",
+   "actually_is": "A warm, deeply observant look at how a decade of shared meals and late-night calls can slowly blur the line between friendship and romance."
+  },
+  "expectation_traps": [
+   "You might think it rushes into a romance, but it takes its time building a genuine friendship over many years."
+  ],
+  "tone_mix": [
+   {
+    "tone": "warm",
+    "pct": 40
+   },
+   {
+    "tone": "funny",
+    "pct": 30
+   },
+   {
+    "tone": "nostalgic",
+    "pct": 20
+   },
+   {
+    "tone": "romantic",
+    "pct": 10
+   }
+  ],
+  "arc": {
+   "shape": "rise",
+   "start": "wary",
+   "middle": "close",
+   "end": "joyful"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "After a weak moment of sleeping together leads to a painful falling out, Harry and Sally spend months apart. On New Year's Eve, Harry finally realizes his mistake, runs across the city to find her, and declares his love. They are married three months later.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "sexual_content",
+   "strong_language"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "a cozy night in",
+   "reminiscing about old times"
+  ],
+  "skip_if": [
+   "you are looking for fast thrills"
+  ],
+  "vibe": "Spanning twelve years of chance encounters in New York City, two opinionated grads debate whether men and women can ever just be friends. As they navigate failed relationships and lean on each other, their platonic bond deepens into something unexpected.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-18240",
+  "tmdb_id": 18240,
+  "type": "movie",
+  "title": "The Proposal",
+  "original_title": "The Proposal",
+  "year": 2009,
+  "runtime_min": 108,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/6stnAm1wSek8ZrislwK4xGTyCnt.jpg",
+  "backdrop_path": "/ojgXOhVi9Yk8irDpRfDkIzdD1LK.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.2,
+   "votes": 7902
+  },
+  "watch_in": [
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A frosty corporate tyrant forced to marry her abused assistant in an Alaskan comedy.",
+   "actually_is": "A predictable workplace farce relying entirely on the sharp comedic timing and electric chemistry of its leads."
+  },
+  "expectation_traps": [
+   "You might expect a gritty indie drama given the immigration and deportation stakes.",
+   "You might think it offers sharp social commentary on modern corporate life."
+  ],
+  "tone_mix": [
+   {
+    "tone": "funny",
+    "pct": 40
+   },
+   {
+    "tone": "romantic",
+    "pct": 30
+   },
+   {
+    "tone": "warm",
+    "pct": 30
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "dread",
+   "middle": "awkward",
+   "end": "cheerful"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Margaret confesses the wedding is a sham during the ceremony and prepares to leave for Canada. Annie fakes a heart attack to force the family to chase after Margaret. Andrew catches her back in New York, confesses his love, and they make their fake engagement real.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "strong_language",
+   "sexual_content"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "a cozy movie night",
+   "fans of classic romantic pairings"
+  ],
+  "skip_if": [
+   "you want high-art cinema",
+   "you hate predictable formulas"
+  ],
+  "vibe": "A high-powered book editor facing deportation strong-arms her long-suffering assistant into a fake engagement, leading to an eventful trip to Alaska and inevitable romance.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-4951",
+  "tmdb_id": 4951,
+  "type": "movie",
+  "title": "10 Things I Hate About You",
+  "original_title": "10 Things I Hate About You",
+  "year": 1999,
+  "runtime_min": 97,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/ujERk3aKABXU3NDXOAxEQYTHe9A.jpg",
+  "backdrop_path": "/4ssWRanWTKN9CQ0tfq5S1whP7tr.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.6,
+   "votes": 9310
+  },
+  "watch_in": [
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "The movie takes its plot and characters from a famous sixteenth-century theatrical comedy by William Shakespeare."
+  },
+  "honest_read": {
+   "looks_like": "A bubbly nineties teen comedy about high school romance and popular cliques.",
+   "actually_is": "A sharp, witty update of classic literature with genuine bite, balancing cynical teen humor with a surprisingly tender core."
+  },
+  "expectation_traps": [
+   "You might expect a brainless high school fluff piece.",
+   "You might think the feminist lead is just a cardboard stereotype."
+  ],
+  "tone_mix": [
+   {
+    "tone": "funny",
+    "pct": 40
+   },
+   {
+    "tone": "romantic",
+    "pct": 30
+   },
+   {
+    "tone": "nostalgic",
+    "pct": 30
+   }
+  ],
+  "arc": {
+   "shape": "rise",
+   "start": "cynical",
+   "middle": "tangled",
+   "end": "warm"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Kat learns that Patrick originally took her out in exchange for cash, breaking her heart. After the truth about the cruel high school bets comes to light, Patrick proves his affections are sincere. He gives her a thoughtful musical gift funded by the money he earned, and they happily reunite.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "substance_use"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "a cozy movie night",
+   "nineties nostalgia seekers"
+  ],
+  "skip_if": [
+   "you dislike high school settings"
+  ],
+  "vibe": "Set in the Pacific Northwest, a stringent family rule about dating pushes a fiercely independent senior and a notorious rebel into each other's orbit. Their clash of personalities slowly transforms into an unforgettable romance against a backdrop of classic nineties culture.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-122906",
+  "tmdb_id": 122906,
+  "type": "movie",
+  "title": "About Time",
+  "original_title": "About Time",
+  "year": 2013,
+  "runtime_min": 123,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/ls6zswrOZVhCXQBh96DlbnLBajM.jpg",
+  "backdrop_path": "/einbto9qLXFx9QXxEHylaxDbKPx.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.9,
+   "votes": 9650
+  },
+  "watch_in": [
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "An original screenplay written and directed by Richard Curtis."
+  },
+  "honest_read": {
+   "looks_like": "A lighthearted romantic comedy about a quirky young man using time travel to win love.",
+   "actually_is": "A bittersweet, reflective drama exploring family bonds, grief, and the heavy emotional cost of trying to rewrite the past."
+  },
+  "expectation_traps": [
+   "You expect a clever sci-fi puzzle with tight logical rules.",
+   "You think magic will shield the characters from real heartbreak."
+  ],
+  "tone_mix": [
+   {
+    "tone": "warm",
+    "pct": 40
+   },
+   {
+    "tone": "nostalgic",
+    "pct": 30
+   },
+   {
+    "tone": "melancholy",
+    "pct": 30
+   }
+  ],
+  "arc": {
+   "shape": "rise_fall",
+   "start": "hopeful",
+   "middle": "strained",
+   "end": "grounded"
+  },
+  "ending": "bittersweet",
+  "spoiler_ending": "Tim eventually realizes that his gift cannot cure terminal illness or neatly fix his sister's life without unintended consequences. Following his father's death, he stops traveling through time altogether. He chooses to live each ordinary day just once, finding profound appreciation for the present moment.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [],
+  "family": "teens_up",
+  "good_for": [
+   "a rainy afternoon",
+   "reflecting on family"
+  ],
+  "skip_if": [
+   "you want strict sci-fi logic",
+   "you are allergic to sentimentality"
+  ],
+  "vibe": "A young man learns he can travel through time and uses the ability to find romance and help his loved ones. The story shifts from a playful pursuit of love into a deeper reflection on mortality and cherishing everyday life.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-50646",
+  "tmdb_id": 50646,
+  "type": "movie",
+  "title": "Crazy, Stupid, Love.",
+  "original_title": "Crazy, Stupid, Love.",
+  "year": 2011,
+  "runtime_min": 118,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/p4RafgAPk558muOjnBMHhMArjS2.jpg",
+  "backdrop_path": "/vyrCniZsrXZAW08eECKIp1BMLPh.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.3,
+   "votes": 9665
+  },
+  "watch_in": [
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A slick Hollywood romantic comedy about a middle-aged man learning to date again.",
+   "actually_is": "A warm, surprisingly observant ensemble comedy about the messy reality of long-term heartbreak, modern romance, and overlapping family crises."
+  },
+  "expectation_traps": [
+   "Expecting a mindless makeover comedy about a guy picking up women at bars.",
+   "Thinking it is just a light date-night movie with zero emotional stakes."
+  ],
+  "tone_mix": [
+   {
+    "tone": "funny",
+    "pct": 40
+   },
+   {
+    "tone": "warm",
+    "pct": 35
+   },
+   {
+    "tone": "melancholy",
+    "pct": 25
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "lost",
+   "middle": "confused",
+   "end": "reconnected"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "After a chaotic backyard confrontation where multiple secret relationships collide in broad daylight, the truth finally comes out. Cal and Emily realize their long marriage is worth fighting for and reconcile. Meanwhile, Jacob finds genuine love and settles down, leaving his player days behind.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "sexual_content",
+   "strong_language",
+   "substance_use"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "date night with a twist",
+   "recovering from a breakup"
+  ],
+  "skip_if": [
+   "you want a cynical, hard-edged comedy"
+  ],
+  "vibe": "A recently separated father tries to reinvent himself with the help of a smooth-talking bachelor. Meanwhile, a web of interconnected romantic entanglements unfolds across Los Angeles.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 3,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-466282",
+  "tmdb_id": 466282,
+  "type": "movie",
+  "title": "To All the Boys I've Loved Before",
+  "original_title": "To All the Boys I've Loved Before",
+  "year": 2018,
+  "runtime_min": 100,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/hKHZhUbIyUAjcSrqJThFGYIR6kI.jpg",
+  "backdrop_path": "/xXhta1NIKn09IXy0mfp68cabdWS.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.6,
+   "votes": 8813
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Adapted from Jenny Han's 2014 young adult novel of the same name."
+  },
+  "honest_read": {
+   "looks_like": "A breezy high school romance about a girl's secret letters getting mailed out.",
+   "actually_is": "A comforting, familiar teen comedy that leans hard into soft colors, awkward first-love anxieties, and the sweet nostalgia of growing up."
+  },
+  "expectation_traps": [
+   "You might expect a cynical takedown of teen tropes, but it plays straight into them with earnest charm.",
+   "It looks like a pure chaos machine from the premise, but the emotional core stays remarkably grounded."
+  ],
+  "tone_mix": [
+   {
+    "tone": "romantic",
+    "pct": 40
+   },
+   {
+    "tone": "warm",
+    "pct": 30
+   },
+   {
+    "tone": "nostalgic",
+    "pct": 20
+   },
+   {
+    "tone": "funny",
+    "pct": 10
+   }
+  ],
+  "arc": {
+   "shape": "rise",
+   "start": "withdrawn",
+   "middle": "exposed",
+   "end": "hopeful"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "After clearing up misunderstandings and dealing with a leaked video, Lara Jean and Peter finally admit their true feelings for one another. They reconcile and start a real relationship, kissing before walking off together. In a mid-credits scene, another letter recipient shows up at her doorstep with flowers.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [],
+  "family": "teens_up",
+  "good_for": [
+   "a cozy weekend afternoon",
+   "reliving teenage nostalgia"
+  ],
+  "skip_if": [
+   "you want gritty realism"
+  ],
+  "vibe": "A shy high schooler sees her quiet fantasy world upended when the private love letters she wrote to every boy she ever liked get mysteriously mailed out. It is a sweet, comforting look at first love, introversion, and family bonds.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-384677",
+  "tmdb_id": 384677,
+  "type": "movie",
+  "title": "Set It Up",
+  "original_title": "Set It Up",
+  "year": 2018,
+  "runtime_min": 105,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/7omfwqiiMld9EnUps3Uk9YZLy6g.jpg",
+  "backdrop_path": "/kOCJvnRYKg6CkvoFYbzz0itrUzR.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.9,
+   "votes": 2888
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A slick New York romantic comedy about two demanding bosses falling in love.",
+   "actually_is": "A snappy, comforting workplace comedy that balances breezy banter with the very real exhaustion of modern corporate grind."
+  },
+  "expectation_traps": [
+   "You might think it is just mindless matchmaking fluff, but it actually digs into the grueling reality of entry-level work.",
+   "You might expect the bosses to carry the romance, but the real spark belongs to the exhausted assistants."
+  ],
+  "tone_mix": [
+   {
+    "tone": "funny",
+    "pct": 40
+   },
+   {
+    "tone": "romantic",
+    "pct": 35
+   },
+   {
+    "tone": "warm",
+    "pct": 25
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "exhausted",
+   "middle": "stressed",
+   "end": "hopeful"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "The bosses initially get engaged, but everything falls apart when cheating and manipulation are exposed. The assistants quit their demanding jobs to pursue their own lives and writing aspirations. Finally, the former bosses inadvertently set the two assistants up, leading to a sweet kiss and a fresh start.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "sexual_content",
+   "strong_language"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "a cozy weekend night",
+   "romance fans tired of cliches"
+  ],
+  "skip_if": [
+   "you hate corporate settings",
+   "you want heavy drama"
+  ],
+  "vibe": "Two overworked New York assistants hatch a plan to distract their tyrannical bosses by playing matchmaker. Amidst the chaos of fake dates and corporate burnout, they discover their own unexpected chemistry.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-1072790",
+  "tmdb_id": 1072790,
+  "type": "movie",
+  "title": "Anyone but You",
+  "original_title": "Anyone but You",
+  "year": 2023,
+  "runtime_min": 103,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/5qHoazZiaLe7oFBok7XlUhg96f2.jpg",
+  "backdrop_path": "/j9eOeLlTGoHoM8BNUJVNyWmIvCi.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.7,
+   "votes": 3311
+  },
+  "watch_in": [],
+  "truth": {
+   "status": "fiction",
+   "note": "Adapted from William Shakespeare's play Much Ado About Nothing."
+  },
+  "honest_read": {
+   "looks_like": "A glossy, sun-drenched destination wedding romantic comedy starring two ridiculously attractive leads.",
+   "actually_is": "A loud, predictable modern spin on Shakespeare where two attractive people spend most of the runtime arguing, posing in swimwear, and staging a fake relationship."
+  },
+  "expectation_traps": [
+   "You might expect a deeply witty Shakespeare adaptation, but it leans heavily on broad, familiar rom-com tropes instead.",
+   "The relentless marketing and red carpet chemistry suggest high-voltage passion, but the on-screen dynamic can feel a bit mechanical."
+  ],
+  "tone_mix": [
+   {
+    "tone": "romantic",
+    "pct": 45
+   },
+   {
+    "tone": "funny",
+    "pct": 35
+   },
+   {
+    "tone": "hopeful",
+    "pct": 20
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "frosty",
+   "middle": "tangled",
+   "end": "sunny"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "After a series of staged moments and misunderstandings, Ben tracks Bea down at the Sydney Opera House after leaping from a cliff into the ocean. They finally clear the air about their past missteps and mutual fears, officially getting back together. At the reception, the wedding party confesses that they orchestrated parts of the drama to push the pair back into each other's arms.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "sexual_content",
+   "strong_language"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "rom-com fans",
+   "a casual movie night"
+  ],
+  "skip_if": [
+   "you want sharp realism"
+  ],
+  "vibe": "Two former flames cross paths at a destination wedding in Australia and decide to pretend to be a couple. It is a sunny, lightweight diversion powered entirely by its photogenic leads.",
+  "confidence": {
+   "level": "medium",
+   "sources_read": 10,
+   "agreement": "mixed",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-19913",
+  "tmdb_id": 19913,
+  "type": "movie",
+  "title": "(500) Days of Summer",
+  "original_title": "(500) Days of Summer",
+  "year": 2009,
+  "runtime_min": 95,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/qXAuQ9hF30sQRsXf40OfRVl0MJZ.jpg",
+  "backdrop_path": "/1M2i4Mxd03elGOTmEkIvqrHfmyS.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.3,
+   "votes": 11442
+  },
+  "watch_in": [
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "inspired_by",
+   "note": "Based on a real romance experienced by co-writer Scott Neustadter."
+  },
+  "honest_read": {
+   "looks_like": "A breezy, quirky indie romance about a hopeless romantic and a free-spirited colleague.",
+   "actually_is": "A sharp, non-linear deconstruction of a failed relationship that tracks the painful gap between romantic daydreams and harsh reality."
+  },
+  "expectation_traps": [
+   "You think it is a breezy, quirky rom-com where love conquers all.",
+   "You expect the quirky manic pixie dream girl trope to be celebrated rather than examined."
+  ],
+  "tone_mix": [
+   {
+    "tone": "melancholy",
+    "pct": 35
+   },
+   {
+    "tone": "thought-provoking",
+    "pct": 25
+   },
+   {
+    "tone": "romantic",
+    "pct": 20
+   },
+   {
+    "tone": "nostalgic",
+    "pct": 20
+   }
+  ],
+  "arc": {
+   "shape": "rise_fall_rise",
+   "start": "hopeful",
+   "middle": "desolate",
+   "end": "clear"
+  },
+  "ending": "bittersweet",
+  "spoiler_ending": "Tom falls into a deep depression after Summer leaves and eventually marries someone else. He quits his job, but his sister helps him realize he only remembered the good parts of the romance. He rediscovers his passion for architecture, and later encounters Summer, who explains why she married her husband. Finally, Tom meets a new woman named Autumn outside an interview.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [
+   "violence",
+   "substance_use"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "recovering from a breakup",
+   "questioning past relationships"
+  ],
+  "skip_if": [
+   "you want a comforting, predictable happy ending",
+   "you are nursing a fresh heartbreak"
+  ],
+  "vibe": "A greeting card writer recounts his 500-day romance with a woman who never wanted anything serious. It captures the dizzying highs and crushing lows of an incompatible match.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-9919",
+  "tmdb_id": 9919,
+  "type": "movie",
+  "title": "How to Lose a Guy in 10 Days",
+  "original_title": "How to Lose a Guy in 10 Days",
+  "year": 2003,
+  "runtime_min": 116,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/2dlftyPz7mTYbrsPvTogyFmYd7d.jpg",
+  "backdrop_path": "/cdYj6HFpKp5NTmLiHHbNEGSmDT4.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.9,
+   "votes": 4707
+  },
+  "watch_in": [
+   "Netflix",
+   "JioHotstar"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": "Loosely based on a picture book of dating don'ts, with an original screenplay and characters."
+  },
+  "honest_read": {
+   "looks_like": "A glossy romantic comedy about two professionals playing high-stakes dating games.",
+   "actually_is": "A predictable studio romcom that coasts entirely on the undeniable, crackling chemistry of its two lead actors despite a silly script."
+  },
+  "expectation_traps": [
+   "You might expect a genuinely clever satire of magazine dating advice instead of standard rom-com clichés.",
+   "You might think the central deception would stay a lighthearted misunderstanding."
+  ],
+  "tone_mix": [
+   {
+    "tone": "funny",
+    "pct": 40
+   },
+   {
+    "tone": "romantic",
+    "pct": 40
+   },
+   {
+    "tone": "hopeful",
+    "pct": 20
+   }
+  ],
+  "arc": {
+   "shape": "rise_fall_rise",
+   "start": "amused",
+   "middle": "frustrated",
+   "end": "satisfied"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Andie and Ben discover each other's secret bets at a company party and have a public shouting match before breaking up. Afterward, Ben reads an article Andie wrote about losing the only man she ever loved and races to intercept her taxi to Washington, D.C. They clear the air, confess their true feelings, and share a final kiss.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "sexual_content"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "a cozy movie night",
+   "fans of classic romcoms"
+  ],
+  "skip_if": [
+   "you want sharp originality",
+   "you dislike predictable plots"
+  ],
+  "vibe": "A magazine writer and an ad executive start dating with hidden agendas—she wants to drive him crazy for an article, and he wants to make her fall in love for a bet. Their escalating pranks and mutual stubbornness eventually give way to real feelings in this quintessential early 2000s battle of the sexes.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-416477",
+  "tmdb_id": 416477,
+  "type": "movie",
+  "title": "The Big Sick",
+  "original_title": "The Big Sick",
+  "year": 2017,
+  "runtime_min": 120,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/9fJTT8pBxxQsFILJHTtHhdYFr77.jpg",
+  "backdrop_path": "/fYI8WX2DquAHMqwh5mOMxc6RU5j.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.3,
+   "votes": 2746
+  },
+  "watch_in": [
+   "Prime Video"
+  ],
+  "truth": {
+   "status": "inspired_by",
+   "note": "Based on the real-life relationship and experiences of writers Kumail Nanjiani and Emily V. Gordon."
+  },
+  "honest_read": {
+   "looks_like": "A breezy romantic comedy about cross-cultural dating hurdles and family expectations.",
+   "actually_is": "A sharp, funny look at an unexpected medical crisis that forces a young comedian to navigate parental grief, cultural divides, and heavy emotional stakes."
+  },
+  "expectation_traps": [
+   "You might expect a light, breezy romance from beginning to end.",
+   "You might think the cultural family conflict is the heaviest thing it tackles."
+  ],
+  "tone_mix": [
+   {
+    "tone": "funny",
+    "pct": 40
+   },
+   {
+    "tone": "warm",
+    "pct": 30
+   },
+   {
+    "tone": "melancholy",
+    "pct": 30
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "light",
+   "middle": "grim",
+   "end": "hopeful"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Emily wakes from her medical coma and recovers from her rare illness, though initially rejecting Kumail's attempts to reconcile. Kumail moves to New York to focus on his standup career. Emily later surprises him at a local club, and the credits reveal they eventually married with his family in attendance.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [],
+  "family": "teens_up",
+  "good_for": [
+   "watching with a partner",
+   "a thoughtful movie night"
+  ],
+  "skip_if": [
+   "you want pure escapist comedy"
+  ],
+  "vibe": "A struggling comedian and a graduate student start dating, only for their relationship to face immense pressure when she falls deathly ill and is placed in a medically induced coma. He finds himself bonding with her grieving parents while dodging his own family's arranged marriage demands.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-513576",
+  "tmdb_id": 513576,
+  "type": "movie",
+  "title": "Always Be My Maybe",
+  "original_title": "Always Be My Maybe",
+  "year": 2019,
+  "runtime_min": 102,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/3BO6pPa7qDcpPYct061Luh9fvst.jpg",
+  "backdrop_path": "/aC5LAGfHzVH8f7tkCwkxzXsqAZz.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 6.6,
+   "votes": 1454
+  },
+  "watch_in": [
+   "Netflix"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A breezy, standard romantic comedy about childhood sweethearts getting a second chance in the city.",
+   "actually_is": "A sharp, funny, and surprisingly grounded rom-com that balances local flavor with genuine charm and laugh-out-loud comedy."
+  },
+  "expectation_traps": [
+   "Thinking it is just another generic, cheesy streaming romance with no real bite.",
+   "Expecting a totally straightforward plot without any wildly unexpected comedic detours."
+  ],
+  "tone_mix": [
+   {
+    "tone": "funny",
+    "pct": 45
+   },
+   {
+    "tone": "warm",
+    "pct": 35
+   },
+   {
+    "tone": "romantic",
+    "pct": 20
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "nostalgic",
+   "middle": "bumpy",
+   "end": "happy"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "After parting ways because he is afraid to leave his hometown and she is moving forward with her career, Marcus finally confronts his past. He surprises her on a red carpet in Manhattan to ask for another chance. She accepts, and they happily reunite over a new restaurant dedicated to his late mother's recipes.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "violence"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "a cozy night in",
+   "comfort watch"
+  ],
+  "skip_if": [
+   "you are looking for a gritty, unconventional drama"
+  ],
+  "vibe": "A successful chef returns to her San Francisco roots and reconnects with her old neighbor, forcing them both to confront their past and their very different lives.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-587792",
+  "tmdb_id": 587792,
+  "type": "movie",
+  "title": "Palm Springs",
+  "original_title": "Palm Springs",
+  "year": 2020,
+  "runtime_min": 90,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/gnAfqiV7yO3Jq9IntTmwkcaICqc.jpg",
+  "backdrop_path": "/d7JUXVvjvVCXWs1mlpyO5ESdWdT.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.3,
+   "votes": 4004
+  },
+  "watch_in": [
+   "Prime Video"
+  ],
+  "truth": {
+   "status": "fiction",
+   "note": null
+  },
+  "honest_read": {
+   "looks_like": "A breezy destination wedding romcom featuring a quirky time loop gimmick.",
+   "actually_is": "A sharply funny, existential look at burnout and connection where the breezy laughs mask a surprising undercurrent of loneliness and a quest for meaning."
+  },
+  "expectation_traps": [
+   "Thinking it is just another predictable Groundhog Day clone.",
+   "Expecting a purely goofy, lightweight comedy without any emotional weight."
+  ],
+  "tone_mix": [
+   {
+    "tone": "funny",
+    "pct": 40
+   },
+   {
+    "tone": "thought-provoking",
+    "pct": 30
+   },
+   {
+    "tone": "romantic",
+    "pct": 30
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "jaded",
+   "middle": "numb",
+   "end": "hopeful"
+  },
+  "ending": "cathartic",
+  "spoiler_ending": "Sarah studies quantum physics and builds explosives to blow them up inside the cave in an attempt to break the loop. Though Nyles initially wants to stay together forever, he changes his mind and rushes to join her in the explosion. They wake up in a pool on the morning of November 10, successfully breaking free.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [
+   "sexual_content",
+   "strong_language",
+   "substance_use"
+  ],
+  "family": "adults_only",
+  "good_for": [
+   "rethinking your routine",
+   "a weekend movie night"
+  ],
+  "skip_if": [
+   "you want a mindless sugary romcom",
+   "you are looking for broad slapstick"
+  ],
+  "vibe": "Two wedding guests get trapped in a repeating day, leading to a cynical yet surprisingly tender bond as they figure out how to live without consequences.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-9603",
+  "tmdb_id": 9603,
+  "type": "movie",
+  "title": "Clueless",
+  "original_title": "Clueless",
+  "year": 1995,
+  "runtime_min": 97,
+  "series": null,
+  "languages": [
+   "en"
+  ],
+  "poster_path": "/8AwVTcgpTnmeOs4TdTWqcFDXEsA.jpg",
+  "backdrop_path": "/65d0MccsiRSPTVicregKQL8owoo.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.2,
+   "votes": 4997
+  },
+  "watch_in": [],
+  "truth": {
+   "status": "fiction",
+   "note": "Loosely adapted from Jane Austen's 1815 novel Emma."
+  },
+  "honest_read": {
+   "looks_like": "A bubbly, cotton-candy high school makeover comedy packed with vintage 90s fashion and attitude.",
+   "actually_is": "A surprisingly sharp, good-natured coming-of-age story that uses Beverly Hills luxury to tell a clever, warm adaptation of Jane Austen."
+  },
+  "expectation_traps": [
+   "You might think it is just a mindless, mean-spirited satire of rich teenagers.",
+   "You might expect heavy drama once real-world dangers interrupt the luxury."
+  ],
+  "tone_mix": [
+   {
+    "tone": "warm",
+    "pct": 40
+   },
+   {
+    "tone": "funny",
+    "pct": 30
+   },
+   {
+    "tone": "romantic",
+    "pct": 30
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "confident",
+   "middle": "lost",
+   "end": "grounded"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "Cher realizes her true feelings for her former stepbrother Josh after a series of personal setbacks and a falling out with her protégé. They confess their love for one another and share a kiss. Sometime later, they attend a teacher's wedding together as a couple, where Cher catches the bouquet.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "some_focus",
+   "emotional_weight": 2
+  },
+  "content_flags": [
+   "violence"
+  ],
+  "family": "teens_up",
+  "good_for": [
+   "a cozy weekend watch",
+   "fans of smart comedies"
+  ],
+  "skip_if": [
+   "you want a gritty, realistic teen drama"
+  ],
+  "vibe": "A wealthy Beverly Hills teenager takes a new student under her wing for a makeover while trying to play matchmaker, leading to unexpected lessons in humility and romance.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
+ },
+ {
+  "id": "tmdb-movie-19666",
+  "tmdb_id": 19666,
+  "type": "movie",
+  "title": "Lagaan: Once Upon a Time in India",
+  "original_title": "लगान",
+  "year": 2001,
+  "runtime_min": 233,
+  "series": null,
+  "languages": [
+   "hi"
+  ],
+  "poster_path": "/yNX9lFRAFeNLNRIXdqZK9gYrYKa.jpg",
+  "backdrop_path": "/76VwduxQMkVXOUktps85dE0lLeP.jpg",
+  "rating": {
+   "source": "tmdb",
+   "value": 7.3,
+   "votes": 682
+  },
+  "watch_in": [],
+  "truth": {
+   "status": "fiction",
+   "note": "An entirely fictional story set against the historical backdrop of British colonial rule in India."
+  },
+  "honest_read": {
+   "looks_like": "A grand historical musical about villagers battling colonial rulers through an epic sport.",
+   "actually_is": "A massive, incredibly long underdog epic where a tax dispute turns into a tense, emotionally rich cricket match against impossible odds."
+  },
+  "expectation_traps": [
+   "You might think it is just a sports movie about cricket.",
+   "You might expect a short, brisk historical drama given the premise."
+  ],
+  "tone_mix": [
+   {
+    "tone": "thrilling",
+    "pct": 35
+   },
+   {
+    "tone": "hopeful",
+    "pct": 30
+   },
+   {
+    "tone": "warm",
+    "pct": 20
+   },
+   {
+    "tone": "melancholy",
+    "pct": 15
+   }
+  ],
+  "arc": {
+   "shape": "fall_rise",
+   "start": "desperate",
+   "middle": "doubtful",
+   "end": "triumphant"
+  },
+  "ending": "uplifting",
+  "spoiler_ending": "The villagers pull off an incredible upset on the final delivery of the three-day match when a would-be catch is ruled a no-ball six. Dark storm clouds finally break to end the brutal drought, and Bhuvan marries Gauri in a grand celebration. Meanwhile, the cruel commander is transferred away in disgrace, and the sympathetic British visitor returns to England alone with her unrequited love.",
+  "bandwidth": {
+   "pace": "steady",
+   "attention": "full_focus",
+   "emotional_weight": 3
+  },
+  "content_flags": [
+   "violence",
+   "strong_language"
+  ],
+  "family": "family_ok",
+  "good_for": [
+   "a long weekend afternoon",
+   "rooting for underdogs"
+  ],
+  "skip_if": [
+   "you want a brisk runtime",
+   "you have zero patience for lengthy musical epics"
+  ],
+  "vibe": "Set in 1893 during the British Raj, a drought-stricken Indian village is forced into a high-stakes cricket wager to cancel crushing taxes. It blends traditional musical numbers, romance, and a classic underdog showdown into a massive, highly entertaining epic.",
+  "confidence": {
+   "level": "high",
+   "sources_read": 10,
+   "agreement": "strong",
+   "generated_at": "2026-11-14",
+   "refresh_after": null
+  }
  }
 ]

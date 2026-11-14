@@ -164,6 +164,7 @@ const RERANK_SCHEMA = {
       properties: { id: { type: 'STRING' }, why_this_fits: { type: 'STRING', description: 'One short line, at most 16 words, addressed to them ("you"), tied to what they actually said. No spoilers.' } },
       required: ['id', 'why_this_fits'],
     }),
+    unmet: { type: 'STRING', nullable: true, description: 'The specific thing they asked for that none of your three truly has, as a few words that complete "Nothing we have is ___ yet": "set at Christmas", "about zombies", "set in Goa", "a Korean romcom". Null when the picks have it.' },
   },
   required: ['picks'],
 }
@@ -194,7 +195,8 @@ async function rerank(text, want, platforms, candidates) {
   const asked = text.trim() && `They typed: "${text.trim().slice(0, 600)}"`
   const { data } = await generateJSON({
     chain: MODELS.rerank,
-    system: `You are FilmFocus, a friend at the ticket counter who has seen everything. Pick the 3 titles from the list that best fit this person right now. Fit to their mood beats acclaim: a great film that clashes with the mood is a wrong answer. Respect what they asked to avoid, including subplots (read each vibe: \"no romance\" rules out a film with a love story at its heart). Prefer variety across the three (not three near-identical picks). Ratings are only a quality floor. When "on_their_services" is given, at least two of the three must be on their services, unless fewer than two of those fit what they asked for at all; the third can be a clearly better fit elsewhere. Choose only ids from the list. Write each "why this fits" in plain, warm words that refer to what they said; no spoilers.`,
+    system: `You are FilmFocus, a friend at the ticket counter who has seen everything. Pick the 3 titles from the list that best fit this person right now. Fit to their mood beats acclaim: a great film that clashes with the mood is a wrong answer. Respect what they asked to avoid, including subplots (read each vibe: \"no romance\" rules out a film with a love story at its heart). Prefer variety across the three (not three near-identical picks). Ratings are only a quality floor. When "on_their_services" is given, at least two of the three must be on their services, unless fewer than two of those fit what they asked for at all; the third can be a clearly better fit elsewhere. Choose only ids from the list. Write each "why this fits" in plain, warm words that refer to what they said; no spoilers.
+Be honest, it's the whole point of FilmFocus. If they asked for something specific, such as an occasion or season (Christmas, Diwali, Valentine's), a setting, a subject or a kind of story, and none of the candidates truly has it, still pick the three closest, set "unmet" to that missing thing, and never write a "why this fits" that says or implies a pick has it: say what it offers instead. A film merely being romantic or warm does not make it a Christmas film.`,
     prompt: `${asked || (want.mood || want.company || want.format || want.stay_or_shift ? 'They only tapped chips.' : 'They asked to be surprised: pick three good, different titles.')}\nWhat we understood: ${JSON.stringify(want)}\n\nCandidates:\n${candidates.map((c) => JSON.stringify(brief(c, platforms))).join('\n')}`,
     schema: RERANK_SCHEMA,
     temperature: 0.3,
@@ -203,7 +205,7 @@ async function rerank(text, want, platforms, candidates) {
     deadlineMs: 24000,
     wait: false,
   })
-  return data.picks
+  return data
 }
 
 // Their services are a preference, not a wall: a 3-service list would otherwise hide the best fits (Inception and
@@ -263,6 +265,7 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
     if (best && best.n === 0) best = rules.map((r) => ({ r, n: cards.filter((c) => r.test(c)).length })).sort((a, b) => a.n - b.n)[0]
     return { followup: null, picks: [], understood, no_match: best ? { constraint: best.r.key, label: best.r.label } : null }
   }
+  if (process.env.RECOMMEND_DEBUG) console.error('[recommend] parse', JSON.stringify(p), '\n[recommend] rules', rules.map((r) => r.label).join(' | '), '→ pool', pool.length)
   let fresh = pool.filter((c) => !seen.has(c.id))
   if (fresh.length < 3) fresh = pool // cycled through everything that fits; start again
 
@@ -298,8 +301,11 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
 
   let chosen = []
   let reranked = true
+  let unmet = null // what they asked for that nothing we hold has (the reranker's call); the app says so
   try {
-    const ranked = await rerank(text, { mood: p.mood, stay_or_shift: stay, company, format }, platforms, candidates)
+    const answer = await rerank(text, { mood: p.mood, stay_or_shift: stay, company, format }, platforms, candidates)
+    const ranked = answer.picks || []
+    unmet = typeof answer.unmet === 'string' && answer.unmet.trim() ? answer.unmet.trim().slice(0, 60) : null
     const byId = new Map(candidates.map((c) => [c.id, c]))
     for (const r of ranked) {
       const card = byId.get(r.id)
@@ -319,7 +325,7 @@ export async function recommend({ text = '', chips = {}, exclude = [], prefs = {
   // degraded: which model steps fell back (Gemini busy), so the eval and logs can see it; the app ignores it.
   const degraded = [p.fallback && 'parse', reranked === false && 'rerank'].filter(Boolean)
   if (degraded.length) console.warn(`[recommend] degraded: ${degraded.join(', ')}`)
-  return { followup: null, picks: chosen, understood, missing_title: missingTitle(p.named_titles, cards, aliases), dubbed_in: dubbed.length ? dubbed : null, ...(degraded.length && { degraded }) }
+  return { followup: null, picks: chosen, understood, missing_title: missingTitle(p.named_titles, cards, aliases), dubbed_in: dubbed.length ? dubbed : null, unmet, ...(degraded.length && { degraded }) }
 }
 
 // A title they named that the store doesn't have yet: the app offers to make its card (api/card.js, Launch L4).

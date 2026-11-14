@@ -7394,5 +7394,341 @@
   "lang": "ko",
   "votes": 967,
   "added_for": "L3 growth"
+ },
+ {
+  "type": "movie",
+  "id": 508,
+  "title": "Love Actually",
+  "lang": "en",
+  "votes": 7680,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 1581,
+  "title": "The Holiday",
+  "lang": "en",
+  "votes": 5840,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 549053,
+  "title": "Last Christmas",
+  "lang": "en",
+  "votes": 2715,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 508965,
+  "title": "Klaus",
+  "lang": "en",
+  "votes": 4923,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 10719,
+  "title": "Elf",
+  "lang": "en",
+  "votes": 4773,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 771,
+  "title": "Home Alone",
+  "lang": "en",
+  "votes": 13065,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 360920,
+  "title": "The Grinch",
+  "lang": "en",
+  "votes": 4575,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 5255,
+  "title": "The Polar Express",
+  "lang": "en",
+  "votes": 7139,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 483104,
+  "title": "A Christmas Prince",
+  "lang": "en",
+  "votes": 1495,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 556803,
+  "title": "The Princess Switch",
+  "lang": "en",
+  "votes": 2310,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 810873,
+  "title": "Single All the Way",
+  "lang": "en",
+  "votes": 446,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 520172,
+  "title": "Happiest Season",
+  "lang": "en",
+  "votes": 1366,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 833097,
+  "title": "Falling for Christmas",
+  "lang": "en",
+  "votes": 909,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 890116,
+  "title": "Merry Christmas",
+  "lang": "hi",
+  "votes": 62,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 9043,
+  "title": "The Family Stone",
+  "lang": "en",
+  "votes": 1202,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 12193,
+  "title": "Four Christmases",
+  "lang": "en",
+  "votes": 1300,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 2064,
+  "title": "While You Were Sleeping",
+  "lang": "en",
+  "votes": 2096,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 295151,
+  "title": "Let It Snow",
+  "lang": "en",
+  "votes": 1240,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 840430,
+  "title": "The Holdovers",
+  "lang": "en",
+  "votes": 2780,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 51052,
+  "title": "Arthur Christmas",
+  "lang": "en",
+  "votes": 1703,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 8871,
+  "title": "How the Grinch Stole Christmas",
+  "lang": "en",
+  "votes": 8574,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 634,
+  "title": "Bridget Jones's Diary",
+  "lang": "en",
+  "votes": 5706,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "tv",
+  "id": 111625,
+  "title": "Dash & Lily",
+  "lang": "en",
+  "votes": 374,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 622855,
+  "title": "Jingle Jangle: A Christmas Journey",
+  "lang": "en",
+  "votes": 585,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 509,
+  "title": "Notting Hill",
+  "lang": "en",
+  "votes": 6989,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 455207,
+  "title": "Crazy Rich Asians",
+  "lang": "en",
+  "votes": 4107,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 114,
+  "title": "Pretty Woman",
+  "lang": "en",
+  "votes": 9308,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 639,
+  "title": "When Harry Met Sally...",
+  "lang": "en",
+  "votes": 4823,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 122906,
+  "title": "About Time",
+  "lang": "en",
+  "votes": 9649,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 18240,
+  "title": "The Proposal",
+  "lang": "en",
+  "votes": 7902,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 4951,
+  "title": "10 Things I Hate About You",
+  "lang": "en",
+  "votes": 9310,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 50646,
+  "title": "Crazy, Stupid, Love.",
+  "lang": "en",
+  "votes": 9665,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 466282,
+  "title": "To All the Boys I've Loved Before",
+  "lang": "en",
+  "votes": 8813,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 384677,
+  "title": "Set It Up",
+  "lang": "en",
+  "votes": 2888,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 1072790,
+  "title": "Anyone but You",
+  "lang": "en",
+  "votes": 3311,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 19913,
+  "title": "(500) Days of Summer",
+  "lang": "en",
+  "votes": 11442,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 9919,
+  "title": "How to Lose a Guy in 10 Days",
+  "lang": "en",
+  "votes": 4707,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 416477,
+  "title": "The Big Sick",
+  "lang": "en",
+  "votes": 2746,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 587792,
+  "title": "Palm Springs",
+  "lang": "en",
+  "votes": 4004,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 513576,
+  "title": "Always Be My Maybe",
+  "lang": "en",
+  "votes": 1454,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 9603,
+  "title": "Clueless",
+  "lang": "en",
+  "votes": 4997,
+  "added_for": "eval gap"
+ },
+ {
+  "type": "movie",
+  "id": 19666,
+  "title": "Lagaan: Once Upon a Time in India",
+  "lang": "hi",
+  "votes": 682,
+  "added_for": "eval gap"
  }
 ]
